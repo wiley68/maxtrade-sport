@@ -97,7 +97,23 @@
 __webpack_require__.r(__webpack_exports__);
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "App",
+  data: function data() {
+    return {
+      logout: "/logout"
+    };
+  },
+  methods: {
+    clickLogout: function clickLogout() {
+      document.getElementById("logout-form").submit();
+    }
+  }
+});
 
 /***/ }),
 
@@ -584,7 +600,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [
+    _c(
+      "a",
+      {
+        attrs: { href: _vm.logout },
+        on: {
+          click: function($event) {
+            $event.preventDefault()
+            return _vm.clickLogout($event)
+          }
+        }
+      },
+      [_vm._v("Logout")]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
