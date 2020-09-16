@@ -1,6 +1,7 @@
 <template>
   <div>
     <a v-bind:href="logout" @click.prevent="clickLogout">Logout</a>
+    <router-view></router-view>
   </div>
 </template>
 
