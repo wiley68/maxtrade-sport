@@ -2,9 +2,7 @@ const state = {
     logout: "/logout"
 };
 
-const getters = {
-    getLogout: state => state.logout
-};
+const getters = {};
 
 const actions = {
     clickLogout() {

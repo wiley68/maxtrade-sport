@@ -1954,15 +1954,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
     return {
-      drawer: null
+      drawer: false
     };
   },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getLogout"]),
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])([]),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["clickLogout"]))
 });
 
@@ -20332,7 +20335,15 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-app-bar",
-        { attrs: { app: "", color: "indigo", dark: "" } },
+        {
+          attrs: {
+            app: "",
+            color: "indigo",
+            dark: "",
+            dense: "",
+            "collapse-on-scroll": ""
+          }
+        },
         [
           _c("v-app-bar-nav-icon", {
             on: {
@@ -20343,12 +20354,14 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v("Application")]),
+          _c("v-toolbar-title", [_vm._v("Maxtrade Sport")]),
+          _vm._v(" "),
+          _c("v-spacer"),
           _vm._v(" "),
           _c(
-            "a",
+            "v-btn",
             {
-              attrs: { href: _vm.getLogout },
+              attrs: { icon: "" },
               on: {
                 click: function($event) {
                   $event.preventDefault()
@@ -20356,7 +20369,8 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Logout")]
+            [_c("v-icon", [_vm._v("mdi-close")])],
+            1
           )
         ],
         1
@@ -20366,7 +20380,7 @@ var render = function() {
       _vm._v(" "),
       _c("v-footer", { attrs: { color: "indigo", app: "" } }, [
         _c("span", { staticClass: "white--text" }, [
-          _vm._v("© " + _vm._s(new Date().getFullYear()))
+          _vm._v("Avalon © " + _vm._s(new Date().getFullYear()))
         ])
       ])
     ],
@@ -80951,11 +80965,7 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   logout: "/logout"
 };
-var getters = {
-  getLogout: function getLogout(state) {
-    return state.logout;
-  }
-};
+var getters = {};
 var actions = {
   clickLogout: function clickLogout() {
     document.getElementById("logout-form").submit();

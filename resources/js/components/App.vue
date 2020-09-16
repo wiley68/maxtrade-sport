@@ -21,10 +21,13 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app color="indigo" dark>
+    <v-app-bar app color="indigo" dark dense collapse-on-scroll>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
-      <a v-bind:href="getLogout" @click.prevent="clickLogout">Logout</a>
+      <v-toolbar-title>Maxtrade Sport</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon @click.prevent="clickLogout">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -32,7 +35,7 @@
     </v-main>
 
     <v-footer color="indigo" app>
-      <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
+      <span class="white--text">Avalon &copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -44,10 +47,10 @@ export default {
   name: "App",
 
   data: () => ({
-    drawer: null,
+    drawer: false,
   }),
 
-  computed: mapGetters(["getLogout"]),
+  computed: mapGetters([]),
 
   methods: {
     ...mapActions(["clickLogout"]),
