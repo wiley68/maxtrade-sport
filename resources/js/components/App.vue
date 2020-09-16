@@ -1,24 +1,20 @@
 <template>
   <div>
-    <a v-bind:href="logout" @click.prevent="clickLogout">Logout</a>
+    <a v-bind:href="getLogout" @click.prevent="clickLogout">Logout</a>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "App",
 
-  data() {
-    return {
-      logout: "/logout",
-    };
-  },
+  computed: mapGetters(["getLogout"]),
 
   methods: {
-    clickLogout() {
-      document.getElementById("logout-form").submit();
-    },
+    ...mapActions(["clickLogout"]),
   },
 };
 </script>
