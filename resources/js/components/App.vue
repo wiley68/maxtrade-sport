@@ -50,10 +50,14 @@ export default {
     drawer: false,
   }),
 
+  async created() {
+    await this.fetchData();
+  },
+
   computed: mapGetters([]),
 
   methods: {
-    ...mapActions(["clickLogout"]),
+    ...mapActions(["clickLogout", "fetchData"]),
   },
 };
 </script>
