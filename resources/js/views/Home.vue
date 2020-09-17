@@ -1,16 +1,8 @@
 <template>
   <v-container class="fill-height" fluid>
-    <v-row align="center" justify="center">
-      <v-col class="text-center">
-        <v-tooltip left>
-          <template v-slot:activator="{ on }">
-            <v-btn :href="source" icon large target="_blank" v-on="on">
-              <v-icon large>mdi-code-tags</v-icon>
-            </v-btn>
-          </template>
-          <span>Source</span>
-        </v-tooltip>
-      </v-col>
+    <v-row :align="start" :justify="start">
+      <v-col cols="4">111</v-col>
+      <v-col cols="8">111</v-col>
     </v-row>
   </v-container>
 </template>
@@ -19,8 +11,10 @@
 export default {
   name: "Home",
 
-  props: {
-    source: String,
+  data() {
+    return {
+      start: "start",
+    };
   },
 };
 </script>

@@ -1957,6 +1957,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
@@ -1989,18 +1992,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
-  props: {
-    source: String
+  data: function data() {
+    return {
+      start: "start"
+    };
   }
 });
 
@@ -20354,6 +20351,12 @@ var render = function() {
             }
           }),
           _vm._v(" "),
+          _c(
+            "v-avatar",
+            { attrs: { color: "orange lighten-1 mr-2", size: "42" } },
+            [_c("span", { staticClass: "white--text headline" }, [_vm._v("W")])]
+          ),
+          _vm._v(" "),
           _c("v-toolbar-title", [_vm._v("Maxtrade Sport")]),
           _vm._v(" "),
           _c("v-spacer"),
@@ -20415,52 +20418,11 @@ var render = function() {
     [
       _c(
         "v-row",
-        { attrs: { align: "center", justify: "center" } },
+        { attrs: { align: _vm.start, justify: _vm.start } },
         [
-          _c(
-            "v-col",
-            { staticClass: "text-center" },
-            [
-              _c(
-                "v-tooltip",
-                {
-                  attrs: { left: "" },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "activator",
-                      fn: function(ref) {
-                        var on = ref.on
-                        return [
-                          _c(
-                            "v-btn",
-                            _vm._g(
-                              {
-                                attrs: {
-                                  href: _vm.source,
-                                  icon: "",
-                                  large: "",
-                                  target: "_blank"
-                                }
-                              },
-                              on
-                            ),
-                            [
-                              _c("v-icon", { attrs: { large: "" } }, [
-                                _vm._v("mdi-code-tags")
-                              ])
-                            ],
-                            1
-                          )
-                        ]
-                      }
-                    }
-                  ])
-                },
-                [_vm._v(" "), _c("span", [_vm._v("Source")])]
-              )
-            ],
-            1
-          )
+          _c("v-col", { attrs: { cols: "4" } }, [_vm._v("111")]),
+          _vm._v(" "),
+          _c("v-col", { attrs: { cols: "8" } }, [_vm._v("111")])
         ],
         1
       )
