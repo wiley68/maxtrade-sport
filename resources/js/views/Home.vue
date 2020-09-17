@@ -15,9 +15,20 @@
               prepend-inner-icon="mdi-soccer-field"
               return-object
               :value="item"
+              v-model="item"
             ></v-select>
           </v-col>
-          <v-col class="d-flex" cols="12" sm="6"></v-col>
+          <v-col class="d-flex" cols="12" sm="6">
+            <v-btn class="mx-1" fab dark small color="primary">
+              <v-icon dark>mdi-playlist-plus</v-icon>
+            </v-btn>
+            <v-btn class="mx-1" fab dark small color="success">
+              <v-icon dark>mdi-pencil-outline</v-icon>
+            </v-btn>
+            <v-btn class="mx-1" fab dark small color="error">
+              <v-icon dark>mdi-delete</v-icon>
+            </v-btn>
+          </v-col>
         </v-row>
       </v-col>
       <v-col class="d-flex" cols="12" sm="8"></v-col>

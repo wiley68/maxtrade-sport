@@ -2007,6 +2007,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
   data: function data() {
@@ -20469,16 +20480,82 @@ var render = function() {
                           "prepend-inner-icon": "mdi-soccer-field",
                           "return-object": "",
                           value: _vm.item
+                        },
+                        model: {
+                          value: _vm.item,
+                          callback: function($$v) {
+                            _vm.item = $$v
+                          },
+                          expression: "item"
                         }
                       })
                     ],
                     1
                   ),
                   _vm._v(" "),
-                  _c("v-col", {
-                    staticClass: "d-flex",
-                    attrs: { cols: "12", sm: "6" }
-                  })
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "12", sm: "6" } },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-1",
+                          attrs: {
+                            fab: "",
+                            dark: "",
+                            small: "",
+                            color: "primary"
+                          }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-playlist-plus")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-1",
+                          attrs: {
+                            fab: "",
+                            dark: "",
+                            small: "",
+                            color: "success"
+                          }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-pencil-outline")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-1",
+                          attrs: {
+                            fab: "",
+                            dark: "",
+                            small: "",
+                            color: "error"
+                          }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-delete")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
