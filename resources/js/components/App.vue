@@ -23,9 +23,6 @@
 
     <v-app-bar app color="indigo" dark dense collapse-on-scroll>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-avatar color="orange lighten-1 mr-2" size="42">
-        <span class="white--text headline">W</span>
-      </v-avatar>
       <v-toolbar-title>Maxtrade Sport</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click.prevent="clickLogout">

@@ -1957,9 +1957,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
@@ -1992,11 +1989,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
   data: function data() {
     return {
-      start: "start"
+      items: [{
+        id: "1",
+        name: "Foo1"
+      }, {
+        id: "2",
+        name: "Foo2"
+      }, {
+        id: "3",
+        name: "Foo3"
+      }, {
+        id: "4",
+        name: "Foo4"
+      }],
+      item: {
+        id: "0",
+        name: ""
+      },
+      loading: false
     };
   }
 });
@@ -20351,12 +20383,6 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c(
-            "v-avatar",
-            { attrs: { color: "orange lighten-1 mr-2", size: "42" } },
-            [_c("span", { staticClass: "white--text headline" }, [_vm._v("W")])]
-          ),
-          _vm._v(" "),
           _c("v-toolbar-title", [_vm._v("Maxtrade Sport")]),
           _vm._v(" "),
           _c("v-spacer"),
@@ -20414,15 +20440,53 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
-    { staticClass: "fill-height", attrs: { fluid: "" } },
+    { attrs: { fluid: "" } },
     [
       _c(
         "v-row",
-        { attrs: { align: _vm.start, justify: _vm.start } },
+        { attrs: { align: "start", justify: "start" } },
         [
-          _c("v-col", { attrs: { cols: "4" } }, [_vm._v("111")]),
+          _c(
+            "v-col",
+            { staticClass: "d-flex", attrs: { cols: "12", sm: "4" } },
+            [
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "12", sm: "6" } },
+                    [
+                      _c("v-select", {
+                        attrs: {
+                          items: _vm.items,
+                          "item-value": "id",
+                          "item-text": "name",
+                          label: "Sport",
+                          loading: _vm.loading,
+                          "no-data-text": "Choose Sport...",
+                          placeholder: "Choose Sport...",
+                          "prepend-inner-icon": "mdi-soccer-field",
+                          "return-object": "",
+                          value: _vm.item
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-col", {
+                    staticClass: "d-flex",
+                    attrs: { cols: "12", sm: "6" }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("v-col", { attrs: { cols: "8" } }, [_vm._v("111")])
+          _c("v-col", { staticClass: "d-flex", attrs: { cols: "12", sm: "8" } })
         ],
         1
       )
@@ -81030,8 +81094,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\maxtrade-sport\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\maxtrade-sport\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
