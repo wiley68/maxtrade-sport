@@ -58,6 +58,20 @@ const actions = {
             state.sports.find(s => s.id === newSport.id).name = newSport.name;
             commit("setSport", newSport);
         }
+    },
+    async deleteSport({ commit, state }) {
+        if (state.sport.id != 0) {
+            if (confirm("Are You sure?")) {
+                const response = await axios.delete(
+                    "api/sport/" + state.sport.id
+                );
+                commit(
+                    "setSports",
+                    state.sports.filter(s => s.id !== response.data.data.id)
+                );
+                commit("setSport", { id: 0, name: "" });
+            }
+        }
     }
 };
 

@@ -59,7 +59,14 @@
             >
               <v-icon dark>mdi-pencil-outline</v-icon>
             </v-btn>
-            <v-btn class="mx-1" fab small color="error" :disabled="getSport.id == 0">
+            <v-btn
+              class="mx-1"
+              fab
+              small
+              color="error"
+              :disabled="getSport.id == 0"
+              @click="deleteSport"
+            >
               <v-icon dark>mdi-delete</v-icon>
             </v-btn>
           </v-col>
@@ -92,7 +99,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["changeSport", "saveSport"]),
+    ...mapActions(["changeSport", "saveSport", "deleteSport"]),
     openSportDialog(isNew) {
       this.sportName = this.getSport.name;
       this.newSport = isNew;

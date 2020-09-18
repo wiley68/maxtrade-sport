@@ -2105,6 +2105,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2117,7 +2124,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getSport"])),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "saveSport"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "saveSport", "deleteSport"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       this.sportName = this.getSport.name;
       this.newSport = isNew;
@@ -21508,7 +21515,8 @@ var render = function() {
                             small: "",
                             color: "error",
                             disabled: _vm.getSport.id == 0
-                          }
+                          },
+                          on: { click: _vm.deleteSport }
                         },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
@@ -79127,6 +79135,46 @@ var actions = {
           }
         }
       }, _callee2);
+    }))();
+  },
+  deleteSport: function deleteSport(_ref4) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var commit, state, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref4.commit, state = _ref4.state;
+
+              if (!(state.sport.id != 0)) {
+                _context3.next = 8;
+                break;
+              }
+
+              if (!confirm("Are You sure?")) {
+                _context3.next = 8;
+                break;
+              }
+
+              _context3.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("api/sport/" + state.sport.id);
+
+            case 5:
+              response = _context3.sent;
+              commit("setSports", state.sports.filter(function (s) {
+                return s.id !== response.data.data.id;
+              }));
+              commit("setSport", {
+                id: 0,
+                name: ""
+              });
+
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
     }))();
   }
 };

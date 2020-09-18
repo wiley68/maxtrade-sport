@@ -24,3 +24,5 @@ Route::get('sports', 'SportsController@index');
 Route::post('sport', 'SportsController@store');
 /** Update a Sport */
 Route::put('sport', 'SportsController@store');
+/** Delete a Sport */
+Route::delete('sport/{id}', 'SportsController@destroy');

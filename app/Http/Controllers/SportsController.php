@@ -29,4 +29,14 @@ class SportsController extends Controller
             return new SportResource($sport);
         }
     }
+
+    public function destroy($id)
+    {
+        /** Get a Sport */
+        $sport = Sport::findOrFail($id);
+
+        if ($sport->delete()) {
+            return new SportResource($sport);
+        }
+    }
 }
