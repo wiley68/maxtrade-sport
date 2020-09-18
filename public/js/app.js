@@ -2112,6 +2112,95 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2119,16 +2208,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       loading: false,
       dialogSport: false,
+      dialogEvent: false,
       sportName: "",
-      newSport: true
+      eventName: "",
+      newSport: true,
+      newEvent: true,
+      dialogSportDelete: false,
+      dialogEventDelete: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getSport"])),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "saveSport", "deleteSport"])), {}, {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent"])),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       this.sportName = this.getSport.name;
       this.newSport = isNew;
       this.dialogSport = true;
+    },
+    openEventDialog: function openEventDialog(isNew) {
+      this.eventName = this.getEvent.name;
+      this.newEvent = isNew;
+      this.dialogEvent = true;
     }
   })
 });
@@ -21314,7 +21413,7 @@ var render = function() {
                 [
                   _c(
                     "v-col",
-                    { staticClass: "d-flex", attrs: { cols: "12", sm: "6" } },
+                    { staticClass: "d-flex", attrs: { cols: "6" } },
                     [
                       _c("v-select", {
                         attrs: {
@@ -21337,7 +21436,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-col",
-                    { staticClass: "d-flex", attrs: { cols: "12", sm: "6" } },
+                    { staticClass: "d-flex", attrs: { cols: "6" } },
                     [
                       _c(
                         "v-dialog",
@@ -21464,6 +21563,75 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c(
+                        "v-dialog",
+                        {
+                          attrs: { "max-width": "290" },
+                          model: {
+                            value: _vm.dialogSportDelete,
+                            callback: function($$v) {
+                              _vm.dialogSportDelete = $$v
+                            },
+                            expression: "dialogSportDelete"
+                          }
+                        },
+                        [
+                          _c(
+                            "v-card",
+                            [
+                              _c("v-card-title", { staticClass: "headline" }, [
+                                _vm._v("Delete?")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-card-text", [
+                                _vm._v(
+                                  "Do you agree that the sport " +
+                                    _vm._s(_vm.getSport.name) +
+                                    " should be deleted?"
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-actions",
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { color: "success" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.deleteSport()
+                                          _vm.dialogSportDelete = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("OK")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { color: "normal" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.dialogSportDelete = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Cancel")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
                         "v-btn",
                         {
                           staticClass: "mx-1",
@@ -21516,7 +21684,301 @@ var render = function() {
                             color: "error",
                             disabled: _vm.getSport.id == 0
                           },
-                          on: { click: _vm.deleteSport }
+                          on: {
+                            click: function($event) {
+                              _vm.dialogSportDelete = true
+                            }
+                          }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-delete")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "6" } },
+                    [
+                      _c("v-select", {
+                        attrs: {
+                          items: _vm.getEvents,
+                          "item-value": "id",
+                          "item-text": "name",
+                          label: "Event",
+                          loading: _vm.loading,
+                          "no-data-text": "Choose Event...",
+                          placeholder: "Choose Event...",
+                          "prepend-inner-icon": "mdi-calendar",
+                          "return-object": "",
+                          value: _vm.getEvent
+                        },
+                        on: { change: _vm.changeEvent }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "6" } },
+                    [
+                      _c(
+                        "v-dialog",
+                        {
+                          attrs: { persistent: "", "max-width": "600px" },
+                          model: {
+                            value: _vm.dialogEvent,
+                            callback: function($$v) {
+                              _vm.dialogEvent = $$v
+                            },
+                            expression: "dialogEvent"
+                          }
+                        },
+                        [
+                          _c(
+                            "v-card",
+                            [
+                              _c("v-card-title", [
+                                _c("span", {
+                                  staticClass: "headline",
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      _vm.newEvent
+                                        ? "Add New Event"
+                                        : "Edit This Event"
+                                    )
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-text",
+                                [
+                                  _c(
+                                    "v-container",
+                                    [
+                                      _c(
+                                        "v-row",
+                                        [
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "12" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Event*",
+                                                  required: "",
+                                                  autofocus: ""
+                                                },
+                                                model: {
+                                                  value: _vm.eventName,
+                                                  callback: function($$v) {
+                                                    _vm.eventName = $$v
+                                                  },
+                                                  expression: "eventName"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("small", [
+                                    _vm._v("*indicates required field")
+                                  ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-actions",
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "blue darken-1",
+                                        text: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.dialogEvent = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Close")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "blue darken-1",
+                                        text: "",
+                                        disabled: _vm.eventName == ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.saveSport({
+                                            new: _vm.newEvent,
+                                            name: _vm.eventName
+                                          })
+                                          _vm.dialogEvent = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Save")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-dialog",
+                        {
+                          attrs: { "max-width": "290" },
+                          model: {
+                            value: _vm.dialogEventDelete,
+                            callback: function($$v) {
+                              _vm.dialogEventDelete = $$v
+                            },
+                            expression: "dialogEventDelete"
+                          }
+                        },
+                        [
+                          _c(
+                            "v-card",
+                            [
+                              _c("v-card-title", { staticClass: "headline" }, [
+                                _vm._v("Delete?")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-card-text", [
+                                _vm._v(
+                                  "Do you agree that the event " +
+                                    _vm._s(_vm.getEvent.name) +
+                                    " should be deleted?"
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-actions",
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { color: "success" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.deleteEvent()
+                                          _vm.dialogEventDelete = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("OK")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { color: "normal" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.dialogEventDelete = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Cancel")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-1",
+                          attrs: { fab: "", small: "", color: "primary" },
+                          on: {
+                            click: function($event) {
+                              return _vm.openEventDialog(true)
+                            }
+                          }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-playlist-plus")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-1",
+                          attrs: {
+                            fab: "",
+                            small: "",
+                            color: "success",
+                            disabled: _vm.getEvent.id == 0
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.openEventDialog(false)
+                            }
+                          }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-pencil-outline")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-1",
+                          attrs: {
+                            fab: "",
+                            small: "",
+                            color: "error",
+                            disabled: _vm.getEvent.id == 0
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.dialogEventDelete = true
+                            }
+                          }
                         },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
@@ -79021,6 +79483,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -79032,6 +79496,12 @@ var state = {
   sport: {
     id: 0,
     name: ""
+  },
+  events: [],
+  event: {
+    id: 0,
+    sport_id: 0,
+    name: ""
   }
 };
 var getters = {
@@ -79040,6 +79510,12 @@ var getters = {
   },
   getSports: function getSports(state) {
     return state.sports;
+  },
+  getEvent: function getEvent(state) {
+    return state.event;
+  },
+  getEvents: function getEvents(state) {
+    return state.events;
   }
 };
 var actions = {
@@ -79048,7 +79524,7 @@ var actions = {
   },
   fetchData: function fetchData(_ref) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var commit, response, sports;
+      var commit, responseSports, sports, responseEvents, events;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -79058,11 +79534,18 @@ var actions = {
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/sports");
 
             case 3:
-              response = _context.sent;
-              sports = response.data.data;
+              responseSports = _context.sent;
+              sports = responseSports.data.data;
               commit("setSports", sports);
+              _context.next = 8;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/events");
 
-            case 6:
+            case 8:
+              responseEvents = _context.sent;
+              events = responseEvents.data.data;
+              commit("setEvents", events);
+
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -79074,7 +79557,11 @@ var actions = {
     var commit = _ref2.commit;
     commit("setSport", sport);
   },
-  saveSport: function saveSport(_ref3, param) {
+  changeEvent: function changeEvent(_ref3, event) {
+    var commit = _ref3.commit;
+    commit("setEvent", event);
+  },
+  saveSport: function saveSport(_ref4, param) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       var commit, state, response, newSport, _newSport;
 
@@ -79082,7 +79569,7 @@ var actions = {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref3.commit, state = _ref3.state;
+              commit = _ref4.commit, state = _ref4.state;
               response = null;
 
               if (!param["new"]) {
@@ -79137,30 +79624,90 @@ var actions = {
       }, _callee2);
     }))();
   },
-  deleteSport: function deleteSport(_ref4) {
+  saveEvent: function saveEvent(_ref5, param) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var commit, state, response;
+      var commit, state, response, _axios$post, newEvent, _newEvent;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref4.commit, state = _ref4.state;
+              commit = _ref5.commit, state = _ref5.state;
+              response = null;
 
-              if (!(state.sport.id != 0)) {
-                _context3.next = 8;
-                break;
-              }
-
-              if (!confirm("Are You sure?")) {
-                _context3.next = 8;
+              if (!param["new"]) {
+                _context3.next = 11;
                 break;
               }
 
               _context3.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("api/sport/" + state.sport.id);
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("api/event", (_axios$post = {
+                sport_id: 0
+              }, _defineProperty(_axios$post, "sport_id", state.sport.id), _defineProperty(_axios$post, "name", param.name), _axios$post), {
+                "Content-Type": "application/json; charset=utf-8"
+              });
 
             case 5:
               response = _context3.sent;
+              newEvent = {
+                id: response.data.data.id,
+                sport_id: response.data.data.sport_id,
+                name: response.data.data.name
+              };
+              state.events.unshift(newEvent);
+              commit("setEvent", newEvent);
+              _context3.next = 17;
+              break;
+
+            case 11:
+              _context3.next = 13;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("api/event", {
+                event_id: state.event.id,
+                sport_id: state.sport.id,
+                name: param.name
+              }, {
+                "Content-Type": "application/json; charset=utf-8"
+              });
+
+            case 13:
+              response = _context3.sent;
+              _newEvent = {
+                id: response.data.data.id,
+                sport_id: state.sport.id,
+                name: response.data.data.name
+              };
+              state.events.find(function (e) {
+                return e.id === _newEvent.id;
+              }).name = _newEvent.name;
+              commit("setEvent", _newEvent);
+
+            case 17:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
+  deleteSport: function deleteSport(_ref6) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var commit, state, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref6.commit, state = _ref6.state;
+
+              if (!(state.sport.id != 0)) {
+                _context4.next = 7;
+                break;
+              }
+
+              _context4.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("api/sport/" + state.sport.id);
+
+            case 4:
+              response = _context4.sent;
               commit("setSports", state.sports.filter(function (s) {
                 return s.id !== response.data.data.id;
               }));
@@ -79169,12 +79716,48 @@ var actions = {
                 name: ""
               });
 
-            case 8:
+            case 7:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
+    }))();
+  },
+  deleteEvent: function deleteEvent(_ref7) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+      var commit, state, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref7.commit, state = _ref7.state;
+
+              if (!(state.event.id != 0)) {
+                _context5.next = 7;
+                break;
+              }
+
+              _context5.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("api/event/" + state.event.id);
+
+            case 4:
+              response = _context5.sent;
+              commit("setEvents", state.events.filter(function (e) {
+                return e.id !== response.data.data.id;
+              }));
+              commit("setEvent", {
+                id: 0,
+                sport_id: 0,
+                name: ""
+              });
+
+            case 7:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
     }))();
   }
 };
@@ -79184,6 +79767,12 @@ var mutations = {
   },
   setSports: function setSports(state, sports) {
     return state.sports = sports;
+  },
+  setEvent: function setEvent(state, event) {
+    return state.event = event;
+  },
+  setEvents: function setEvents(state, events) {
+    return state.events = events;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -79213,8 +79802,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\maxtrade-sport\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\maxtrade-sport\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -26,3 +26,12 @@ Route::post('sport', 'SportsController@store');
 Route::put('sport', 'SportsController@store');
 /** Delete a Sport */
 Route::delete('sport/{id}', 'SportsController@destroy');
+
+/** List All Events */
+Route::get('events', 'EventsController@index');
+/** Create new Event */
+Route::post('event', 'EventsController@store');
+/** Update a Event */
+Route::put('event', 'EventsController@store');
+/** Delete a Event */
+Route::delete('event/{id}', 'EventsController@destroy');
