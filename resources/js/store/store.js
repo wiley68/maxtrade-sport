@@ -3,7 +3,7 @@ import axios from "axios";
 const state = {
     logout: "/logout",
     sports: [],
-    sport: { id: 0, name: "Choose Sport..." }
+    sport: { id: 0, name: "" }
 };
 
 const getters = {
@@ -22,6 +22,28 @@ const actions = {
     },
     changeSport({ commit }, sport) {
         commit("setSport", sport);
+    },
+    async saveSport({ commit, state }, param) {
+        if (param.new) {
+            // new sport
+            let response = null;
+            response = await axios.post(
+                "api/sport",
+                {
+                    sport_id: 0,
+                    name: param.name
+                },
+                { "Content-Type": "application/json; charset=utf-8" }
+            );
+            const newSport = {
+                id: response.data.data.id,
+                name: response.data.data.name
+            };
+            state.sports.unshift(newSport);
+            commit("setSport", newSport);
+        } else {
+            // edit sport
+        }
     }
 };
 

@@ -2064,16 +2064,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
   data: function data() {
     return {
-      loading: false
+      loading: false,
+      dialogSport: false,
+      sportName: ""
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getSport"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport"]))
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "saveSport"])), {}, {
+    saveSportNew: function saveSportNew() {
+      this.saveSport({
+        "new": true,
+        name: this.sportName
+      });
+      this.dialogSport = false;
+    }
+  })
 });
 
 /***/ }),
@@ -21283,15 +21319,146 @@ var render = function() {
                     { staticClass: "d-flex", attrs: { cols: "12", sm: "6" } },
                     [
                       _c(
-                        "v-btn",
+                        "v-dialog",
                         {
-                          staticClass: "mx-1",
-                          attrs: { fab: "", small: "", color: "primary" }
+                          attrs: { persistent: "", "max-width": "600px" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-btn",
+                                    _vm._g(
+                                      _vm._b(
+                                        {
+                                          staticClass: "mx-1",
+                                          attrs: {
+                                            fab: "",
+                                            small: "",
+                                            color: "primary"
+                                          }
+                                        },
+                                        "v-btn",
+                                        attrs,
+                                        false
+                                      ),
+                                      on
+                                    ),
+                                    [
+                                      _c("v-icon", { attrs: { dark: "" } }, [
+                                        _vm._v("mdi-playlist-plus")
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ]
+                              }
+                            }
+                          ]),
+                          model: {
+                            value: _vm.dialogSport,
+                            callback: function($$v) {
+                              _vm.dialogSport = $$v
+                            },
+                            expression: "dialogSport"
+                          }
                         },
                         [
-                          _c("v-icon", { attrs: { dark: "" } }, [
-                            _vm._v("mdi-playlist-plus")
-                          ])
+                          _vm._v(" "),
+                          _c(
+                            "v-card",
+                            [
+                              _c("v-card-title", [
+                                _c("span", { staticClass: "headline" }, [
+                                  _vm._v("Add New Sport")
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-text",
+                                [
+                                  _c(
+                                    "v-container",
+                                    [
+                                      _c(
+                                        "v-row",
+                                        [
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "12" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Sport*",
+                                                  required: "",
+                                                  autofocus: ""
+                                                },
+                                                model: {
+                                                  value: _vm.sportName,
+                                                  callback: function($$v) {
+                                                    _vm.sportName = $$v
+                                                  },
+                                                  expression: "sportName"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("small", [
+                                    _vm._v("*indicates required field")
+                                  ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-actions",
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "blue darken-1",
+                                        text: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.dialogSport = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Close")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "blue darken-1",
+                                        text: ""
+                                      },
+                                      on: { click: _vm.saveSportNew }
+                                    },
+                                    [_vm._v("Save")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
                         ],
                         1
                       ),
@@ -21343,7 +21510,12 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-col", { staticClass: "d-flex", attrs: { cols: "12", sm: "8" } })
+          _c(
+            "v-col",
+            { staticClass: "d-flex", attrs: { cols: "12", sm: "8" } },
+            [_c("v-row")],
+            1
+          )
         ],
         1
       )
@@ -81861,7 +82033,7 @@ var state = {
   sports: [],
   sport: {
     id: 0,
-    name: "Choose Sport..."
+    name: ""
   }
 };
 var getters = {
@@ -81903,6 +82075,49 @@ var actions = {
   changeSport: function changeSport(_ref2, sport) {
     var commit = _ref2.commit;
     commit("setSport", sport);
+  },
+  saveSport: function saveSport(_ref3, param) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var commit, state, response, newSport;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref3.commit, state = _ref3.state;
+
+              if (!param["new"]) {
+                _context2.next = 11;
+                break;
+              }
+
+              // new sport
+              response = null;
+              _context2.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("api/sport", {
+                sport_id: 0,
+                name: param.name
+              }, {
+                "Content-Type": "application/json; charset=utf-8"
+              });
+
+            case 5:
+              response = _context2.sent;
+              newSport = {
+                id: response.data.data.id,
+                name: response.data.data.name
+              };
+              state.sports.unshift(newSport);
+              commit("setSport", newSport);
+              _context2.next = 11;
+              break;
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 };
 var mutations = {
@@ -82009,8 +82224,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\maxtrade-sport\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\maxtrade-sport\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
