@@ -24,9 +24,9 @@ const actions = {
         commit("setSport", sport);
     },
     async saveSport({ commit, state }, param) {
+        let response = null;
         if (param.new) {
             // new sport
-            let response = null;
             response = await axios.post(
                 "api/sport",
                 {
@@ -43,6 +43,20 @@ const actions = {
             commit("setSport", newSport);
         } else {
             // edit sport
+            response = await axios.put(
+                "api/sport",
+                {
+                    sport_id: state.sport.id,
+                    name: param.name
+                },
+                { "Content-Type": "application/json; charset=utf-8" }
+            );
+            const newSport = {
+                id: response.data.data.id,
+                name: response.data.data.name
+            };
+            state.sports.find(s => s.id === newSport.id).name = newSport.name;
+            commit("setSport", newSport);
         }
     }
 };

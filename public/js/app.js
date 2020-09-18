@@ -2095,6 +2095,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2102,17 +2112,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       loading: false,
       dialogSport: false,
-      sportName: ""
+      sportName: "",
+      newSport: true
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getSport"])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "saveSport"])), {}, {
-    saveSportNew: function saveSportNew() {
-      this.saveSport({
-        "new": true,
-        name: this.sportName
-      });
-      this.dialogSport = false;
+    openSportDialog: function openSportDialog(isNew) {
+      this.sportName = this.getSport.name;
+      this.newSport = isNew;
+      this.dialogSport = true;
     }
   })
 });
@@ -21327,42 +21336,6 @@ var render = function() {
                         "v-dialog",
                         {
                           attrs: { persistent: "", "max-width": "600px" },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "activator",
-                              fn: function(ref) {
-                                var on = ref.on
-                                var attrs = ref.attrs
-                                return [
-                                  _c(
-                                    "v-btn",
-                                    _vm._g(
-                                      _vm._b(
-                                        {
-                                          staticClass: "mx-1",
-                                          attrs: {
-                                            fab: "",
-                                            small: "",
-                                            color: "primary"
-                                          }
-                                        },
-                                        "v-btn",
-                                        attrs,
-                                        false
-                                      ),
-                                      on
-                                    ),
-                                    [
-                                      _c("v-icon", { attrs: { dark: "" } }, [
-                                        _vm._v("mdi-playlist-plus")
-                                      ])
-                                    ],
-                                    1
-                                  )
-                                ]
-                              }
-                            }
-                          ]),
                           model: {
                             value: _vm.dialogSport,
                             callback: function($$v) {
@@ -21372,14 +21345,20 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v(" "),
                           _c(
                             "v-card",
                             [
                               _c("v-card-title", [
-                                _c("span", { staticClass: "headline" }, [
-                                  _vm._v("Add New Sport")
-                                ])
+                                _c("span", {
+                                  staticClass: "headline",
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      _vm.newSport
+                                        ? "Add New Sport"
+                                        : "Edit This Sport"
+                                    )
+                                  }
+                                })
                               ]),
                               _vm._v(" "),
                               _c(
@@ -21452,9 +21431,18 @@ var render = function() {
                                     {
                                       attrs: {
                                         color: "blue darken-1",
-                                        text: ""
+                                        text: "",
+                                        disabled: _vm.sportName == ""
                                       },
-                                      on: { click: _vm.saveSportNew }
+                                      on: {
+                                        click: function($event) {
+                                          _vm.saveSport({
+                                            new: _vm.newSport,
+                                            name: _vm.sportName
+                                          })
+                                          _vm.dialogSport = false
+                                        }
+                                      }
                                     },
                                     [_vm._v("Save")]
                                   )
@@ -21472,11 +21460,35 @@ var render = function() {
                         "v-btn",
                         {
                           staticClass: "mx-1",
+                          attrs: { fab: "", small: "", color: "primary" },
+                          on: {
+                            click: function($event) {
+                              return _vm.openSportDialog(true)
+                            }
+                          }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-playlist-plus")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-1",
                           attrs: {
                             fab: "",
                             small: "",
                             color: "success",
                             disabled: _vm.getSport.id == 0
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.openSportDialog(false)
+                            }
                           }
                         },
                         [
@@ -79056,20 +79068,20 @@ var actions = {
   },
   saveSport: function saveSport(_ref3, param) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      var commit, state, response, newSport;
+      var commit, state, response, newSport, _newSport;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               commit = _ref3.commit, state = _ref3.state;
+              response = null;
 
               if (!param["new"]) {
                 _context2.next = 11;
                 break;
               }
 
-              // new sport
-              response = null;
               _context2.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("api/sport", {
                 sport_id: 0,
@@ -79086,10 +79098,30 @@ var actions = {
               };
               state.sports.unshift(newSport);
               commit("setSport", newSport);
-              _context2.next = 11;
+              _context2.next = 17;
               break;
 
             case 11:
+              _context2.next = 13;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("api/sport", {
+                sport_id: state.sport.id,
+                name: param.name
+              }, {
+                "Content-Type": "application/json; charset=utf-8"
+              });
+
+            case 13:
+              response = _context2.sent;
+              _newSport = {
+                id: response.data.data.id,
+                name: response.data.data.name
+              };
+              state.sports.find(function (s) {
+                return s.id === _newSport.id;
+              }).name = _newSport.name;
+              commit("setSport", _newSport);
+
+            case 17:
             case "end":
               return _context2.stop();
           }

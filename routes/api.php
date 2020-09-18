@@ -22,3 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('sports', 'SportsController@index');
 /** Create new Sport */
 Route::post('sport', 'SportsController@store');
+/** Update a Sport */
+Route::put('sport', 'SportsController@store');

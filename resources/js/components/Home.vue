@@ -20,14 +20,9 @@
           </v-col>
           <v-col class="d-flex" cols="12" sm="6">
             <v-dialog v-model="dialogSport" persistent max-width="600px">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn class="mx-1" fab small color="primary" v-bind="attrs" v-on="on">
-                  <v-icon dark>mdi-playlist-plus</v-icon>
-                </v-btn>
-              </template>
               <v-card>
                 <v-card-title>
-                  <span class="headline">Add New Sport</span>
+                  <span class="headline" v-text="newSport ? 'Add New Sport' : 'Edit This Sport'"></span>
                 </v-card-title>
                 <v-card-text>
                   <v-container>
@@ -42,11 +37,26 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="dialogSport = false">Close</v-btn>
-                  <v-btn color="blue darken-1" text @click="saveSportNew">Save</v-btn>
+                  <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="saveSport({ new: newSport, name: sportName }); dialogSport = false"
+                    :disabled="sportName == ''"
+                  >Save</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <v-btn class="mx-1" fab small color="success" :disabled="getSport.id == 0">
+            <v-btn class="mx-1" fab small color="primary" @click="openSportDialog(true)">
+              <v-icon dark>mdi-playlist-plus</v-icon>
+            </v-btn>
+            <v-btn
+              class="mx-1"
+              fab
+              small
+              color="success"
+              :disabled="getSport.id == 0"
+              @click="openSportDialog(false)"
+            >
               <v-icon dark>mdi-pencil-outline</v-icon>
             </v-btn>
             <v-btn class="mx-1" fab small color="error" :disabled="getSport.id == 0">
@@ -73,6 +83,7 @@ export default {
       loading: false,
       dialogSport: false,
       sportName: "",
+      newSport: true,
     };
   },
 
@@ -82,9 +93,10 @@ export default {
 
   methods: {
     ...mapActions(["changeSport", "saveSport"]),
-    saveSportNew() {
-      this.saveSport({ new: true, name: this.sportName });
-      this.dialogSport = false;
+    openSportDialog(isNew) {
+      this.sportName = this.getSport.name;
+      this.newSport = isNew;
+      this.dialogSport = true;
     },
   },
 };
