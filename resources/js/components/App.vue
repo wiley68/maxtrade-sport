@@ -31,7 +31,7 @@
     </v-app-bar>
 
     <v-main>
-      <router-view></router-view>
+      <home></home>
     </v-main>
 
     <v-footer color="indigo" app>
@@ -42,9 +42,14 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Home from "./Home";
 
 export default {
   name: "App",
+
+  components: {
+    Home,
+  },
 
   data: () => ({
     drawer: false,
