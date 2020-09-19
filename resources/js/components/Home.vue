@@ -201,9 +201,18 @@
             </v-btn>
           </v-col>
           <v-col class="d-flex" cols="12">
-            <v-btn color="primary">Primary</v-btn>
-            <v-btn color="primary">Primary</v-btn>
-            <v-btn color="primary">Primary</v-btn>
+            <v-btn color="primary" class="mr-1">
+              <v-icon dark>mdi-playlist-plus</v-icon>New
+            </v-btn>
+            <v-btn color="success" class="mr-1">
+              <v-icon dark>mdi-pencil-outline</v-icon>Edit
+            </v-btn>
+            <v-btn color="error" class="mr-1">
+              <v-icon dark>mdi-delete</v-icon>Delete
+            </v-btn>
+            <v-btn color="normal">
+              <v-icon dark>mdi-autorenew</v-icon>Clear
+            </v-btn>
           </v-col>
           <v-col class="d-flex" cols="12">
             <v-divider></v-divider>

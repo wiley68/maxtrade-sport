@@ -2250,6 +2250,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -22135,17 +22144,53 @@ var render = function() {
                     "v-col",
                     { staticClass: "d-flex", attrs: { cols: "12" } },
                     [
-                      _c("v-btn", { attrs: { color: "primary" } }, [
-                        _vm._v("Primary")
-                      ]),
+                      _c(
+                        "v-btn",
+                        { staticClass: "mr-1", attrs: { color: "primary" } },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-playlist-plus")
+                          ]),
+                          _vm._v("New\n          ")
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
-                      _c("v-btn", { attrs: { color: "primary" } }, [
-                        _vm._v("Primary")
-                      ]),
+                      _c(
+                        "v-btn",
+                        { staticClass: "mr-1", attrs: { color: "success" } },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-pencil-outline")
+                          ]),
+                          _vm._v("Edit\n          ")
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
-                      _c("v-btn", { attrs: { color: "primary" } }, [
-                        _vm._v("Primary")
-                      ])
+                      _c(
+                        "v-btn",
+                        { staticClass: "mr-1", attrs: { color: "error" } },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-delete")
+                          ]),
+                          _vm._v("Delete\n          ")
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        { attrs: { color: "normal" } },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-autorenew")
+                          ]),
+                          _vm._v("Clear\n          ")
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
