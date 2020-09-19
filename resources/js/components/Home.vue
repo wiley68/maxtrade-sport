@@ -173,6 +173,7 @@
               :min="1"
               :max="9.99"
               :step="0.01"
+              prepend-inner-icon="mdi-percent-outline"
               :value="getKoeficient"
               @input="changeKoeficient"
             ></v-text-field>
@@ -181,6 +182,31 @@
             <v-btn class="mx-1" fab small color="error" @click="clearKoeficient">
               <v-icon dark>mdi-autorenew</v-icon>
             </v-btn>
+          </v-col>
+          <v-col class="d-flex" cols="6">
+            <v-text-field
+              label="Bet"
+              type="number"
+              :min="0.50"
+              :max="20.00"
+              :step="0.50"
+              prepend-inner-icon="mdi-currency-usd"
+              :value="getZalog"
+              @input="changeZalog"
+            ></v-text-field>
+          </v-col>
+          <v-col class="d-flex" cols="6">
+            <v-btn class="mx-1" fab small color="error" @click="clearZalog">
+              <v-icon dark>mdi-autorenew</v-icon>
+            </v-btn>
+          </v-col>
+          <v-col class="d-flex" cols="12">
+            <v-btn color="primary">Primary</v-btn>
+            <v-btn color="primary">Primary</v-btn>
+            <v-btn color="primary">Primary</v-btn>
+          </v-col>
+          <v-col class="d-flex" cols="12">
+            <v-divider></v-divider>
           </v-col>
         </v-row>
       </v-col>
@@ -218,6 +244,7 @@ export default {
       "getSport",
       "getEvent",
       "getKoeficient",
+      "getZalog",
     ]),
   },
 
@@ -231,6 +258,8 @@ export default {
       "deleteEvent",
       "changeKoeficient",
       "clearKoeficient",
+      "changeZalog",
+      "clearZalog",
     ]),
     openSportDialog(isNew) {
       this.sportName = this.getSport.name;

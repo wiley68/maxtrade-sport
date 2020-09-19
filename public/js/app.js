@@ -2224,6 +2224,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2240,8 +2266,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialogEventDelete: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient"])),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent", "changeKoeficient", "clearKoeficient"])), {}, {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient", "getZalog"])),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent", "changeKoeficient", "clearKoeficient", "changeZalog", "clearZalog"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       this.sportName = this.getSport.name;
       this.newSport = isNew;
@@ -22032,6 +22058,7 @@ var render = function() {
                           min: 1,
                           max: 9.99,
                           step: 0.01,
+                          "prepend-inner-icon": "mdi-percent-outline",
                           value: _vm.getKoeficient
                         },
                         on: { input: _vm.changeKoeficient }
@@ -22059,6 +22086,74 @@ var render = function() {
                         1
                       )
                     ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "6" } },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Bet",
+                          type: "number",
+                          min: 0.5,
+                          max: 20.0,
+                          step: 0.5,
+                          "prepend-inner-icon": "mdi-currency-usd",
+                          value: _vm.getZalog
+                        },
+                        on: { input: _vm.changeZalog }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "6" } },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-1",
+                          attrs: { fab: "", small: "", color: "error" },
+                          on: { click: _vm.clearZalog }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-autorenew")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "12" } },
+                    [
+                      _c("v-btn", { attrs: { color: "primary" } }, [
+                        _vm._v("Primary")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-btn", { attrs: { color: "primary" } }, [
+                        _vm._v("Primary")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-btn", { attrs: { color: "primary" } }, [
+                        _vm._v("Primary")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "12" } },
+                    [_c("v-divider")],
                     1
                   )
                 ],
@@ -79572,7 +79667,8 @@ var state = {
     sport_id: 0,
     name: ""
   },
-  koeficient: 1
+  koeficient: 1,
+  zalog: 0
 };
 var getters = {
   getSport: function getSport(state) {
@@ -79589,6 +79685,9 @@ var getters = {
   },
   getKoeficient: function getKoeficient(state) {
     return state.koeficient;
+  },
+  getZalog: function getZalog(state) {
+    return state.zalog;
   }
 };
 var actions = {
@@ -79842,6 +79941,14 @@ var actions = {
   clearKoeficient: function clearKoeficient(_ref9) {
     var commit = _ref9.commit;
     commit("setKoeficient", 1);
+  },
+  changeZalog: function changeZalog(_ref10, zalog) {
+    var commit = _ref10.commit;
+    commit("setZalog", zalog);
+  },
+  clearZalog: function clearZalog(_ref11) {
+    var commit = _ref11.commit;
+    commit("setZalog", 0);
   }
 };
 var mutations = {
@@ -79859,6 +79966,9 @@ var mutations = {
   },
   setKoeficient: function setKoeficient(state, koeficient) {
     return state.koeficient = koeficient;
+  },
+  setZalog: function setZalog(state, zalog) {
+    return state.zalog = zalog;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
