@@ -76,7 +76,7 @@ const actions = {
             response = await axios.post(
                 "api/event",
                 {
-                    sport_id: 0,
+                    event_id: 0,
                     sport_id: state.sport.id,
                     name: param.name
                 },
@@ -102,7 +102,7 @@ const actions = {
             );
             const newEvent = {
                 id: response.data.data.id,
-                sport_id: state.sport.id,
+                sport_id: response.data.sport_id,
                 name: response.data.data.name
             };
             state.events.find(e => e.id === newEvent.id).name = newEvent.name;

@@ -2201,6 +2201,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -21707,7 +21714,9 @@ var render = function() {
                     [
                       _c("v-select", {
                         attrs: {
-                          items: _vm.getEvents,
+                          items: _vm.getEvents.filter(function(e) {
+                            return e.sport_id == _vm.getSport.id
+                          }),
                           "item-value": "id",
                           "item-text": "name",
                           label: "Event",
@@ -21832,7 +21841,7 @@ var render = function() {
                                       },
                                       on: {
                                         click: function($event) {
-                                          _vm.saveSport({
+                                          _vm.saveEvent({
                                             new: _vm.newEvent,
                                             name: _vm.eventName
                                           })
@@ -21925,7 +21934,12 @@ var render = function() {
                         "v-btn",
                         {
                           staticClass: "mx-1",
-                          attrs: { fab: "", small: "", color: "primary" },
+                          attrs: {
+                            fab: "",
+                            small: "",
+                            color: "primary",
+                            disabled: _vm.getSport.id == 0
+                          },
                           on: {
                             click: function($event) {
                               return _vm.openEventDialog(true)
@@ -79483,8 +79497,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -79626,7 +79638,7 @@ var actions = {
   },
   saveEvent: function saveEvent(_ref5, param) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var commit, state, response, _axios$post, newEvent, _newEvent;
+      var commit, state, response, newEvent, _newEvent;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
@@ -79641,9 +79653,11 @@ var actions = {
               }
 
               _context3.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("api/event", (_axios$post = {
-                sport_id: 0
-              }, _defineProperty(_axios$post, "sport_id", state.sport.id), _defineProperty(_axios$post, "name", param.name), _axios$post), {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("api/event", {
+                event_id: 0,
+                sport_id: state.sport.id,
+                name: param.name
+              }, {
                 "Content-Type": "application/json; charset=utf-8"
               });
 
@@ -79673,7 +79687,7 @@ var actions = {
               response = _context3.sent;
               _newEvent = {
                 id: response.data.data.id,
-                sport_id: state.sport.id,
+                sport_id: response.data.sport_id,
                 name: response.data.data.name
               };
               state.events.find(function (e) {
@@ -79802,8 +79816,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\maxtrade-sport\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\maxtrade-sport\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

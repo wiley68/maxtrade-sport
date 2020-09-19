@@ -83,7 +83,7 @@
           </v-col>
           <v-col class="d-flex" cols="6">
             <v-select
-              :items="getEvents"
+              :items="getEvents.filter(e => e.sport_id == getSport.id)"
               item-value="id"
               item-text="name"
               label="Event"
@@ -118,7 +118,7 @@
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="saveSport({ new: newEvent, name: eventName }); dialogEvent = false"
+                    @click="saveEvent({ new: newEvent, name: eventName }); dialogEvent = false"
                     :disabled="eventName == ''"
                   >Save</v-btn>
                 </v-card-actions>
@@ -135,7 +135,14 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <v-btn class="mx-1" fab small color="primary" @click="openEventDialog(true)">
+            <v-btn
+              class="mx-1"
+              fab
+              small
+              color="primary"
+              @click="openEventDialog(true)"
+              :disabled="getSport.id == 0"
+            >
               <v-icon dark>mdi-playlist-plus</v-icon>
             </v-btn>
             <v-btn
