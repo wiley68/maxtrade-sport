@@ -2208,6 +2208,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2224,8 +2240,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialogEventDelete: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent"])),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent"])), {}, {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient"])),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent", "changeKoeficient", "clearKoeficient"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       this.sportName = this.getSport.name;
       this.newSport = isNew;
@@ -21997,6 +22013,47 @@ var render = function() {
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
                             _vm._v("mdi-delete")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "6" } },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Koeficient",
+                          type: "number",
+                          min: 1,
+                          max: 9.99,
+                          step: 0.01,
+                          value: _vm.getKoeficient
+                        },
+                        on: { input: _vm.changeKoeficient }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "6" } },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-1",
+                          attrs: { fab: "", small: "", color: "error" },
+                          on: { click: _vm.clearKoeficient }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("mdi-autorenew")
                           ])
                         ],
                         1
@@ -79514,7 +79571,8 @@ var state = {
     id: 0,
     sport_id: 0,
     name: ""
-  }
+  },
+  koeficient: 1
 };
 var getters = {
   getSport: function getSport(state) {
@@ -79528,6 +79586,9 @@ var getters = {
   },
   getEvents: function getEvents(state) {
     return state.events;
+  },
+  getKoeficient: function getKoeficient(state) {
+    return state.koeficient;
   }
 };
 var actions = {
@@ -79773,6 +79834,14 @@ var actions = {
         }
       }, _callee5);
     }))();
+  },
+  changeKoeficient: function changeKoeficient(_ref8, koeficient) {
+    var commit = _ref8.commit;
+    commit("setKoeficient", koeficient);
+  },
+  clearKoeficient: function clearKoeficient(_ref9) {
+    var commit = _ref9.commit;
+    commit("setKoeficient", 1);
   }
 };
 var mutations = {
@@ -79787,6 +79856,9 @@ var mutations = {
   },
   setEvents: function setEvents(state, events) {
     return state.events = events;
+  },
+  setKoeficient: function setKoeficient(state, koeficient) {
+    return state.koeficient = koeficient;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

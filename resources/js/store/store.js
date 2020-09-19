@@ -5,14 +5,16 @@ const state = {
     sports: [],
     sport: { id: 0, name: "" },
     events: [],
-    event: { id: 0, sport_id: 0, name: "" }
+    event: { id: 0, sport_id: 0, name: "" },
+    koeficient: 1
 };
 
 const getters = {
     getSport: state => state.sport,
     getSports: state => state.sports,
     getEvent: state => state.event,
-    getEvents: state => state.events
+    getEvents: state => state.events,
+    getKoeficient: state => state.koeficient
 };
 
 const actions = {
@@ -128,6 +130,12 @@ const actions = {
             );
             commit("setEvent", { id: 0, sport_id: 0, name: "" });
         }
+    },
+    changeKoeficient({ commit }, koeficient) {
+        commit("setKoeficient", koeficient);
+    },
+    clearKoeficient({ commit }) {
+        commit("setKoeficient", 1);
     }
 };
 
@@ -135,7 +143,8 @@ const mutations = {
     setSport: (state, sport) => (state.sport = sport),
     setSports: (state, sports) => (state.sports = sports),
     setEvent: (state, event) => (state.event = event),
-    setEvents: (state, events) => (state.events = events)
+    setEvents: (state, events) => (state.events = events),
+    setKoeficient: (state, koeficient) => (state.koeficient = koeficient)
 };
 
 export default {

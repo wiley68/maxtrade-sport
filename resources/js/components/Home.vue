@@ -166,6 +166,22 @@
               <v-icon dark>mdi-delete</v-icon>
             </v-btn>
           </v-col>
+          <v-col class="d-flex" cols="6">
+            <v-text-field
+              label="Koeficient"
+              type="number"
+              :min="1"
+              :max="9.99"
+              :step="0.01"
+              :value="getKoeficient"
+              @input="changeKoeficient"
+            ></v-text-field>
+          </v-col>
+          <v-col class="d-flex" cols="6">
+            <v-btn class="mx-1" fab small color="error" @click="clearKoeficient">
+              <v-icon dark>mdi-autorenew</v-icon>
+            </v-btn>
+          </v-col>
         </v-row>
       </v-col>
       <v-col class="d-flex" cols="12" sm="8">
@@ -196,7 +212,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getSports", "getEvents", "getSport", "getEvent"]),
+    ...mapGetters([
+      "getSports",
+      "getEvents",
+      "getSport",
+      "getEvent",
+      "getKoeficient",
+    ]),
   },
 
   methods: {
@@ -207,6 +229,8 @@ export default {
       "saveEvent",
       "deleteSport",
       "deleteEvent",
+      "changeKoeficient",
+      "clearKoeficient",
     ]),
     openSportDialog(isNew) {
       this.sportName = this.getSport.name;
