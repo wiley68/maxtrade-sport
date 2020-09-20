@@ -22,7 +22,14 @@
             <v-dialog v-model="dialogSport" persistent max-width="600px">
               <v-card>
                 <v-card-title>
-                  <span class="headline" v-text="newSport ? 'Add New Sport' : 'Edit This Sport'"></span>
+                  <span
+                    class="headline"
+                    v-text="
+                                            newSport
+                                                ? 'Add New Sport'
+                                                : 'Edit This Sport'
+                                        "
+                  ></span>
                 </v-card-title>
                 <v-card-text>
                   <v-container>
@@ -40,7 +47,13 @@
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="saveSport({ new: newSport, name: sportName }); dialogSport = false"
+                    @click="
+                                            saveSport({
+                                                new: newSport,
+                                                name: sportName
+                                            });
+                                            dialogSport = false;
+                                        "
                     :disabled="sportName == ''"
                   >Save</v-btn>
                 </v-card-actions>
@@ -49,10 +62,20 @@
             <v-dialog v-model="dialogSportDelete" max-width="290">
               <v-card>
                 <v-card-title class="headline">Delete?</v-card-title>
-                <v-card-text>Do you agree that the sport {{getSport.name}} should be deleted?</v-card-text>
+                <v-card-text>
+                  Do you agree that the sport
+                  {{ getSport.name }} should be
+                  deleted?
+                </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="success" @click="deleteSport(); dialogSportDelete = false">OK</v-btn>
+                  <v-btn
+                    color="success"
+                    @click="
+                                            deleteSport();
+                                            dialogSportDelete = false;
+                                        "
+                  >OK</v-btn>
                   <v-btn color="normal" @click="dialogSportDelete = false">Cancel</v-btn>
                 </v-card-actions>
               </v-card>
@@ -83,7 +106,9 @@
           </v-col>
           <v-col class="d-flex" cols="6">
             <v-select
-              :items="getEvents.filter(e => e.sport_id == getSport.id)"
+              :items="
+                                getEvents.filter(e => e.sport_id == getSport.id)
+                            "
               item-value="id"
               item-text="name"
               label="Event"
@@ -100,7 +125,14 @@
             <v-dialog v-model="dialogEvent" persistent max-width="600px">
               <v-card>
                 <v-card-title>
-                  <span class="headline" v-text="newEvent ? 'Add New Event' : 'Edit This Event'"></span>
+                  <span
+                    class="headline"
+                    v-text="
+                                            newEvent
+                                                ? 'Add New Event'
+                                                : 'Edit This Event'
+                                        "
+                  ></span>
                 </v-card-title>
                 <v-card-text>
                   <v-container>
@@ -118,7 +150,13 @@
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="saveEvent({ new: newEvent, name: eventName }); dialogEvent = false"
+                    @click="
+                                            saveEvent({
+                                                new: newEvent,
+                                                name: eventName
+                                            });
+                                            dialogEvent = false;
+                                        "
                     :disabled="eventName == ''"
                   >Save</v-btn>
                 </v-card-actions>
@@ -127,10 +165,20 @@
             <v-dialog v-model="dialogEventDelete" max-width="290">
               <v-card>
                 <v-card-title class="headline">Delete?</v-card-title>
-                <v-card-text>Do you agree that the event {{getEvent.name}} should be deleted?</v-card-text>
+                <v-card-text>
+                  Do you agree that the event
+                  {{ getEvent.name }} should be
+                  deleted?
+                </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="success" @click="deleteEvent(); dialogEventDelete = false">OK</v-btn>
+                  <v-btn
+                    color="success"
+                    @click="
+                                            deleteEvent();
+                                            dialogEventDelete = false;
+                                        "
+                  >OK</v-btn>
                   <v-btn color="normal" @click="dialogEventDelete = false">Cancel</v-btn>
                 </v-card-actions>
               </v-card>
@@ -187,9 +235,9 @@
             <v-text-field
               label="Bet"
               type="number"
-              :min="0.50"
-              :max="20.00"
-              :step="0.50"
+              :min="0.5"
+              :max="20.0"
+              :step="0.5"
               prepend-inner-icon="mdi-currency-usd"
               :value="getZalog"
               @input="changeZalog"
@@ -296,5 +344,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -2269,6 +2269,54 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -21652,9 +21700,9 @@ var render = function() {
                               _vm._v(" "),
                               _c("v-card-text", [
                                 _vm._v(
-                                  "Do you agree that the sport " +
+                                  "\n                Do you agree that the sport\n                " +
                                     _vm._s(_vm.getSport.name) +
-                                    " should be deleted?"
+                                    " should be\n                deleted?\n              "
                                 )
                               ]),
                               _vm._v(" "),
@@ -21944,9 +21992,9 @@ var render = function() {
                               _vm._v(" "),
                               _c("v-card-text", [
                                 _vm._v(
-                                  "Do you agree that the event " +
+                                  "\n                Do you agree that the event\n                " +
                                     _vm._s(_vm.getEvent.name) +
-                                    " should be deleted?"
+                                    " should be\n                deleted?\n              "
                                 )
                               ]),
                               _vm._v(" "),
