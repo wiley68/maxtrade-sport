@@ -35,3 +35,6 @@ Route::post('event', 'EventsController@store');
 Route::put('event', 'EventsController@store');
 /** Delete a Event */
 Route::delete('event/{id}', 'EventsController@destroy');
+
+/** List All Bets */
+Route::get('bets', 'BetsController@index');
