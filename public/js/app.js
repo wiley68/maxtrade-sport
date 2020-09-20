@@ -2259,6 +2259,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2275,7 +2285,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialogEventDelete: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient", "getZalog"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient", "getZalog", "getBets", "getHeaders"])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent", "changeKoeficient", "clearKoeficient", "changeZalog", "clearZalog"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       this.sportName = this.getSport.name;
@@ -22211,7 +22221,30 @@ var render = function() {
           _c(
             "v-col",
             { staticClass: "d-flex", attrs: { cols: "12", sm: "8" } },
-            [_c("v-row")],
+            [
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "12" } },
+                    [
+                      _c("v-data-table", {
+                        staticClass: "elevation-1",
+                        staticStyle: { width: "100%" },
+                        attrs: {
+                          headers: _vm.getHeaders,
+                          items: _vm.getBets,
+                          "items-per-page": 5
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
             1
           )
         ],
@@ -79713,7 +79746,36 @@ var state = {
     name: ""
   },
   koeficient: 1,
-  zalog: 0
+  zalog: 0,
+  bets: [],
+  bet: {
+    id: 0,
+    sport_id: 0,
+    event_id: 0,
+    koeficient: 1,
+    zalog: 0,
+    status: 0,
+    win: 0
+  },
+  headers: [{
+    text: "Sport",
+    value: "sport_id"
+  }, {
+    text: "Event",
+    value: "event_id"
+  }, {
+    text: "Koeficient",
+    value: "koeficient"
+  }, {
+    text: "Bet",
+    value: "zalog"
+  }, {
+    text: "Win",
+    value: "win"
+  }, {
+    text: "Status",
+    value: "status"
+  }]
 };
 var getters = {
   getSport: function getSport(state) {
@@ -79733,6 +79795,15 @@ var getters = {
   },
   getZalog: function getZalog(state) {
     return state.zalog;
+  },
+  getBet: function getBet(state) {
+    return state.bet;
+  },
+  getBets: function getBets(state) {
+    return state.bets;
+  },
+  getHeaders: function getHeaders(state) {
+    return state.headers;
   }
 };
 var actions = {
@@ -79741,7 +79812,7 @@ var actions = {
   },
   fetchData: function fetchData(_ref) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var commit, responseSports, sports, responseEvents, events;
+      var commit, responseSports, sports, responseEvents, events, responseBets, bets;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -79761,8 +79832,15 @@ var actions = {
               responseEvents = _context.sent;
               events = responseEvents.data.data;
               commit("setEvents", events);
+              _context.next = 13;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/bets");
 
-            case 11:
+            case 13:
+              responseBets = _context.sent;
+              bets = responseBets.data.data;
+              commit("setBets", bets);
+
+            case 16:
             case "end":
               return _context.stop();
           }
@@ -80014,6 +80092,12 @@ var mutations = {
   },
   setZalog: function setZalog(state, zalog) {
     return state.zalog = zalog;
+  },
+  setBet: function setBet(state, bet) {
+    return state.bet = bet;
+  },
+  setBets: function setBets(state, bets) {
+    return state.bets = bets;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -80043,8 +80127,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\maxtrade-sport\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\maxtrade-sport\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

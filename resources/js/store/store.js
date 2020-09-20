@@ -7,7 +7,25 @@ const state = {
     events: [],
     event: { id: 0, sport_id: 0, name: "" },
     koeficient: 1,
-    zalog: 0
+    zalog: 0,
+    bets: [],
+    bet: {
+        id: 0,
+        sport_id: 0,
+        event_id: 0,
+        koeficient: 1,
+        zalog: 0,
+        status: 0,
+        win: 0
+    },
+    headers: [
+        { text: "Sport", value: "sport_id" },
+        { text: "Event", value: "event_id" },
+        { text: "Koeficient", value: "koeficient" },
+        { text: "Bet", value: "zalog" },
+        { text: "Win", value: "win" },
+        { text: "Status", value: "status" }
+    ]
 };
 
 const getters = {
@@ -16,7 +34,10 @@ const getters = {
     getEvent: state => state.event,
     getEvents: state => state.events,
     getKoeficient: state => state.koeficient,
-    getZalog: state => state.zalog
+    getZalog: state => state.zalog,
+    getBet: state => state.bet,
+    getBets: state => state.bets,
+    getHeaders: state => state.headers
 };
 
 const actions = {
@@ -30,6 +51,9 @@ const actions = {
         const responseEvents = await axios.get("api/events");
         const events = responseEvents.data.data;
         commit("setEvents", events);
+        const responseBets = await axios.get("api/bets");
+        const bets = responseBets.data.data;
+        commit("setBets", bets);
     },
     changeSport({ commit }, sport) {
         commit("setSport", sport);
@@ -153,7 +177,9 @@ const mutations = {
     setEvent: (state, event) => (state.event = event),
     setEvents: (state, events) => (state.events = events),
     setKoeficient: (state, koeficient) => (state.koeficient = koeficient),
-    setZalog: (state, zalog) => (state.zalog = zalog)
+    setZalog: (state, zalog) => (state.zalog = zalog),
+    setBet: (state, bet) => (state.bet = bet),
+    setBets: (state, bets) => (state.bets = bets)
 };
 
 export default {

@@ -220,7 +220,17 @@
         </v-row>
       </v-col>
       <v-col class="d-flex" cols="12" sm="8">
-        <v-row></v-row>
+        <v-row>
+          <v-col class="d-flex" cols="12">
+            <v-data-table
+              style="width:100%;"
+              :headers="getHeaders"
+              :items="getBets"
+              :items-per-page="5"
+              class="elevation-1"
+            ></v-data-table>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -254,6 +264,8 @@ export default {
       "getEvent",
       "getKoeficient",
       "getZalog",
+      "getBets",
+      "getHeaders",
     ]),
   },
 
