@@ -2317,6 +2317,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -21702,7 +21716,7 @@ var render = function() {
                                 _vm._v(
                                   "\n                Do you agree that the sport\n                " +
                                     _vm._s(_vm.getSport.name) +
-                                    " should be\n                deleted?\n              "
+                                    " should be deleted?\n              "
                                 )
                               ]),
                               _vm._v(" "),
@@ -21994,7 +22008,7 @@ var render = function() {
                                 _vm._v(
                                   "\n                Do you agree that the event\n                " +
                                     _vm._s(_vm.getEvent.name) +
-                                    " should be\n                deleted?\n              "
+                                    " should be deleted?\n              "
                                 )
                               ]),
                               _vm._v(" "),
@@ -22282,7 +22296,21 @@ var render = function() {
                         staticStyle: { width: "100%" },
                         attrs: {
                           headers: _vm.getHeaders,
-                          items: _vm.getBets,
+                          items: _vm.getBets.map(function(row) {
+                            var sid = _vm.getSports.find(function(s) {
+                              return s.id == row.sport_id
+                            })
+                            var eid = _vm.getEvents.find(function(e) {
+                              return e.id == row.event_id
+                            })
+                            if (sid != undefined) {
+                              row.sport_id = sid.name
+                            }
+                            if (eid != undefined) {
+                              row.event_id = eid.name
+                            }
+                            return row
+                          }),
                           "items-per-page": 5
                         }
                       })

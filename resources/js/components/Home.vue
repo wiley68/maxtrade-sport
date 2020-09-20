@@ -64,8 +64,7 @@
                 <v-card-title class="headline">Delete?</v-card-title>
                 <v-card-text>
                   Do you agree that the sport
-                  {{ getSport.name }} should be
-                  deleted?
+                  {{ getSport.name }} should be deleted?
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -167,8 +166,7 @@
                 <v-card-title class="headline">Delete?</v-card-title>
                 <v-card-text>
                   Do you agree that the event
-                  {{ getEvent.name }} should be
-                  deleted?
+                  {{ getEvent.name }} should be deleted?
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -273,7 +271,23 @@
             <v-data-table
               style="width:100%;"
               :headers="getHeaders"
-              :items="getBets"
+              :items="
+                                getBets.map(row => {
+                                    const sid = getSports.find(
+                                        s => s.id == row.sport_id
+                                    );
+                                    const eid = getEvents.find(
+                                        e => e.id == row.event_id
+                                    );
+                                    if (sid != undefined){
+                                    row.sport_id = sid.name;
+                                    }
+                                    if (eid != undefined){
+                                    row.event_id = eid.name;
+                                    }
+                                    return row;
+                                })
+                            "
               :items-per-page="5"
               class="elevation-1"
             ></v-data-table>
