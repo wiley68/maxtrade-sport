@@ -19,6 +19,7 @@ const state = {
         win: 0
     },
     headers: [
+        { text: "Id", value: "id" },
         { text: "Sport", value: "sport_id" },
         { text: "Event", value: "event_id" },
         { text: "Koeficient", value: "koeficient" },
