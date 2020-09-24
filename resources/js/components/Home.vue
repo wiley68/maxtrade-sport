@@ -270,8 +270,7 @@
                             :max="9.99"
                             :step="0.01"
                             prepend-inner-icon="mdi-percent-outline"
-                            :value="getKoeficient"
-                            @input="changeKoeficient"
+                            v-model="koeficient"
                         ></v-text-field>
                     </v-col>
                     <v-col class="d-flex" cols="6">
@@ -280,7 +279,7 @@
                             fab
                             small
                             color="error"
-                            @click="clearKoeficient"
+                            @click="koeficient = 1"
                         >
                             <v-icon dark>mdi-autorenew</v-icon>
                         </v-btn>
@@ -293,8 +292,7 @@
                             :max="20.0"
                             :step="0.5"
                             prepend-inner-icon="mdi-currency-usd"
-                            :value="getZalog"
-                            @input="changeZalog"
+                            v-model="zalog"
                         ></v-text-field>
                     </v-col>
                     <v-col class="d-flex" cols="6">
@@ -303,7 +301,7 @@
                             fab
                             small
                             color="error"
-                            @click="clearZalog"
+                            @click="zalog = 0"
                         >
                             <v-icon dark>mdi-autorenew</v-icon>
                         </v-btn>
@@ -329,8 +327,8 @@
                             :disabled="
                                 getSport.id == 0 ||
                                     getEvent.id == 0 ||
-                                    getKoeficient <= 1 ||
-                                    getZalog <= 0
+                                    koeficient <= 1 ||
+                                    zalog <= 0
                             "
                         >
                             <v-icon dark>mdi-playlist-plus</v-icon>New
@@ -342,8 +340,8 @@
                                 newBet ||
                                     getSport.id == 0 ||
                                     getEvent.id == 0 ||
-                                    getKoeficient <= 1 ||
-                                    getZalog <= 0
+                                    koeficient <= 1 ||
+                                    zalog <= 0
                             "
                         >
                             <v-icon dark>mdi-pencil-outline</v-icon>Edit
@@ -420,11 +418,25 @@ export default {
             "getEvents",
             "getSport",
             "getEvent",
-            "getKoeficient",
-            "getZalog",
             "getBets",
             "getHeaders"
         ]),
+        koeficient: {
+            get() {
+                return this.$store.state.koeficient;
+            },
+            set(value) {
+                this.$store.commit("setKoeficient", value);
+            }
+        },
+        zalog: {
+            get() {
+                return this.$store.state.zalog;
+            },
+            set(value) {
+                this.$store.commit("setZalog", value);
+            }
+        },
         win: {
             get() {
                 if (this.$store.state.win == 0) {
@@ -466,11 +478,7 @@ export default {
             "saveSport",
             "saveEvent",
             "deleteSport",
-            "deleteEvent",
-            "changeKoeficient",
-            "clearKoeficient",
-            "changeZalog",
-            "clearZalog"
+            "deleteEvent"
         ]),
         openSportDialog(isNew) {
             if (isNew) {

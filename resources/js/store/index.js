@@ -175,18 +175,6 @@ export default new Vuex.Store({
                 );
                 commit("setEvent", { id: 0, sport_id: 0, name: "" });
             }
-        },
-        changeKoeficient({ commit }, koeficient) {
-            commit("setKoeficient", koeficient);
-        },
-        clearKoeficient({ commit }) {
-            commit("setKoeficient", 1);
-        },
-        changeZalog({ commit }, zalog) {
-            commit("setZalog", zalog);
-        },
-        clearZalog({ commit }) {
-            commit("setZalog", 0);
         }
     },
 

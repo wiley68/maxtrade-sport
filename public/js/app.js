@@ -2424,8 +2424,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2443,7 +2441,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialogEventDelete: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient", "getZalog", "getBets", "getHeaders"])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getBets", "getHeaders"])), {}, {
+    koeficient: {
+      get: function get() {
+        return this.$store.state.koeficient;
+      },
+      set: function set(value) {
+        this.$store.commit("setKoeficient", value);
+      }
+    },
+    zalog: {
+      get: function get() {
+        return this.$store.state.zalog;
+      },
+      set: function set(value) {
+        this.$store.commit("setZalog", value);
+      }
+    },
     win: {
       get: function get() {
         if (this.$store.state.win == 0) {
@@ -2477,7 +2491,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent", "changeKoeficient", "clearKoeficient", "changeZalog", "clearZalog"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       if (isNew) {
         this.sportName = "";
@@ -22331,10 +22345,15 @@ var render = function() {
                           min: 1,
                           max: 9.99,
                           step: 0.01,
-                          "prepend-inner-icon": "mdi-percent-outline",
-                          value: _vm.getKoeficient
+                          "prepend-inner-icon": "mdi-percent-outline"
                         },
-                        on: { input: _vm.changeKoeficient }
+                        model: {
+                          value: _vm.koeficient,
+                          callback: function($$v) {
+                            _vm.koeficient = $$v
+                          },
+                          expression: "koeficient"
+                        }
                       })
                     ],
                     1
@@ -22349,7 +22368,11 @@ var render = function() {
                         {
                           staticClass: "mx-1",
                           attrs: { fab: "", small: "", color: "error" },
-                          on: { click: _vm.clearKoeficient }
+                          on: {
+                            click: function($event) {
+                              _vm.koeficient = 1
+                            }
+                          }
                         },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
@@ -22373,10 +22396,15 @@ var render = function() {
                           min: 0.5,
                           max: 20.0,
                           step: 0.5,
-                          "prepend-inner-icon": "mdi-currency-usd",
-                          value: _vm.getZalog
+                          "prepend-inner-icon": "mdi-currency-usd"
                         },
-                        on: { input: _vm.changeZalog }
+                        model: {
+                          value: _vm.zalog,
+                          callback: function($$v) {
+                            _vm.zalog = $$v
+                          },
+                          expression: "zalog"
+                        }
                       })
                     ],
                     1
@@ -22391,7 +22419,11 @@ var render = function() {
                         {
                           staticClass: "mx-1",
                           attrs: { fab: "", small: "", color: "error" },
-                          on: { click: _vm.clearZalog }
+                          on: {
+                            click: function($event) {
+                              _vm.zalog = 0
+                            }
+                          }
                         },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
@@ -22455,8 +22487,8 @@ var render = function() {
                             disabled:
                               _vm.getSport.id == 0 ||
                               _vm.getEvent.id == 0 ||
-                              _vm.getKoeficient <= 1 ||
-                              _vm.getZalog <= 0
+                              _vm.koeficient <= 1 ||
+                              _vm.zalog <= 0
                           }
                         },
                         [
@@ -22478,8 +22510,8 @@ var render = function() {
                               _vm.newBet ||
                               _vm.getSport.id == 0 ||
                               _vm.getEvent.id == 0 ||
-                              _vm.getKoeficient <= 1 ||
-                              _vm.getZalog <= 0
+                              _vm.koeficient <= 1 ||
+                              _vm.zalog <= 0
                           }
                         },
                         [
@@ -80393,22 +80425,6 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           }
         }, _callee5);
       }))();
-    },
-    changeKoeficient: function changeKoeficient(_ref8, koeficient) {
-      var commit = _ref8.commit;
-      commit("setKoeficient", koeficient);
-    },
-    clearKoeficient: function clearKoeficient(_ref9) {
-      var commit = _ref9.commit;
-      commit("setKoeficient", 1);
-    },
-    changeZalog: function changeZalog(_ref10, zalog) {
-      var commit = _ref10.commit;
-      commit("setZalog", zalog);
-    },
-    clearZalog: function clearZalog(_ref11) {
-      var commit = _ref11.commit;
-      commit("setZalog", 0);
     }
   },
   mutations: {
