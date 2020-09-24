@@ -364,6 +364,7 @@
                             class="elevation-1"
                             single-select
                             @click:row="rowClick"
+                            v-model="bet"
                         ></v-data-table>
                     </v-col>
                 </v-row>
@@ -440,6 +441,18 @@ export default {
         bets: {
             get() {
                 return this.$store.state.bets;
+            }
+        },
+        bet: {
+            get() {
+                return this.$store.state.bet;
+            },
+            set(value) {
+                this.$store.commit("setBet", value);
+                const firstItem = value
+                    .filter(x => typeof x !== undefined)
+                    .shift();
+                this.$store.commit("setSport", firstItem.sport_id);
             }
         },
         sport: {
@@ -535,7 +548,6 @@ export default {
         },
         rowClick(item, row) {
             row.select(true);
-            console.log(item);
         }
     }
 };

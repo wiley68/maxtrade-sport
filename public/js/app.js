@@ -2031,6 +2031,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+//
 //
 //
 //
@@ -2471,6 +2474,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return this.$store.state.bets;
       }
     },
+    bet: {
+      get: function get() {
+        return this.$store.state.bet;
+      },
+      set: function set(value) {
+        this.$store.commit("setBet", value);
+        var firstItem = value.filter(function (x) {
+          return _typeof(x) !== undefined;
+        }).shift();
+        this.$store.commit("setSport", firstItem.sport_id);
+      }
+    },
     sport: {
       get: function get() {
         return this.$store.state.sport;
@@ -2564,7 +2579,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     rowClick: function rowClick(item, row) {
       row.select(true);
-      console.log(item);
     }
   })
 });
@@ -22636,7 +22650,14 @@ var render = function() {
                           "item-key": "id",
                           "single-select": ""
                         },
-                        on: { "click:row": _vm.rowClick }
+                        on: { "click:row": _vm.rowClick },
+                        model: {
+                          value: _vm.bet,
+                          callback: function($$v) {
+                            _vm.bet = $$v
+                          },
+                          expression: "bet"
+                        }
                       })
                     ],
                     1
@@ -80151,7 +80172,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     koeficient: 1,
     zalog: 0,
     bets: [],
-    bet: {
+    bet: [{
       id: 0,
       sport_id: 0,
       event_id: 0,
@@ -80159,7 +80180,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       zalog: 0,
       status: 0,
       win: 0
-    },
+    }],
     new_bet: true,
     headers: [{
       text: "Id",

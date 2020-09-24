@@ -19,15 +19,17 @@ export default new Vuex.Store({
         koeficient: 1,
         zalog: 0,
         bets: [],
-        bet: {
-            id: 0,
-            sport_id: 0,
-            event_id: 0,
-            koeficient: 1,
-            zalog: 0,
-            status: 0,
-            win: 0
-        },
+        bet: [
+            {
+                id: 0,
+                sport_id: 0,
+                event_id: 0,
+                koeficient: 1,
+                zalog: 0,
+                status: 0,
+                win: 0
+            }
+        ],
         new_bet: true,
         headers: [
             { text: "Id", value: "id" },
