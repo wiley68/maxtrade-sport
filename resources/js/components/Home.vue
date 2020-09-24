@@ -28,7 +28,7 @@
                                     <span
                                         class="headline"
                                         v-text="
-                                            newSport
+                                            new_sport
                                                 ? 'Add New Sport'
                                                 : 'Edit This Sport'
                                         "
@@ -62,7 +62,7 @@
                                         text
                                         @click="
                                             saveSport({
-                                                new: newSport,
+                                                new: new_sport,
                                                 name: sportName
                                             });
                                             dialogSport = false;
@@ -155,7 +155,7 @@
                                     <span
                                         class="headline"
                                         v-text="
-                                            newEvent
+                                            new_event
                                                 ? 'Add New Event'
                                                 : 'Edit This Event'
                                         "
@@ -189,7 +189,7 @@
                                         text
                                         @click="
                                             saveEvent({
-                                                new: newEvent,
+                                                new: new_event,
                                                 name: eventName
                                             });
                                             dialogEvent = false;
@@ -333,7 +333,7 @@
                             color="success"
                             class="mr-1"
                             :disabled="
-                                newBet ||
+                                new_bet ||
                                     sport.id == 0 ||
                                     event.id == 0 ||
                                     koeficient <= 1 ||
@@ -342,7 +342,7 @@
                         >
                             <v-icon dark>mdi-pencil-outline</v-icon>Edit
                         </v-btn>
-                        <v-btn color="error" class="mr-1" :disabled="newBet">
+                        <v-btn color="error" class="mr-1" :disabled="new_bet">
                             <v-icon dark>mdi-delete</v-icon>Delete
                         </v-btn>
                     </v-col>
@@ -357,23 +357,8 @@
                         <v-data-table
                             style="width:100%;"
                             :headers="headers"
-                            :items="
-                                bets.map(row => {
-                                    const sid = sports.find(
-                                        s => s.id == row.sport_id
-                                    );
-                                    const eid = events.find(
-                                        e => e.id == row.event_id
-                                    );
-                                    if (sid != undefined) {
-                                        row.sport_id = sid.name;
-                                    }
-                                    if (eid != undefined) {
-                                        row.event_id = eid.name;
-                                    }
-                                    return row;
-                                })
-                            "
+                            :loading="loading"
+                            :items="bets"
                             :items-per-page="5"
                             item-key="id"
                             class="elevation-1"
@@ -395,20 +380,48 @@ export default {
 
     data() {
         return {
-            loading: false,
             dialogSport: false,
             dialogEvent: false,
             sportName: "",
             eventName: "",
-            newSport: true,
-            newEvent: true,
-            newBet: true,
             dialogSportDelete: false,
             dialogEventDelete: false
         };
     },
 
     computed: {
+        loading: {
+            get() {
+                return this.$store.state.loading;
+            },
+            set(value) {
+                this.$store.state.loading = value;
+            }
+        },
+        new_bet: {
+            get() {
+                return this.$store.state.new_bet;
+            },
+            set(value) {
+                this.$store.state.new_bet = value;
+            }
+        },
+        new_event: {
+            get() {
+                return this.$store.state.new_event;
+            },
+            set(value) {
+                this.$store.state.new_event = value;
+            }
+        },
+        new_sport: {
+            get() {
+                return this.$store.state.new_sport;
+            },
+            set(value) {
+                this.$store.state.new_sport = value;
+            }
+        },
         headers: {
             get() {
                 return this.$store.state.headers;
@@ -508,7 +521,7 @@ export default {
             } else {
                 this.sportName = this.sport.name;
             }
-            this.newSport = isNew;
+            this.new_sport = isNew;
             this.dialogSport = true;
         },
         openEventDialog(isNew) {
@@ -517,7 +530,7 @@ export default {
             } else {
                 this.eventName = this.event.name;
             }
-            this.newEvent = isNew;
+            this.new_event = isNew;
             this.dialogEvent = true;
         },
         rowClick(item, row) {

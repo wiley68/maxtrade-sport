@@ -2405,39 +2405,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
   data: function data() {
     return {
-      loading: false,
       dialogSport: false,
       dialogEvent: false,
       sportName: "",
       eventName: "",
-      newSport: true,
-      newEvent: true,
-      newBet: true,
       dialogSportDelete: false,
       dialogEventDelete: false
     };
   },
   computed: {
+    loading: {
+      get: function get() {
+        return this.$store.state.loading;
+      },
+      set: function set(value) {
+        this.$store.state.loading = value;
+      }
+    },
+    new_bet: {
+      get: function get() {
+        return this.$store.state.new_bet;
+      },
+      set: function set(value) {
+        this.$store.state.new_bet = value;
+      }
+    },
+    new_event: {
+      get: function get() {
+        return this.$store.state.new_event;
+      },
+      set: function set(value) {
+        this.$store.state.new_event = value;
+      }
+    },
+    new_sport: {
+      get: function get() {
+        return this.$store.state.new_sport;
+      },
+      set: function set(value) {
+        this.$store.state.new_sport = value;
+      }
+    },
     headers: {
       get: function get() {
         return this.$store.state.headers;
@@ -2536,7 +2549,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.sportName = this.sport.name;
       }
 
-      this.newSport = isNew;
+      this.new_sport = isNew;
       this.dialogSport = true;
     },
     openEventDialog: function openEventDialog(isNew) {
@@ -2546,7 +2559,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.eventName = this.event.name;
       }
 
-      this.newEvent = isNew;
+      this.new_event = isNew;
       this.dialogEvent = true;
     },
     rowClick: function rowClick(item, row) {
@@ -21837,7 +21850,7 @@ var render = function() {
                                   staticClass: "headline",
                                   domProps: {
                                     textContent: _vm._s(
-                                      _vm.newSport
+                                      _vm.new_sport
                                         ? "Add New Sport"
                                         : "Edit This Sport"
                                     )
@@ -21921,7 +21934,7 @@ var render = function() {
                                       on: {
                                         click: function($event) {
                                           _vm.saveSport({
-                                            new: _vm.newSport,
+                                            new: _vm.new_sport,
                                             name: _vm.sportName
                                           })
                                           _vm.dialogSport = false
@@ -22134,7 +22147,7 @@ var render = function() {
                                   staticClass: "headline",
                                   domProps: {
                                     textContent: _vm._s(
-                                      _vm.newEvent
+                                      _vm.new_event
                                         ? "Add New Event"
                                         : "Edit This Event"
                                     )
@@ -22218,7 +22231,7 @@ var render = function() {
                                       on: {
                                         click: function($event) {
                                           _vm.saveEvent({
-                                            new: _vm.newEvent,
+                                            new: _vm.new_event,
                                             name: _vm.eventName
                                           })
                                           _vm.dialogEvent = false
@@ -22554,7 +22567,7 @@ var render = function() {
                           attrs: {
                             color: "success",
                             disabled:
-                              _vm.newBet ||
+                              _vm.new_bet ||
                               _vm.sport.id == 0 ||
                               _vm.event.id == 0 ||
                               _vm.koeficient <= 1 ||
@@ -22574,7 +22587,7 @@ var render = function() {
                         "v-btn",
                         {
                           staticClass: "mr-1",
-                          attrs: { color: "error", disabled: _vm.newBet }
+                          attrs: { color: "error", disabled: _vm.new_bet }
                         },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
@@ -22617,21 +22630,8 @@ var render = function() {
                         staticStyle: { width: "100%" },
                         attrs: {
                           headers: _vm.headers,
-                          items: _vm.bets.map(function(row) {
-                            var sid = _vm.sports.find(function(s) {
-                              return s.id == row.sport_id
-                            })
-                            var eid = _vm.events.find(function(e) {
-                              return e.id == row.event_id
-                            })
-                            if (sid != undefined) {
-                              row.sport_id = sid.name
-                            }
-                            if (eid != undefined) {
-                              row.event_id = eid.name
-                            }
-                            return row
-                          }),
+                          loading: _vm.loading,
+                          items: _vm.bets,
                           "items-per-page": 5,
                           "item-key": "id",
                           "single-select": ""
@@ -80134,17 +80134,20 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     logout: "/logout",
+    loading: false,
     sports: [],
     sport: {
       id: 0,
       name: ""
     },
+    new_sport: true,
     events: [],
     event: {
       id: 0,
       sport_id: 0,
       name: ""
     },
+    new_event: true,
     koeficient: 1,
     zalog: 0,
     bets: [],
@@ -80157,6 +80160,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       status: 0,
       win: 0
     },
+    new_bet: true,
     headers: [{
       text: "Id",
       value: "id"
@@ -80182,41 +80186,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     win: 0,
     status: 0
   },
-  getters: {
-    getSport: function getSport(state) {
-      return state.sport;
-    },
-    getSports: function getSports(state) {
-      return state.sports;
-    },
-    getEvent: function getEvent(state) {
-      return state.event;
-    },
-    getEvents: function getEvents(state) {
-      return state.events;
-    },
-    getKoeficient: function getKoeficient(state) {
-      return state.koeficient;
-    },
-    getZalog: function getZalog(state) {
-      return state.zalog;
-    },
-    getBet: function getBet(state) {
-      return state.bet;
-    },
-    getBets: function getBets(state) {
-      return state.bets;
-    },
-    getHeaders: function getHeaders(state) {
-      return state.headers;
-    },
-    getWin: function getWin(state) {
-      return state.win;
-    },
-    getStatus: function getStatus(state) {
-      return state.status;
-    }
-  },
+  getters: {},
   actions: {
     clickLogout: function clickLogout() {
       document.getElementById("logout-form").submit();
@@ -80229,29 +80199,31 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context.prev = _context.next) {
               case 0:
                 commit = _ref.commit;
-                _context.next = 3;
+                commit("setLoading", true);
+                _context.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/sports");
 
-              case 3:
+              case 4:
                 responseSports = _context.sent;
                 sports = responseSports.data.data;
                 commit("setSports", sports);
-                _context.next = 8;
+                _context.next = 9;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/events");
 
-              case 8:
+              case 9:
                 responseEvents = _context.sent;
                 events = responseEvents.data.data;
                 commit("setEvents", events);
-                _context.next = 13;
+                _context.next = 14;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/bets");
 
-              case 13:
+              case 14:
                 responseBets = _context.sent;
                 bets = responseBets.data.data;
                 commit("setBets", bets);
+                commit("setLoading", false);
 
-              case 16:
+              case 18:
               case "end":
                 return _context.stop();
             }
@@ -80271,11 +80243,13 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                 response = null;
 
                 if (!param["new"]) {
-                  _context2.next = 11;
+                  _context2.next = 13;
                   break;
                 }
 
-                _context2.next = 5;
+                commit("setLoading", true); // new sport
+
+                _context2.next = 6;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("api/sport", {
                   sport_id: 0,
                   name: param.name
@@ -80283,7 +80257,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   "Content-Type": "application/json; charset=utf-8"
                 });
 
-              case 5:
+              case 6:
                 response = _context2.sent;
                 newSport = {
                   id: response.data.data.id,
@@ -80291,11 +80265,14 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                 };
                 state.sports.unshift(newSport);
                 commit("setSport", newSport);
-                _context2.next = 17;
+                commit("setLoading", false);
+                _context2.next = 21;
                 break;
 
-              case 11:
-                _context2.next = 13;
+              case 13:
+                // edit sport
+                commit("setLoading", true);
+                _context2.next = 16;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.put("api/sport", {
                   sport_id: state.sport.id,
                   name: param.name
@@ -80303,7 +80280,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   "Content-Type": "application/json; charset=utf-8"
                 });
 
-              case 13:
+              case 16:
                 response = _context2.sent;
                 _newSport = {
                   id: response.data.data.id,
@@ -80313,8 +80290,9 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   return s.id === _newSport.id;
                 }).name = _newSport.name;
                 commit("setSport", _newSport);
+                commit("setLoading", false);
 
-              case 17:
+              case 21:
               case "end":
                 return _context2.stop();
             }
@@ -80334,11 +80312,13 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                 response = null;
 
                 if (!param["new"]) {
-                  _context3.next = 11;
+                  _context3.next = 13;
                   break;
                 }
 
-                _context3.next = 5;
+                // new event
+                commit("setLoading", true);
+                _context3.next = 6;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("api/event", {
                   event_id: 0,
                   sport_id: state.sport.id,
@@ -80347,7 +80327,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   "Content-Type": "application/json; charset=utf-8"
                 });
 
-              case 5:
+              case 6:
                 response = _context3.sent;
                 newEvent = {
                   id: response.data.data.id,
@@ -80356,11 +80336,14 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                 };
                 state.events.unshift(newEvent);
                 commit("setEvent", newEvent);
-                _context3.next = 17;
+                commit("setLoading", false);
+                _context3.next = 21;
                 break;
 
-              case 11:
-                _context3.next = 13;
+              case 13:
+                // edit event
+                commit("setLoading", true);
+                _context3.next = 16;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.put("api/event", {
                   event_id: state.event.id,
                   sport_id: state.sport.id,
@@ -80369,7 +80352,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   "Content-Type": "application/json; charset=utf-8"
                 });
 
-              case 13:
+              case 16:
                 response = _context3.sent;
                 _newEvent = {
                   id: response.data.data.id,
@@ -80380,8 +80363,9 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   return e.id === _newEvent.id;
                 }).name = _newEvent.name;
                 commit("setEvent", _newEvent);
+                commit("setLoading", false);
 
-              case 17:
+              case 21:
               case "end":
                 return _context3.stop();
             }
@@ -80399,14 +80383,15 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                 commit = _ref4.commit, state = _ref4.state;
 
                 if (!(state.sport.id != 0)) {
-                  _context4.next = 7;
+                  _context4.next = 9;
                   break;
                 }
 
-                _context4.next = 4;
+                commit("setLoading", true);
+                _context4.next = 5;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"]("api/sport/" + state.sport.id);
 
-              case 4:
+              case 5:
                 response = _context4.sent;
                 commit("setSports", state.sports.filter(function (s) {
                   return s.id !== response.data.data.id;
@@ -80415,8 +80400,9 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   id: 0,
                   name: ""
                 });
+                commit("setLoading", false);
 
-              case 7:
+              case 9:
               case "end":
                 return _context4.stop();
             }
@@ -80434,14 +80420,15 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                 commit = _ref5.commit, state = _ref5.state;
 
                 if (!(state.event.id != 0)) {
-                  _context5.next = 7;
+                  _context5.next = 9;
                   break;
                 }
 
-                _context5.next = 4;
+                commit("setLoading", true);
+                _context5.next = 5;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"]("api/event/" + state.event.id);
 
-              case 4:
+              case 5:
                 response = _context5.sent;
                 commit("setEvents", state.events.filter(function (e) {
                   return e.id !== response.data.data.id;
@@ -80451,8 +80438,9 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   sport_id: 0,
                   name: ""
                 });
+                commit("setLoading", false);
 
-              case 7:
+              case 9:
               case "end":
                 return _context5.stop();
             }
@@ -80491,6 +80479,9 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     setStatus: function setStatus(state, status) {
       return state.status = status;
+    },
+    setLoading: function setLoading(state, loading) {
+      return state.loading = loading;
     }
   }
 }));

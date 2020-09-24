@@ -9,10 +9,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         logout: "/logout",
+        loading: false,
         sports: [],
         sport: { id: 0, name: "" },
+        new_sport: true,
         events: [],
         event: { id: 0, sport_id: 0, name: "" },
+        new_event: true,
         koeficient: 1,
         zalog: 0,
         bets: [],
@@ -25,6 +28,7 @@ export default new Vuex.Store({
             status: 0,
             win: 0
         },
+        new_bet: true,
         headers: [
             { text: "Id", value: "id" },
             { text: "Sport", value: "sport_id" },
@@ -38,25 +42,14 @@ export default new Vuex.Store({
         status: 0
     },
 
-    getters: {
-        getSport: state => state.sport,
-        getSports: state => state.sports,
-        getEvent: state => state.event,
-        getEvents: state => state.events,
-        getKoeficient: state => state.koeficient,
-        getZalog: state => state.zalog,
-        getBet: state => state.bet,
-        getBets: state => state.bets,
-        getHeaders: state => state.headers,
-        getWin: state => state.win,
-        getStatus: state => state.status
-    },
+    getters: {},
 
     actions: {
         clickLogout() {
             document.getElementById("logout-form").submit();
         },
         async fetchData({ commit }) {
+            commit("setLoading", true);
             const responseSports = await axios.get("api/sports");
             const sports = responseSports.data.data;
             commit("setSports", sports);
@@ -66,10 +59,12 @@ export default new Vuex.Store({
             const responseBets = await axios.get("api/bets");
             const bets = responseBets.data.data;
             commit("setBets", bets);
+            commit("setLoading", false);
         },
         async saveSport({ commit, state }, param) {
             let response = null;
             if (param.new) {
+                commit("setLoading", true);
                 // new sport
                 response = await axios.post(
                     "api/sport",
@@ -85,8 +80,10 @@ export default new Vuex.Store({
                 };
                 state.sports.unshift(newSport);
                 commit("setSport", newSport);
+                commit("setLoading", false);
             } else {
                 // edit sport
+                commit("setLoading", true);
                 response = await axios.put(
                     "api/sport",
                     {
@@ -102,12 +99,14 @@ export default new Vuex.Store({
                 state.sports.find(s => s.id === newSport.id).name =
                     newSport.name;
                 commit("setSport", newSport);
+                commit("setLoading", false);
             }
         },
         async saveEvent({ commit, state }, param) {
             let response = null;
             if (param.new) {
                 // new event
+                commit("setLoading", true);
                 response = await axios.post(
                     "api/event",
                     {
@@ -124,8 +123,10 @@ export default new Vuex.Store({
                 };
                 state.events.unshift(newEvent);
                 commit("setEvent", newEvent);
+                commit("setLoading", false);
             } else {
                 // edit event
+                commit("setLoading", true);
                 response = await axios.put(
                     "api/event",
                     {
@@ -143,10 +144,12 @@ export default new Vuex.Store({
                 state.events.find(e => e.id === newEvent.id).name =
                     newEvent.name;
                 commit("setEvent", newEvent);
+                commit("setLoading", false);
             }
         },
         async deleteSport({ commit, state }) {
             if (state.sport.id != 0) {
+                commit("setLoading", true);
                 const response = await axios.delete(
                     "api/sport/" + state.sport.id
                 );
@@ -155,10 +158,12 @@ export default new Vuex.Store({
                     state.sports.filter(s => s.id !== response.data.data.id)
                 );
                 commit("setSport", { id: 0, name: "" });
+                commit("setLoading", false);
             }
         },
         async deleteEvent({ commit, state }) {
             if (state.event.id != 0) {
+                commit("setLoading", true);
                 const response = await axios.delete(
                     "api/event/" + state.event.id
                 );
@@ -167,6 +172,7 @@ export default new Vuex.Store({
                     state.events.filter(e => e.id !== response.data.data.id)
                 );
                 commit("setEvent", { id: 0, sport_id: 0, name: "" });
+                commit("setLoading", false);
             }
         }
     },
@@ -181,6 +187,7 @@ export default new Vuex.Store({
         setBet: (state, bet) => (state.bet = bet),
         setBets: (state, bets) => (state.bets = bets),
         setWin: (state, win) => (state.win = win),
-        setStatus: (state, status) => (state.status = status)
+        setStatus: (state, status) => (state.status = status),
+        setLoading: (state, loading) => (state.loading = loading)
     }
 });
