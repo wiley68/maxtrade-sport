@@ -26,7 +26,9 @@ const state = {
         { text: "Bet", value: "zalog" },
         { text: "Win", value: "win" },
         { text: "Status", value: "status" }
-    ]
+    ],
+    win: 0,
+    status: 1
 };
 
 const getters = {
@@ -38,7 +40,9 @@ const getters = {
     getZalog: state => state.zalog,
     getBet: state => state.bet,
     getBets: state => state.bets,
-    getHeaders: state => state.headers
+    getHeaders: state => state.headers,
+    getWin: state => state.win,
+    getStatus: state => state.status
 };
 
 const actions = {
@@ -181,7 +185,9 @@ const mutations = {
     setKoeficient: (state, koeficient) => (state.koeficient = koeficient),
     setZalog: (state, zalog) => (state.zalog = zalog),
     setBet: (state, bet) => (state.bet = bet),
-    setBets: (state, bets) => (state.bets = bets)
+    setBets: (state, bets) => (state.bets = bets),
+    setWin: (state, win) => (state.win = win),
+    setStatus: (state, status) => (state.status = status)
 };
 
 export default {

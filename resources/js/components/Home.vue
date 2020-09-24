@@ -308,6 +308,20 @@
                             <v-icon dark>mdi-autorenew</v-icon>
                         </v-btn>
                     </v-col>
+                    <v-col class="d-flex" cols="6">
+                        <v-switch
+                            v-model="win"
+                            class="ma-2"
+                            label="Win"
+                        ></v-switch>
+                    </v-col>
+                    <v-col class="d-flex" cols="6">
+                        <v-switch
+                            v-model="status"
+                            class="ma-2"
+                            label="Status"
+                        ></v-switch>
+                    </v-col>
                     <v-col class="d-flex" cols="12">
                         <v-btn
                             color="primary"
@@ -409,8 +423,42 @@ export default {
             "getKoeficient",
             "getZalog",
             "getBets",
-            "getHeaders"
-        ])
+            "getHeaders",
+            "getWin",
+            "getStatus"
+        ]),
+        win: {
+            get() {
+                if (this.$store.state.win == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+            set(value) {
+                if (value) {
+                    this.$store.commit("setWin", 1);
+                } else {
+                    this.$store.commit("setWin", 0);
+                }
+            }
+        },
+        status: {
+            get() {
+                if (this.$store.state.status == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+            set(value) {
+                if (value) {
+                    this.$store.commit("setStatus", 1);
+                } else {
+                    this.$store.commit("setStatus", 0);
+                }
+            }
+        }
     },
 
     methods: {

@@ -2412,6 +2412,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2429,7 +2443,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialogEventDelete: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient", "getZalog", "getBets", "getHeaders"])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient", "getZalog", "getBets", "getHeaders", "getWin", "getStatus"])), {}, {
+    win: {
+      get: function get() {
+        if (this.$store.state.win == 0) {
+          return false;
+        } else {
+          return true;
+        }
+      },
+      set: function set(value) {
+        if (value) {
+          this.$store.commit("setWin", 1);
+        } else {
+          this.$store.commit("setWin", 0);
+        }
+      }
+    },
+    status: {
+      get: function get() {
+        if (this.$store.state.status == 0) {
+          return false;
+        } else {
+          return true;
+        }
+      },
+      set: function set(value) {
+        if (value) {
+          this.$store.commit("setStatus", 1);
+        } else {
+          this.$store.commit("setStatus", 0);
+        }
+      }
+    }
+  }),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent", "changeKoeficient", "clearKoeficient", "changeZalog", "clearZalog"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       if (isNew) {
@@ -22353,6 +22400,44 @@ var render = function() {
                         ],
                         1
                       )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "6" } },
+                    [
+                      _c("v-switch", {
+                        staticClass: "ma-2",
+                        attrs: { label: "Win" },
+                        model: {
+                          value: _vm.win,
+                          callback: function($$v) {
+                            _vm.win = $$v
+                          },
+                          expression: "win"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "6" } },
+                    [
+                      _c("v-switch", {
+                        staticClass: "ma-2",
+                        attrs: { label: "Status" },
+                        model: {
+                          value: _vm.status,
+                          callback: function($$v) {
+                            _vm.status = $$v
+                          },
+                          expression: "status"
+                        }
+                      })
                     ],
                     1
                   ),
@@ -80032,7 +80117,9 @@ var state = {
   }, {
     text: "Status",
     value: "status"
-  }]
+  }],
+  win: 0,
+  status: 1
 };
 var getters = {
   getSport: function getSport(state) {
@@ -80061,6 +80148,12 @@ var getters = {
   },
   getHeaders: function getHeaders(state) {
     return state.headers;
+  },
+  getWin: function getWin(state) {
+    return state.win;
+  },
+  getStatus: function getStatus(state) {
+    return state.status;
   }
 };
 var actions = {
@@ -80360,6 +80453,12 @@ var mutations = {
   },
   setBets: function setBets(state, bets) {
     return state.bets = bets;
+  },
+  setWin: function setWin(state, win) {
+    return state.win = win;
+  },
+  setStatus: function setStatus(state, status) {
+    return state.status = status;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
