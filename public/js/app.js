@@ -2396,6 +2396,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2408,6 +2424,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       eventName: "",
       newSport: true,
       newEvent: true,
+      newBet: true,
       dialogSportDelete: false,
       dialogEventDelete: false
     };
@@ -2415,12 +2432,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient", "getZalog", "getBets", "getHeaders"])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent", "changeKoeficient", "clearKoeficient", "changeZalog", "clearZalog"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
-      this.sportName = this.getSport.name;
+      if (isNew) {
+        this.sportName = "";
+      } else {
+        this.sportName = this.getSport.name;
+      }
+
       this.newSport = isNew;
       this.dialogSport = true;
     },
     openEventDialog: function openEventDialog(isNew) {
-      this.eventName = this.getEvent.name;
+      if (isNew) {
+        this.eventName = "";
+      } else {
+        this.eventName = this.getEvent.name;
+      }
+
       this.newEvent = isNew;
       this.dialogEvent = true;
     },
@@ -2464,7 +2491,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntr.v-data-table__selected {\n    background: #7d92f5 !important;\n}\n", ""]);
+exports.push([module.i, "\ntr.v-data-table__selected {\r\n    background: #7d92f5 !important;\n}\r\n", ""]);
 
 // exports
 
@@ -22336,7 +22363,17 @@ var render = function() {
                     [
                       _c(
                         "v-btn",
-                        { staticClass: "mr-1", attrs: { color: "primary" } },
+                        {
+                          staticClass: "mr-1",
+                          attrs: {
+                            color: "primary",
+                            disabled:
+                              _vm.getSport.id == 0 ||
+                              _vm.getEvent.id == 0 ||
+                              _vm.getKoeficient <= 1 ||
+                              _vm.getZalog <= 0
+                          }
+                        },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
                             _vm._v("mdi-playlist-plus")
@@ -22348,7 +22385,18 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-btn",
-                        { staticClass: "mr-1", attrs: { color: "success" } },
+                        {
+                          staticClass: "mr-1",
+                          attrs: {
+                            color: "success",
+                            disabled:
+                              _vm.newBet ||
+                              _vm.getSport.id == 0 ||
+                              _vm.getEvent.id == 0 ||
+                              _vm.getKoeficient <= 1 ||
+                              _vm.getZalog <= 0
+                          }
+                        },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
                             _vm._v("mdi-pencil-outline")
@@ -22360,24 +22408,15 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-btn",
-                        { staticClass: "mr-1", attrs: { color: "error" } },
+                        {
+                          staticClass: "mr-1",
+                          attrs: { color: "error", disabled: _vm.newBet }
+                        },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
                             _vm._v("mdi-delete")
                           ]),
                           _vm._v("Delete\n                    ")
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        { attrs: { color: "normal" } },
-                        [
-                          _c("v-icon", { attrs: { dark: "" } }, [
-                            _vm._v("mdi-autorenew")
-                          ]),
-                          _vm._v("Clear\n                    ")
                         ],
                         1
                       )
@@ -80069,6 +80108,11 @@ var actions = {
   changeSport: function changeSport(_ref2, sport) {
     var commit = _ref2.commit;
     commit("setSport", sport);
+    commit("setEvent", {
+      id: 0,
+      sport_id: 0,
+      name: ""
+    });
   },
   changeEvent: function changeEvent(_ref3, event) {
     var commit = _ref3.commit;
@@ -80345,8 +80389,8 @@ var mutations = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\maxtrade-sport\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\maxtrade-sport\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
