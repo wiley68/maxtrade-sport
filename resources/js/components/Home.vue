@@ -310,16 +310,16 @@
                     </v-col>
                     <v-col class="d-flex" cols="6">
                         <v-switch
-                            v-model="win"
                             class="ma-2"
                             label="Win"
+                            v-model="win"
                         ></v-switch>
                     </v-col>
                     <v-col class="d-flex" cols="6">
                         <v-switch
-                            v-model="status"
                             class="ma-2"
                             label="Status"
+                            v-model="status"
                         ></v-switch>
                     </v-col>
                     <v-col class="d-flex" cols="12">
@@ -423,9 +423,7 @@ export default {
             "getKoeficient",
             "getZalog",
             "getBets",
-            "getHeaders",
-            "getWin",
-            "getStatus"
+            "getHeaders"
         ]),
         win: {
             get() {

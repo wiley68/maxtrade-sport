@@ -2443,7 +2443,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialogEventDelete: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient", "getZalog", "getBets", "getHeaders", "getWin", "getStatus"])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getKoeficient", "getZalog", "getBets", "getHeaders"])), {}, {
     win: {
       get: function get() {
         if (this.$store.state.win == 0) {
@@ -80033,37 +80033,13 @@ var opts = {};
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./resources/js/store/store.js");
-
-
- // Load Vuex
-
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__["default"]); // Create store
-
-/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
-  modules: {
-    Store: _store__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }
-}));
-
-/***/ }),
-
-/***/ "./resources/js/store/store.js":
-/*!*************************************!*\
-  !*** ./resources/js/store/store.js ***!
-  \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -80071,402 +80047,403 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-var state = {
-  logout: "/logout",
-  sports: [],
-  sport: {
-    id: 0,
-    name: ""
-  },
-  events: [],
-  event: {
-    id: 0,
-    sport_id: 0,
-    name: ""
-  },
-  koeficient: 1,
-  zalog: 0,
-  bets: [],
-  bet: {
-    id: 0,
-    sport_id: 0,
-    event_id: 0,
-    koeficient: 1,
-    zalog: 0,
-    status: 0,
-    win: 0
-  },
-  headers: [{
-    text: "Id",
-    value: "id"
-  }, {
-    text: "Sport",
-    value: "sport_id"
-  }, {
-    text: "Event",
-    value: "event_id"
-  }, {
-    text: "Koeficient",
-    value: "koeficient"
-  }, {
-    text: "Bet",
-    value: "zalog"
-  }, {
-    text: "Win",
-    value: "win"
-  }, {
-    text: "Status",
-    value: "status"
-  }],
-  win: 0,
-  status: 1
-};
-var getters = {
-  getSport: function getSport(state) {
-    return state.sport;
-  },
-  getSports: function getSports(state) {
-    return state.sports;
-  },
-  getEvent: function getEvent(state) {
-    return state.event;
-  },
-  getEvents: function getEvents(state) {
-    return state.events;
-  },
-  getKoeficient: function getKoeficient(state) {
-    return state.koeficient;
-  },
-  getZalog: function getZalog(state) {
-    return state.zalog;
-  },
-  getBet: function getBet(state) {
-    return state.bet;
-  },
-  getBets: function getBets(state) {
-    return state.bets;
-  },
-  getHeaders: function getHeaders(state) {
-    return state.headers;
-  },
-  getWin: function getWin(state) {
-    return state.win;
-  },
-  getStatus: function getStatus(state) {
-    return state.status;
-  }
-};
-var actions = {
-  clickLogout: function clickLogout() {
-    document.getElementById("logout-form").submit();
-  },
-  fetchData: function fetchData(_ref) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var commit, responseSports, sports, responseEvents, events, responseBets, bets;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              commit = _ref.commit;
-              _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/sports");
 
-            case 3:
-              responseSports = _context.sent;
-              sports = responseSports.data.data;
-              commit("setSports", sports);
-              _context.next = 8;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/events");
+ // Load Vuex
 
-            case 8:
-              responseEvents = _context.sent;
-              events = responseEvents.data.data;
-              commit("setEvents", events);
-              _context.next = 13;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/bets");
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); // Create store
 
-            case 13:
-              responseBets = _context.sent;
-              bets = responseBets.data.data;
-              commit("setBets", bets);
-
-            case 16:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
-  },
-  changeSport: function changeSport(_ref2, sport) {
-    var commit = _ref2.commit;
-    commit("setSport", sport);
-    commit("setEvent", {
+/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  state: {
+    logout: "/logout",
+    sports: [],
+    sport: {
+      id: 0,
+      name: ""
+    },
+    events: [],
+    event: {
       id: 0,
       sport_id: 0,
       name: ""
-    });
+    },
+    koeficient: 1,
+    zalog: 0,
+    bets: [],
+    bet: {
+      id: 0,
+      sport_id: 0,
+      event_id: 0,
+      koeficient: 1,
+      zalog: 0,
+      status: 0,
+      win: 0
+    },
+    headers: [{
+      text: "Id",
+      value: "id"
+    }, {
+      text: "Sport",
+      value: "sport_id"
+    }, {
+      text: "Event",
+      value: "event_id"
+    }, {
+      text: "Koeficient",
+      value: "koeficient"
+    }, {
+      text: "Bet",
+      value: "zalog"
+    }, {
+      text: "Win",
+      value: "win"
+    }, {
+      text: "Status",
+      value: "status"
+    }],
+    win: 0,
+    status: 0
   },
-  changeEvent: function changeEvent(_ref3, event) {
-    var commit = _ref3.commit;
-    commit("setEvent", event);
+  getters: {
+    getSport: function getSport(state) {
+      return state.sport;
+    },
+    getSports: function getSports(state) {
+      return state.sports;
+    },
+    getEvent: function getEvent(state) {
+      return state.event;
+    },
+    getEvents: function getEvents(state) {
+      return state.events;
+    },
+    getKoeficient: function getKoeficient(state) {
+      return state.koeficient;
+    },
+    getZalog: function getZalog(state) {
+      return state.zalog;
+    },
+    getBet: function getBet(state) {
+      return state.bet;
+    },
+    getBets: function getBets(state) {
+      return state.bets;
+    },
+    getHeaders: function getHeaders(state) {
+      return state.headers;
+    },
+    getWin: function getWin(state) {
+      return state.win;
+    },
+    getStatus: function getStatus(state) {
+      return state.status;
+    }
   },
-  saveSport: function saveSport(_ref4, param) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      var commit, state, response, newSport, _newSport;
+  actions: {
+    clickLogout: function clickLogout() {
+      document.getElementById("logout-form").submit();
+    },
+    fetchData: function fetchData(_ref) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit, responseSports, sports, responseEvents, events, responseBets, bets;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/sports");
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              commit = _ref4.commit, state = _ref4.state;
-              response = null;
+              case 3:
+                responseSports = _context.sent;
+                sports = responseSports.data.data;
+                commit("setSports", sports);
+                _context.next = 8;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/events");
 
-              if (!param["new"]) {
-                _context2.next = 11;
-                break;
-              }
+              case 8:
+                responseEvents = _context.sent;
+                events = responseEvents.data.data;
+                commit("setEvents", events);
+                _context.next = 13;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/bets");
 
-              _context2.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("api/sport", {
-                sport_id: 0,
-                name: param.name
-              }, {
-                "Content-Type": "application/json; charset=utf-8"
-              });
+              case 13:
+                responseBets = _context.sent;
+                bets = responseBets.data.data;
+                commit("setBets", bets);
 
-            case 5:
-              response = _context2.sent;
-              newSport = {
-                id: response.data.data.id,
-                name: response.data.data.name
-              };
-              state.sports.unshift(newSport);
-              commit("setSport", newSport);
-              _context2.next = 17;
-              break;
-
-            case 11:
-              _context2.next = 13;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("api/sport", {
-                sport_id: state.sport.id,
-                name: param.name
-              }, {
-                "Content-Type": "application/json; charset=utf-8"
-              });
-
-            case 13:
-              response = _context2.sent;
-              _newSport = {
-                id: response.data.data.id,
-                name: response.data.data.name
-              };
-              state.sports.find(function (s) {
-                return s.id === _newSport.id;
-              }).name = _newSport.name;
-              commit("setSport", _newSport);
-
-            case 17:
-            case "end":
-              return _context2.stop();
+              case 16:
+              case "end":
+                return _context.stop();
+            }
           }
-        }
-      }, _callee2);
-    }))();
-  },
-  saveEvent: function saveEvent(_ref5, param) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var commit, state, response, newEvent, _newEvent;
+        }, _callee);
+      }))();
+    },
+    changeSport: function changeSport(_ref2, sport) {
+      var commit = _ref2.commit;
+      commit("setSport", sport);
+      commit("setEvent", {
+        id: 0,
+        sport_id: 0,
+        name: ""
+      });
+    },
+    changeEvent: function changeEvent(_ref3, event) {
+      var commit = _ref3.commit;
+      commit("setEvent", event);
+    },
+    saveSport: function saveSport(_ref4, param) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit, state, response, newSport, _newSport;
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              commit = _ref5.commit, state = _ref5.state;
-              response = null;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref4.commit, state = _ref4.state;
+                response = null;
 
-              if (!param["new"]) {
-                _context3.next = 11;
+                if (!param["new"]) {
+                  _context2.next = 11;
+                  break;
+                }
+
+                _context2.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("api/sport", {
+                  sport_id: 0,
+                  name: param.name
+                }, {
+                  "Content-Type": "application/json; charset=utf-8"
+                });
+
+              case 5:
+                response = _context2.sent;
+                newSport = {
+                  id: response.data.data.id,
+                  name: response.data.data.name
+                };
+                state.sports.unshift(newSport);
+                commit("setSport", newSport);
+                _context2.next = 17;
                 break;
-              }
 
-              _context3.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("api/event", {
-                event_id: 0,
-                sport_id: state.sport.id,
-                name: param.name
-              }, {
-                "Content-Type": "application/json; charset=utf-8"
-              });
+              case 11:
+                _context2.next = 13;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.put("api/sport", {
+                  sport_id: state.sport.id,
+                  name: param.name
+                }, {
+                  "Content-Type": "application/json; charset=utf-8"
+                });
 
-            case 5:
-              response = _context3.sent;
-              newEvent = {
-                id: response.data.data.id,
-                sport_id: response.data.data.sport_id,
-                name: response.data.data.name
-              };
-              state.events.unshift(newEvent);
-              commit("setEvent", newEvent);
-              _context3.next = 17;
-              break;
+              case 13:
+                response = _context2.sent;
+                _newSport = {
+                  id: response.data.data.id,
+                  name: response.data.data.name
+                };
+                state.sports.find(function (s) {
+                  return s.id === _newSport.id;
+                }).name = _newSport.name;
+                commit("setSport", _newSport);
 
-            case 11:
-              _context3.next = 13;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("api/event", {
-                event_id: state.event.id,
-                sport_id: state.sport.id,
-                name: param.name
-              }, {
-                "Content-Type": "application/json; charset=utf-8"
-              });
-
-            case 13:
-              response = _context3.sent;
-              _newEvent = {
-                id: response.data.data.id,
-                sport_id: response.data.sport_id,
-                name: response.data.data.name
-              };
-              state.events.find(function (e) {
-                return e.id === _newEvent.id;
-              }).name = _newEvent.name;
-              commit("setEvent", _newEvent);
-
-            case 17:
-            case "end":
-              return _context3.stop();
+              case 17:
+              case "end":
+                return _context2.stop();
+            }
           }
-        }
-      }, _callee3);
-    }))();
-  },
-  deleteSport: function deleteSport(_ref6) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      var commit, state, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              commit = _ref6.commit, state = _ref6.state;
+        }, _callee2);
+      }))();
+    },
+    saveEvent: function saveEvent(_ref5, param) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var commit, state, response, newEvent, _newEvent;
 
-              if (!(state.sport.id != 0)) {
-                _context4.next = 7;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref5.commit, state = _ref5.state;
+                response = null;
+
+                if (!param["new"]) {
+                  _context3.next = 11;
+                  break;
+                }
+
+                _context3.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("api/event", {
+                  event_id: 0,
+                  sport_id: state.sport.id,
+                  name: param.name
+                }, {
+                  "Content-Type": "application/json; charset=utf-8"
+                });
+
+              case 5:
+                response = _context3.sent;
+                newEvent = {
+                  id: response.data.data.id,
+                  sport_id: response.data.data.sport_id,
+                  name: response.data.data.name
+                };
+                state.events.unshift(newEvent);
+                commit("setEvent", newEvent);
+                _context3.next = 17;
                 break;
-              }
 
-              _context4.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("api/sport/" + state.sport.id);
+              case 11:
+                _context3.next = 13;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.put("api/event", {
+                  event_id: state.event.id,
+                  sport_id: state.sport.id,
+                  name: param.name
+                }, {
+                  "Content-Type": "application/json; charset=utf-8"
+                });
 
-            case 4:
-              response = _context4.sent;
-              commit("setSports", state.sports.filter(function (s) {
-                return s.id !== response.data.data.id;
-              }));
-              commit("setSport", {
-                id: 0,
-                name: ""
-              });
+              case 13:
+                response = _context3.sent;
+                _newEvent = {
+                  id: response.data.data.id,
+                  sport_id: response.data.sport_id,
+                  name: response.data.data.name
+                };
+                state.events.find(function (e) {
+                  return e.id === _newEvent.id;
+                }).name = _newEvent.name;
+                commit("setEvent", _newEvent);
 
-            case 7:
-            case "end":
-              return _context4.stop();
+              case 17:
+              case "end":
+                return _context3.stop();
+            }
           }
-        }
-      }, _callee4);
-    }))();
-  },
-  deleteEvent: function deleteEvent(_ref7) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var commit, state, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              commit = _ref7.commit, state = _ref7.state;
+        }, _callee3);
+      }))();
+    },
+    deleteSport: function deleteSport(_ref6) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit, state, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref6.commit, state = _ref6.state;
 
-              if (!(state.event.id != 0)) {
-                _context5.next = 7;
-                break;
-              }
+                if (!(state.sport.id != 0)) {
+                  _context4.next = 7;
+                  break;
+                }
 
-              _context5.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("api/event/" + state.event.id);
+                _context4.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"]("api/sport/" + state.sport.id);
 
-            case 4:
-              response = _context5.sent;
-              commit("setEvents", state.events.filter(function (e) {
-                return e.id !== response.data.data.id;
-              }));
-              commit("setEvent", {
-                id: 0,
-                sport_id: 0,
-                name: ""
-              });
+              case 4:
+                response = _context4.sent;
+                commit("setSports", state.sports.filter(function (s) {
+                  return s.id !== response.data.data.id;
+                }));
+                commit("setSport", {
+                  id: 0,
+                  name: ""
+                });
 
-            case 7:
-            case "end":
-              return _context5.stop();
+              case 7:
+              case "end":
+                return _context4.stop();
+            }
           }
-        }
-      }, _callee5);
-    }))();
+        }, _callee4);
+      }))();
+    },
+    deleteEvent: function deleteEvent(_ref7) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit, state, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref7.commit, state = _ref7.state;
+
+                if (!(state.event.id != 0)) {
+                  _context5.next = 7;
+                  break;
+                }
+
+                _context5.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"]("api/event/" + state.event.id);
+
+              case 4:
+                response = _context5.sent;
+                commit("setEvents", state.events.filter(function (e) {
+                  return e.id !== response.data.data.id;
+                }));
+                commit("setEvent", {
+                  id: 0,
+                  sport_id: 0,
+                  name: ""
+                });
+
+              case 7:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    changeKoeficient: function changeKoeficient(_ref8, koeficient) {
+      var commit = _ref8.commit;
+      commit("setKoeficient", koeficient);
+    },
+    clearKoeficient: function clearKoeficient(_ref9) {
+      var commit = _ref9.commit;
+      commit("setKoeficient", 1);
+    },
+    changeZalog: function changeZalog(_ref10, zalog) {
+      var commit = _ref10.commit;
+      commit("setZalog", zalog);
+    },
+    clearZalog: function clearZalog(_ref11) {
+      var commit = _ref11.commit;
+      commit("setZalog", 0);
+    }
   },
-  changeKoeficient: function changeKoeficient(_ref8, koeficient) {
-    var commit = _ref8.commit;
-    commit("setKoeficient", koeficient);
-  },
-  clearKoeficient: function clearKoeficient(_ref9) {
-    var commit = _ref9.commit;
-    commit("setKoeficient", 1);
-  },
-  changeZalog: function changeZalog(_ref10, zalog) {
-    var commit = _ref10.commit;
-    commit("setZalog", zalog);
-  },
-  clearZalog: function clearZalog(_ref11) {
-    var commit = _ref11.commit;
-    commit("setZalog", 0);
+  mutations: {
+    setSport: function setSport(state, sport) {
+      return state.sport = sport;
+    },
+    setSports: function setSports(state, sports) {
+      return state.sports = sports;
+    },
+    setEvent: function setEvent(state, event) {
+      return state.event = event;
+    },
+    setEvents: function setEvents(state, events) {
+      return state.events = events;
+    },
+    setKoeficient: function setKoeficient(state, koeficient) {
+      return state.koeficient = koeficient;
+    },
+    setZalog: function setZalog(state, zalog) {
+      return state.zalog = zalog;
+    },
+    setBet: function setBet(state, bet) {
+      return state.bet = bet;
+    },
+    setBets: function setBets(state, bets) {
+      return state.bets = bets;
+    },
+    setWin: function setWin(state, win) {
+      return state.win = win;
+    },
+    setStatus: function setStatus(state, status) {
+      return state.status = status;
+    }
   }
-};
-var mutations = {
-  setSport: function setSport(state, sport) {
-    return state.sport = sport;
-  },
-  setSports: function setSports(state, sports) {
-    return state.sports = sports;
-  },
-  setEvent: function setEvent(state, event) {
-    return state.event = event;
-  },
-  setEvents: function setEvents(state, events) {
-    return state.events = events;
-  },
-  setKoeficient: function setKoeficient(state, koeficient) {
-    return state.koeficient = koeficient;
-  },
-  setZalog: function setZalog(state, zalog) {
-    return state.zalog = zalog;
-  },
-  setBet: function setBet(state, bet) {
-    return state.bet = bet;
-  },
-  setBets: function setBets(state, bets) {
-    return state.bets = bets;
-  },
-  setWin: function setWin(state, win) {
-    return state.win = win;
-  },
-  setStatus: function setStatus(state, status) {
-    return state.status = status;
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = ({
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-});
+}));
 
 /***/ }),
 
