@@ -2420,8 +2420,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2439,7 +2437,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialogEventDelete: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getBets", "getHeaders"])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getBets", "getHeaders"])), {}, {
+    sports: {
+      get: function get() {
+        return this.$store.state.sports;
+      }
+    },
+    events: {
+      get: function get() {
+        return this.$store.state.events;
+      }
+    },
     sport: {
       get: function get() {
         return this.$store.state.sport;
@@ -21772,7 +21780,7 @@ var render = function() {
                     [
                       _c("v-select", {
                         attrs: {
-                          items: _vm.getSports,
+                          items: _vm.sports,
                           "item-value": "id",
                           "item-text": "name",
                           label: "Sport",
@@ -22067,7 +22075,7 @@ var render = function() {
                     [
                       _c("v-select", {
                         attrs: {
-                          items: _vm.getEvents.filter(function(e) {
+                          items: _vm.events.filter(function(e) {
                             return e.sport_id == _vm.sport.id
                           }),
                           "item-value": "id",
@@ -22600,10 +22608,10 @@ var render = function() {
                         attrs: {
                           headers: _vm.getHeaders,
                           items: _vm.getBets.map(function(row) {
-                            var sid = _vm.getSports.find(function(s) {
+                            var sid = _vm.sports.find(function(s) {
                               return s.id == row.sport_id
                             })
-                            var eid = _vm.getEvents.find(function(e) {
+                            var eid = _vm.events.find(function(e) {
                               return e.id == row.event_id
                             })
                             if (sid != undefined) {

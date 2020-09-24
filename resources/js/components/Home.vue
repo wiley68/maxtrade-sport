@@ -5,7 +5,7 @@
                 <v-row>
                     <v-col class="d-flex" cols="6">
                         <v-select
-                            :items="getSports"
+                            :items="sports"
                             item-value="id"
                             item-text="name"
                             label="Sport"
@@ -132,9 +132,7 @@
                     </v-col>
                     <v-col class="d-flex" cols="6">
                         <v-select
-                            :items="
-                                getEvents.filter(e => e.sport_id == sport.id)
-                            "
+                            :items="events.filter(e => e.sport_id == sport.id)"
                             item-value="id"
                             item-text="name"
                             label="Event"
@@ -361,10 +359,10 @@
                             :headers="getHeaders"
                             :items="
                                 getBets.map(row => {
-                                    const sid = getSports.find(
+                                    const sid = sports.find(
                                         s => s.id == row.sport_id
                                     );
-                                    const eid = getEvents.find(
+                                    const eid = events.find(
                                         e => e.id == row.event_id
                                     );
                                     if (sid != undefined) {
@@ -411,7 +409,17 @@ export default {
     },
 
     computed: {
-        ...mapGetters(["getSports", "getEvents", "getBets", "getHeaders"]),
+        ...mapGetters(["getBets", "getHeaders"]),
+        sports: {
+            get() {
+                return this.$store.state.sports;
+            }
+        },
+        events: {
+            get() {
+                return this.$store.state.events;
+            }
+        },
         sport: {
             get() {
                 return this.$store.state.sport;
