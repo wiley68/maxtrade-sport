@@ -2437,7 +2437,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialogEventDelete: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getBets", "getHeaders"])), {}, {
+  computed: {
+    headers: {
+      get: function get() {
+        return this.$store.state.headers;
+      }
+    },
     sports: {
       get: function get() {
         return this.$store.state.sports;
@@ -2446,6 +2451,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     events: {
       get: function get() {
         return this.$store.state.events;
+      }
+    },
+    bets: {
+      get: function get() {
+        return this.$store.state.bets;
       }
     },
     sport: {
@@ -2517,7 +2527,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
     }
-  }),
+  },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["saveSport", "saveEvent", "deleteSport", "deleteEvent"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       if (isNew) {
@@ -22606,8 +22616,8 @@ var render = function() {
                         staticClass: "elevation-1",
                         staticStyle: { width: "100%" },
                         attrs: {
-                          headers: _vm.getHeaders,
-                          items: _vm.getBets.map(function(row) {
+                          headers: _vm.headers,
+                          items: _vm.bets.map(function(row) {
                             var sid = _vm.sports.find(function(s) {
                               return s.id == row.sport_id
                             })

@@ -356,9 +356,9 @@
                     <v-col class="d-flex" cols="12">
                         <v-data-table
                             style="width:100%;"
-                            :headers="getHeaders"
+                            :headers="headers"
                             :items="
-                                getBets.map(row => {
+                                bets.map(row => {
                                     const sid = sports.find(
                                         s => s.id == row.sport_id
                                     );
@@ -409,7 +409,11 @@ export default {
     },
 
     computed: {
-        ...mapGetters(["getBets", "getHeaders"]),
+        headers: {
+            get() {
+                return this.$store.state.headers;
+            }
+        },
         sports: {
             get() {
                 return this.$store.state.sports;
@@ -418,6 +422,11 @@ export default {
         events: {
             get() {
                 return this.$store.state.events;
+            }
+        },
+        bets: {
+            get() {
+                return this.$store.state.bets;
             }
         },
         sport: {
