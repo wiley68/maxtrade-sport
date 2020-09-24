@@ -2422,8 +2422,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2441,7 +2439,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialogEventDelete: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getSport", "getEvent", "getBets", "getHeaders"])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["getSports", "getEvents", "getBets", "getHeaders"])), {}, {
+    sport: {
+      get: function get() {
+        return this.$store.state.sport;
+      },
+      set: function set(value) {
+        this.$store.commit("setSport", value);
+        this.$store.commit("setEvent", {
+          id: 0,
+          sport_id: 0,
+          name: ""
+        });
+      }
+    },
+    event: {
+      get: function get() {
+        return this.$store.state.event;
+      },
+      set: function set(value) {
+        this.$store.commit("setEvent", value);
+      }
+    },
     koeficient: {
       get: function get() {
         return this.$store.state.koeficient;
@@ -2491,12 +2510,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["changeSport", "changeEvent", "saveSport", "saveEvent", "deleteSport", "deleteEvent"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["saveSport", "saveEvent", "deleteSport", "deleteEvent"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       if (isNew) {
         this.sportName = "";
       } else {
-        this.sportName = this.getSport.name;
+        this.sportName = this.sport.name;
       }
 
       this.newSport = isNew;
@@ -2506,7 +2525,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (isNew) {
         this.eventName = "";
       } else {
-        this.eventName = this.getEvent.name;
+        this.eventName = this.event.name;
       }
 
       this.newEvent = isNew;
@@ -21761,10 +21780,15 @@ var render = function() {
                           "no-data-text": "Choose Sport...",
                           placeholder: "Choose Sport...",
                           "prepend-inner-icon": "mdi-soccer-field",
-                          "return-object": "",
-                          value: _vm.getSport
+                          "return-object": ""
                         },
-                        on: { change: _vm.changeSport }
+                        model: {
+                          value: _vm.sport,
+                          callback: function($$v) {
+                            _vm.sport = $$v
+                          },
+                          expression: "sport"
+                        }
                       })
                     ],
                     1
@@ -21921,7 +21945,7 @@ var render = function() {
                               _c("v-card-text", [
                                 _vm._v(
                                   "\n                                Do you agree that the sport\n                                " +
-                                    _vm._s(_vm.getSport.name) +
+                                    _vm._s(_vm.sport.name) +
                                     " should be deleted?\n                            "
                                 )
                               ]),
@@ -21994,7 +22018,7 @@ var render = function() {
                             fab: "",
                             small: "",
                             color: "success",
-                            disabled: _vm.getSport.id == 0
+                            disabled: _vm.sport.id == 0
                           },
                           on: {
                             click: function($event) {
@@ -22018,7 +22042,7 @@ var render = function() {
                             fab: "",
                             small: "",
                             color: "error",
-                            disabled: _vm.getSport.id == 0
+                            disabled: _vm.sport.id == 0
                           },
                           on: {
                             click: function($event) {
@@ -22044,7 +22068,7 @@ var render = function() {
                       _c("v-select", {
                         attrs: {
                           items: _vm.getEvents.filter(function(e) {
-                            return e.sport_id == _vm.getSport.id
+                            return e.sport_id == _vm.sport.id
                           }),
                           "item-value": "id",
                           "item-text": "name",
@@ -22053,10 +22077,15 @@ var render = function() {
                           "no-data-text": "Choose Event...",
                           placeholder: "Choose Event...",
                           "prepend-inner-icon": "mdi-calendar",
-                          "return-object": "",
-                          value: _vm.getEvent
+                          "return-object": ""
                         },
-                        on: { change: _vm.changeEvent }
+                        model: {
+                          value: _vm.event,
+                          callback: function($$v) {
+                            _vm.event = $$v
+                          },
+                          expression: "event"
+                        }
                       })
                     ],
                     1
@@ -22213,7 +22242,7 @@ var render = function() {
                               _c("v-card-text", [
                                 _vm._v(
                                   "\n                                Do you agree that the event\n                                " +
-                                    _vm._s(_vm.getEvent.name) +
+                                    _vm._s(_vm.event.name) +
                                     " should be deleted?\n                            "
                                 )
                               ]),
@@ -22267,7 +22296,7 @@ var render = function() {
                             fab: "",
                             small: "",
                             color: "primary",
-                            disabled: _vm.getSport.id == 0
+                            disabled: _vm.sport.id == 0
                           },
                           on: {
                             click: function($event) {
@@ -22291,7 +22320,7 @@ var render = function() {
                             fab: "",
                             small: "",
                             color: "success",
-                            disabled: _vm.getEvent.id == 0
+                            disabled: _vm.event.id == 0
                           },
                           on: {
                             click: function($event) {
@@ -22315,7 +22344,7 @@ var render = function() {
                             fab: "",
                             small: "",
                             color: "error",
-                            disabled: _vm.getEvent.id == 0
+                            disabled: _vm.event.id == 0
                           },
                           on: {
                             click: function($event) {
@@ -22485,8 +22514,8 @@ var render = function() {
                           attrs: {
                             color: "primary",
                             disabled:
-                              _vm.getSport.id == 0 ||
-                              _vm.getEvent.id == 0 ||
+                              _vm.sport.id == 0 ||
+                              _vm.event.id == 0 ||
                               _vm.koeficient <= 1 ||
                               _vm.zalog <= 0
                           }
@@ -22508,8 +22537,8 @@ var render = function() {
                             color: "success",
                             disabled:
                               _vm.newBet ||
-                              _vm.getSport.id == 0 ||
-                              _vm.getEvent.id == 0 ||
+                              _vm.sport.id == 0 ||
+                              _vm.event.id == 0 ||
                               _vm.koeficient <= 1 ||
                               _vm.zalog <= 0
                           }
@@ -80212,20 +80241,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee);
       }))();
     },
-    changeSport: function changeSport(_ref2, sport) {
-      var commit = _ref2.commit;
-      commit("setSport", sport);
-      commit("setEvent", {
-        id: 0,
-        sport_id: 0,
-        name: ""
-      });
-    },
-    changeEvent: function changeEvent(_ref3, event) {
-      var commit = _ref3.commit;
-      commit("setEvent", event);
-    },
-    saveSport: function saveSport(_ref4, param) {
+    saveSport: function saveSport(_ref2, param) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var commit, state, response, newSport, _newSport;
 
@@ -80233,7 +80249,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                commit = _ref4.commit, state = _ref4.state;
+                commit = _ref2.commit, state = _ref2.state;
                 response = null;
 
                 if (!param["new"]) {
@@ -80288,7 +80304,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee2);
       }))();
     },
-    saveEvent: function saveEvent(_ref5, param) {
+    saveEvent: function saveEvent(_ref3, param) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var commit, state, response, newEvent, _newEvent;
 
@@ -80296,7 +80312,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                commit = _ref5.commit, state = _ref5.state;
+                commit = _ref3.commit, state = _ref3.state;
                 response = null;
 
                 if (!param["new"]) {
@@ -80355,14 +80371,14 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee3);
       }))();
     },
-    deleteSport: function deleteSport(_ref6) {
+    deleteSport: function deleteSport(_ref4) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         var commit, state, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                commit = _ref6.commit, state = _ref6.state;
+                commit = _ref4.commit, state = _ref4.state;
 
                 if (!(state.sport.id != 0)) {
                   _context4.next = 7;
@@ -80390,14 +80406,14 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }, _callee4);
       }))();
     },
-    deleteEvent: function deleteEvent(_ref7) {
+    deleteEvent: function deleteEvent(_ref5) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         var commit, state, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                commit = _ref7.commit, state = _ref7.state;
+                commit = _ref5.commit, state = _ref5.state;
 
                 if (!(state.event.id != 0)) {
                   _context5.next = 7;

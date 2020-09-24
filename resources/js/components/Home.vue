@@ -14,8 +14,7 @@
                             placeholder="Choose Sport..."
                             prepend-inner-icon="mdi-soccer-field"
                             return-object
-                            :value="getSport"
-                            @change="changeSport"
+                            v-model="sport"
                         ></v-select>
                     </v-col>
                     <v-col class="d-flex" cols="6">
@@ -81,7 +80,7 @@
                                 >
                                 <v-card-text>
                                     Do you agree that the sport
-                                    {{ getSport.name }} should be deleted?
+                                    {{ sport.name }} should be deleted?
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
@@ -115,7 +114,7 @@
                             fab
                             small
                             color="success"
-                            :disabled="getSport.id == 0"
+                            :disabled="sport.id == 0"
                             @click="openSportDialog(false)"
                         >
                             <v-icon dark>mdi-pencil-outline</v-icon>
@@ -125,7 +124,7 @@
                             fab
                             small
                             color="error"
-                            :disabled="getSport.id == 0"
+                            :disabled="sport.id == 0"
                             @click="dialogSportDelete = true"
                         >
                             <v-icon dark>mdi-delete</v-icon>
@@ -134,7 +133,7 @@
                     <v-col class="d-flex" cols="6">
                         <v-select
                             :items="
-                                getEvents.filter(e => e.sport_id == getSport.id)
+                                getEvents.filter(e => e.sport_id == sport.id)
                             "
                             item-value="id"
                             item-text="name"
@@ -144,8 +143,7 @@
                             placeholder="Choose Event..."
                             prepend-inner-icon="mdi-calendar"
                             return-object
-                            :value="getEvent"
-                            @change="changeEvent"
+                            v-model="event"
                         ></v-select>
                     </v-col>
                     <v-col class="d-flex" cols="6">
@@ -211,7 +209,7 @@
                                 >
                                 <v-card-text>
                                     Do you agree that the event
-                                    {{ getEvent.name }} should be deleted?
+                                    {{ event.name }} should be deleted?
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
@@ -237,7 +235,7 @@
                             small
                             color="primary"
                             @click="openEventDialog(true)"
-                            :disabled="getSport.id == 0"
+                            :disabled="sport.id == 0"
                         >
                             <v-icon dark>mdi-playlist-plus</v-icon>
                         </v-btn>
@@ -246,7 +244,7 @@
                             fab
                             small
                             color="success"
-                            :disabled="getEvent.id == 0"
+                            :disabled="event.id == 0"
                             @click="openEventDialog(false)"
                         >
                             <v-icon dark>mdi-pencil-outline</v-icon>
@@ -256,7 +254,7 @@
                             fab
                             small
                             color="error"
-                            :disabled="getEvent.id == 0"
+                            :disabled="event.id == 0"
                             @click="dialogEventDelete = true"
                         >
                             <v-icon dark>mdi-delete</v-icon>
@@ -325,8 +323,8 @@
                             color="primary"
                             class="mr-1"
                             :disabled="
-                                getSport.id == 0 ||
-                                    getEvent.id == 0 ||
+                                sport.id == 0 ||
+                                    event.id == 0 ||
                                     koeficient <= 1 ||
                                     zalog <= 0
                             "
@@ -338,8 +336,8 @@
                             class="mr-1"
                             :disabled="
                                 newBet ||
-                                    getSport.id == 0 ||
-                                    getEvent.id == 0 ||
+                                    sport.id == 0 ||
+                                    event.id == 0 ||
                                     koeficient <= 1 ||
                                     zalog <= 0
                             "
@@ -413,14 +411,28 @@ export default {
     },
 
     computed: {
-        ...mapGetters([
-            "getSports",
-            "getEvents",
-            "getSport",
-            "getEvent",
-            "getBets",
-            "getHeaders"
-        ]),
+        ...mapGetters(["getSports", "getEvents", "getBets", "getHeaders"]),
+        sport: {
+            get() {
+                return this.$store.state.sport;
+            },
+            set(value) {
+                this.$store.commit("setSport", value);
+                this.$store.commit("setEvent", {
+                    id: 0,
+                    sport_id: 0,
+                    name: ""
+                });
+            }
+        },
+        event: {
+            get() {
+                return this.$store.state.event;
+            },
+            set(value) {
+                this.$store.commit("setEvent", value);
+            }
+        },
         koeficient: {
             get() {
                 return this.$store.state.koeficient;
@@ -472,19 +484,12 @@ export default {
     },
 
     methods: {
-        ...mapActions([
-            "changeSport",
-            "changeEvent",
-            "saveSport",
-            "saveEvent",
-            "deleteSport",
-            "deleteEvent"
-        ]),
+        ...mapActions(["saveSport", "saveEvent", "deleteSport", "deleteEvent"]),
         openSportDialog(isNew) {
             if (isNew) {
                 this.sportName = "";
             } else {
-                this.sportName = this.getSport.name;
+                this.sportName = this.sport.name;
             }
             this.newSport = isNew;
             this.dialogSport = true;
@@ -493,7 +498,7 @@ export default {
             if (isNew) {
                 this.eventName = "";
             } else {
-                this.eventName = this.getEvent.name;
+                this.eventName = this.event.name;
             }
             this.newEvent = isNew;
             this.dialogEvent = true;

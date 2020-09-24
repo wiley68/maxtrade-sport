@@ -67,13 +67,6 @@ export default new Vuex.Store({
             const bets = responseBets.data.data;
             commit("setBets", bets);
         },
-        changeSport({ commit }, sport) {
-            commit("setSport", sport);
-            commit("setEvent", { id: 0, sport_id: 0, name: "" });
-        },
-        changeEvent({ commit }, event) {
-            commit("setEvent", event);
-        },
         async saveSport({ commit, state }, param) {
             let response = null;
             if (param.new) {
