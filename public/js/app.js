@@ -2462,6 +2462,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -22834,7 +22835,7 @@ var render = function() {
                               headers: _vm.headers,
                               loading: _vm.loading,
                               items: _vm.bets,
-                              "items-per-page": 5,
+                              "items-per-page": 10,
                               "item-key": "id",
                               "single-select": "",
                               search: _vm.search

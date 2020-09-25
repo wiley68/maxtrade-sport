@@ -411,14 +411,15 @@
                                 :headers="headers"
                                 :loading="loading"
                                 :items="bets"
-                                :items-per-page="5"
+                                :items-per-page="10"
                                 item-key="id"
                                 class="elevation-1"
                                 single-select
                                 @click:row="rowClick"
                                 v-model="bet"
                                 :search="search"
-                            ></v-data-table>
+                            >
+                            </v-data-table>
                         </v-card>
                     </v-col>
                 </v-row>
