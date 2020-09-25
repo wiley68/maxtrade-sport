@@ -80164,6 +80164,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -80345,7 +80347,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     saveEvent: function saveEvent(_ref3, param) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var commit, state, response, newEvent, _newEvent;
+        var commit, state, response, _newEvent, _newEvent2;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
@@ -80372,13 +80374,13 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
               case 6:
                 response = _context3.sent;
-                newEvent = {
+                _newEvent = {
                   id: response.data.data.id,
                   sport_id: response.data.data.sport_id,
                   name: response.data.data.name
                 };
-                state.events.unshift(newEvent);
-                commit("setEvent", newEvent);
+                state.events.unshift(_newEvent);
+                commit("setEvent", _newEvent);
                 commit("setLoading", false);
                 _context3.next = 21;
                 break;
@@ -80397,15 +80399,15 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
               case 16:
                 response = _context3.sent;
-                _newEvent = {
+                _newEvent2 = {
                   id: response.data.data.id,
                   sport_id: response.data.sport_id,
                   name: response.data.data.name
                 };
                 state.events.find(function (e) {
-                  return e.id === _newEvent.id;
-                }).name = _newEvent.name;
-                commit("setEvent", _newEvent);
+                  return e.id === _newEvent2.id;
+                }).name = _newEvent2.name;
+                commit("setEvent", _newEvent2);
                 commit("setLoading", false);
 
               case 21:
@@ -80493,7 +80495,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     saveBet: function saveBet(_ref6, param) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
-        var commit, state, response, newBet, betarr, newEvent;
+        var commit, state, response, newBet, betarr, firstBet, _newBet;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
@@ -80537,35 +80540,46 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                 betarr.unshift(newBet);
                 commit("setBet", betarr);
                 commit("setLoading", false);
-                _context6.next = 23;
+                _context6.next = 24;
                 break;
 
               case 15:
-                // edit event
+                // edit bet
                 commit("setLoading", true);
-                _context6.next = 18;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.put("api/event", {
-                  event_id: state.event.id,
+                firstBet = bet.filter(function (b) {
+                  return _typeof(b) !== undefined;
+                }).shift();
+                _context6.next = 19;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.put("api/bet", {
+                  bet_id: firstBet.id,
                   sport_id: state.sport.id,
-                  name: param.name
+                  event_id: state.event.id,
+                  koeficient: state.koeficient,
+                  zalog: state.zalog,
+                  status: state.status,
+                  win: state.win
                 }, {
                   "Content-Type": "application/json; charset=utf-8"
                 });
 
-              case 18:
+              case 19:
                 response = _context6.sent;
-                newEvent = {
+                _newBet = {
                   id: response.data.data.id,
-                  sport_id: response.data.sport_id,
-                  name: response.data.data.name
+                  sport_id: response.data.data.sport_id,
+                  event_id: response.data.data.event_id,
+                  koeficient: response.data.data.koeficient,
+                  zalog: response.data.data.zalog,
+                  status: response.data.data.status,
+                  win: response.data.data.win
                 };
-                state.events.find(function (e) {
-                  return e.id === newEvent.id;
+                state.bets.find(function (b) {
+                  return b.id === newEvent.id;
                 }).name = newEvent.name;
                 commit("setEvent", newEvent);
                 commit("setLoading", false);
 
-              case 23:
+              case 24:
               case "end":
                 return _context6.stop();
             }

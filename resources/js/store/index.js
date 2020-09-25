@@ -210,24 +210,34 @@ export default new Vuex.Store({
                 commit("setBet", betarr);
                 commit("setLoading", false);
             } else {
-                // edit event
+                // edit bet
                 commit("setLoading", true);
+                const firstBet = bet
+                    .filter(b => typeof b !== undefined)
+                    .shift();
                 response = await axios.put(
-                    "api/event",
+                    "api/bet",
                     {
-                        event_id: state.event.id,
+                        bet_id: firstBet.id,
                         sport_id: state.sport.id,
-                        name: param.name
+                        event_id: state.event.id,
+                        koeficient: state.koeficient,
+                        zalog: state.zalog,
+                        status: state.status,
+                        win: state.win
                     },
                     { "Content-Type": "application/json; charset=utf-8" }
                 );
-                const newEvent = {
+                const newBet = {
                     id: response.data.data.id,
-                    sport_id: response.data.sport_id,
-                    name: response.data.data.name
+                    sport_id: response.data.data.sport_id,
+                    event_id: response.data.data.event_id,
+                    koeficient: response.data.data.koeficient,
+                    zalog: response.data.data.zalog,
+                    status: response.data.data.status,
+                    win: response.data.data.win
                 };
-                state.events.find(e => e.id === newEvent.id).name =
-                    newEvent.name;
+                state.bets.find(b => b.id === newEvent.id).name = newEvent.name;
                 commit("setEvent", newEvent);
                 commit("setLoading", false);
             }
