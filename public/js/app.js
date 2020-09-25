@@ -2449,6 +2449,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2460,7 +2473,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       eventName: "",
       dialogSportDelete: false,
       dialogEventDelete: false,
-      dialogBetDelete: false
+      dialogBetDelete: false,
+      search: ""
     };
   },
   computed: {
@@ -2522,20 +2536,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       },
       set: function set(value) {
         this.$store.commit("setBet", value);
-        var firstItem = value.filter(function (x) {
-          return _typeof(x) !== undefined;
-        }).shift();
-        this.sport = this.sports.find(function (s) {
-          return s.id == firstItem.sport_id;
-        });
-        this.event = this.events.find(function (e) {
-          return e.id == firstItem.event_id;
-        });
-        this.koeficient = firstItem.koeficient;
-        this.zalog = firstItem.zalog;
-        this.win = firstItem.win == 1;
-        this.status = firstItem.status == 1;
-        this.new_bet = false;
+
+        if (Array.isArray(value) && value.length) {
+          var firstItem = value.filter(function (x) {
+            return _typeof(x) !== undefined;
+          }).shift();
+          this.sport = this.sports.find(function (s) {
+            return s.id == firstItem.sport_id;
+          });
+          this.event = this.events.find(function (e) {
+            return e.id == firstItem.event_id;
+          });
+          this.koeficient = firstItem.koeficient;
+          this.zalog = firstItem.zalog;
+          this.win = firstItem.win == 1;
+          this.status = firstItem.status == 1;
+          this.new_bet = false;
+        }
       }
     },
     sport: {
@@ -2608,7 +2625,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
     }
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["saveSport", "saveEvent", "deleteSport", "deleteEvent", "saveBet", "deleteBet"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["saveSport", "saveEvent", "deleteSport", "deleteEvent", "saveBet", "deleteBet", "clearAll"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       if (isNew) {
         this.sportName = "";
@@ -2630,7 +2647,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       this.dialogEvent = true;
     },
     rowClick: function rowClick(item, row) {
-      row.select(true);
+      if (row.isSelected) {
+        this.clearAll();
+        row.select(false);
+      } else {
+        row.select(true);
+      }
     }
   })
 });
@@ -22041,9 +22063,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("v-card-text", [
                                 _vm._v(
-                                  "\n                                Do you agree that the sport\n                                " +
-                                    _vm._s(_vm.sport.name) +
-                                    " should be deleted?\n                            "
+                                  "\n                                Do you agree that the sport should be\n                                deleted?\n                            "
                                 )
                               ]),
                               _vm._v(" "),
@@ -22777,26 +22797,60 @@ var render = function() {
                     "v-col",
                     { staticClass: "d-flex", attrs: { cols: "12" } },
                     [
-                      _c("v-data-table", {
-                        staticClass: "elevation-1",
-                        staticStyle: { width: "100%" },
-                        attrs: {
-                          headers: _vm.headers,
-                          loading: _vm.loading,
-                          items: _vm.bets,
-                          "items-per-page": 5,
-                          "item-key": "id",
-                          "single-select": ""
-                        },
-                        on: { "click:row": _vm.rowClick },
-                        model: {
-                          value: _vm.bet,
-                          callback: function($$v) {
-                            _vm.bet = $$v
-                          },
-                          expression: "bet"
-                        }
-                      })
+                      _c(
+                        "v-card",
+                        { staticStyle: { width: "100%" } },
+                        [
+                          _c(
+                            "v-card-title",
+                            [
+                              _vm._v(
+                                "\n                            Bets\n                            "
+                              ),
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  "append-icon": "mdi-magnify",
+                                  label: "Search...",
+                                  "single-line": "",
+                                  "hide-details": ""
+                                },
+                                model: {
+                                  value: _vm.search,
+                                  callback: function($$v) {
+                                    _vm.search = $$v
+                                  },
+                                  expression: "search"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-data-table", {
+                            staticClass: "elevation-1",
+                            attrs: {
+                              headers: _vm.headers,
+                              loading: _vm.loading,
+                              items: _vm.bets,
+                              "items-per-page": 5,
+                              "item-key": "id",
+                              "single-select": "",
+                              search: _vm.search
+                            },
+                            on: { "click:row": _vm.rowClick },
+                            model: {
+                              value: _vm.bet,
+                              callback: function($$v) {
+                                _vm.bet = $$v
+                              },
+                              expression: "bet"
+                            }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   )

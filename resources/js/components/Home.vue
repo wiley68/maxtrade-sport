@@ -79,8 +79,8 @@
                                     >Delete?</v-card-title
                                 >
                                 <v-card-text>
-                                    Do you agree that the sport
-                                    {{ sport.name }} should be deleted?
+                                    Do you agree that the sport should be
+                                    deleted?
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
@@ -395,18 +395,31 @@
             <v-col class="d-flex" cols="12" sm="8">
                 <v-row>
                     <v-col class="d-flex" cols="12">
-                        <v-data-table
-                            style="width:100%;"
-                            :headers="headers"
-                            :loading="loading"
-                            :items="bets"
-                            :items-per-page="5"
-                            item-key="id"
-                            class="elevation-1"
-                            single-select
-                            @click:row="rowClick"
-                            v-model="bet"
-                        ></v-data-table>
+                        <v-card style="width:100%;">
+                            <v-card-title>
+                                Bets
+                                <v-spacer></v-spacer>
+                                <v-text-field
+                                    v-model="search"
+                                    append-icon="mdi-magnify"
+                                    label="Search..."
+                                    single-line
+                                    hide-details
+                                ></v-text-field>
+                            </v-card-title>
+                            <v-data-table
+                                :headers="headers"
+                                :loading="loading"
+                                :items="bets"
+                                :items-per-page="5"
+                                item-key="id"
+                                class="elevation-1"
+                                single-select
+                                @click:row="rowClick"
+                                v-model="bet"
+                                :search="search"
+                            ></v-data-table>
+                        </v-card>
                     </v-col>
                 </v-row>
             </v-col>
@@ -428,7 +441,8 @@ export default {
             eventName: "",
             dialogSportDelete: false,
             dialogEventDelete: false,
-            dialogBetDelete: false
+            dialogBetDelete: false,
+            search: ""
         };
     },
 
@@ -491,16 +505,22 @@ export default {
             },
             set(value) {
                 this.$store.commit("setBet", value);
-                const firstItem = value
-                    .filter(x => typeof x !== undefined)
-                    .shift();
-                this.sport = this.sports.find(s => s.id == firstItem.sport_id);
-                this.event = this.events.find(e => e.id == firstItem.event_id);
-                this.koeficient = firstItem.koeficient;
-                this.zalog = firstItem.zalog;
-                this.win = firstItem.win == 1;
-                this.status = firstItem.status == 1;
-                this.new_bet = false;
+                if (Array.isArray(value) && value.length) {
+                    const firstItem = value
+                        .filter(x => typeof x !== undefined)
+                        .shift();
+                    this.sport = this.sports.find(
+                        s => s.id == firstItem.sport_id
+                    );
+                    this.event = this.events.find(
+                        e => e.id == firstItem.event_id
+                    );
+                    this.koeficient = firstItem.koeficient;
+                    this.zalog = firstItem.zalog;
+                    this.win = firstItem.win == 1;
+                    this.status = firstItem.status == 1;
+                    this.new_bet = false;
+                }
             }
         },
         sport: {
@@ -581,7 +601,8 @@ export default {
             "deleteSport",
             "deleteEvent",
             "saveBet",
-            "deleteBet"
+            "deleteBet",
+            "clearAll"
         ]),
         openSportDialog(isNew) {
             if (isNew) {
@@ -602,7 +623,12 @@ export default {
             this.dialogEvent = true;
         },
         rowClick(item, row) {
-            row.select(true);
+            if (row.isSelected) {
+                this.clearAll();
+                row.select(false);
+            } else {
+                row.select(true);
+            }
         }
     }
 };
