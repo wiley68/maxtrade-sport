@@ -2427,7 +2427,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return this.$store.state.loading;
       },
       set: function set(value) {
-        this.$store.state.loading = value;
+        this.$store.commit("setLoading", value);
       }
     },
     new_bet: {
@@ -2435,7 +2435,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return this.$store.state.new_bet;
       },
       set: function set(value) {
-        this.$store.state.new_bet = value;
+        this.$store.commit("setNewBet", value);
       }
     },
     new_event: {
@@ -2443,7 +2443,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return this.$store.state.new_event;
       },
       set: function set(value) {
-        this.$store.state.new_event = value;
+        this.$store.commit("setNewEvent", value);
       }
     },
     new_sport: {
@@ -2451,7 +2451,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return this.$store.state.new_sport;
       },
       set: function set(value) {
-        this.$store.state.new_sport = value;
+        this.$store.commit("setNewSport", value);
       }
     },
     headers: {
@@ -2483,7 +2483,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         var firstItem = value.filter(function (x) {
           return _typeof(x) !== undefined;
         }).shift();
-        this.$store.commit("setSport", firstItem.sport_id);
+        this.sport = this.sports.find(function (s) {
+          return s.id == firstItem.sport_id;
+        });
+        this.event = this.events.find(function (e) {
+          return e.id == firstItem.event_id;
+        });
+        this.koeficient = firstItem.koeficient;
+        this.zalog = firstItem.zalog;
+        this.win = firstItem.win == 1;
+        this.status = firstItem.status == 1;
+        this.new_bet = false;
       }
     },
     sport: {
@@ -2492,11 +2502,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       },
       set: function set(value) {
         this.$store.commit("setSport", value);
-        this.$store.commit("setEvent", {
+        this.event = {
           id: 0,
           sport_id: 0,
           name: ""
-        });
+        };
       }
     },
     event: {
@@ -80477,11 +80487,17 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     setSports: function setSports(state, sports) {
       return state.sports = sports;
     },
+    setNewSport: function setNewSport(state, new_sport) {
+      return state.new_sport = new_sport;
+    },
     setEvent: function setEvent(state, event) {
       return state.event = event;
     },
     setEvents: function setEvents(state, events) {
       return state.events = events;
+    },
+    setNewEvent: function setNewEvent(state, new_event) {
+      return state.new_event = new_event;
     },
     setKoeficient: function setKoeficient(state, koeficient) {
       return state.koeficient = koeficient;
@@ -80494,6 +80510,9 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     setBets: function setBets(state, bets) {
       return state.bets = bets;
+    },
+    setNewBet: function setNewBet(state, new_bet) {
+      return state.new_bet = new_bet;
     },
     setWin: function setWin(state, win) {
       return state.win = win;

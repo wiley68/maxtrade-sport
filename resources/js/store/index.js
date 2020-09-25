@@ -182,12 +182,15 @@ export default new Vuex.Store({
     mutations: {
         setSport: (state, sport) => (state.sport = sport),
         setSports: (state, sports) => (state.sports = sports),
+        setNewSport: (state, new_sport) => (state.new_sport = new_sport),
         setEvent: (state, event) => (state.event = event),
         setEvents: (state, events) => (state.events = events),
+        setNewEvent: (state, new_event) => (state.new_event = new_event),
         setKoeficient: (state, koeficient) => (state.koeficient = koeficient),
         setZalog: (state, zalog) => (state.zalog = zalog),
         setBet: (state, bet) => (state.bet = bet),
         setBets: (state, bets) => (state.bets = bets),
+        setNewBet: (state, new_bet) => (state.new_bet = new_bet),
         setWin: (state, win) => (state.win = win),
         setStatus: (state, status) => (state.status = status),
         setLoading: (state, loading) => (state.loading = loading)

@@ -396,7 +396,7 @@ export default {
                 return this.$store.state.loading;
             },
             set(value) {
-                this.$store.state.loading = value;
+                this.$store.commit("setLoading", value);
             }
         },
         new_bet: {
@@ -404,7 +404,7 @@ export default {
                 return this.$store.state.new_bet;
             },
             set(value) {
-                this.$store.state.new_bet = value;
+                this.$store.commit("setNewBet", value);
             }
         },
         new_event: {
@@ -412,7 +412,7 @@ export default {
                 return this.$store.state.new_event;
             },
             set(value) {
-                this.$store.state.new_event = value;
+                this.$store.commit("setNewEvent", value);
             }
         },
         new_sport: {
@@ -420,7 +420,7 @@ export default {
                 return this.$store.state.new_sport;
             },
             set(value) {
-                this.$store.state.new_sport = value;
+                this.$store.commit("setNewSport", value);
             }
         },
         headers: {
@@ -452,7 +452,13 @@ export default {
                 const firstItem = value
                     .filter(x => typeof x !== undefined)
                     .shift();
-                this.$store.commit("setSport", firstItem.sport_id);
+                this.sport = this.sports.find(s => s.id == firstItem.sport_id);
+                this.event = this.events.find(e => e.id == firstItem.event_id);
+                this.koeficient = firstItem.koeficient;
+                this.zalog = firstItem.zalog;
+                this.win = firstItem.win == 1;
+                this.status = firstItem.status == 1;
+                this.new_bet = false;
             }
         },
         sport: {
@@ -461,11 +467,11 @@ export default {
             },
             set(value) {
                 this.$store.commit("setSport", value);
-                this.$store.commit("setEvent", {
+                this.event = {
                     id: 0,
                     sport_id: 0,
                     name: ""
-                });
+                };
             }
         },
         event: {
