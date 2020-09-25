@@ -2497,6 +2497,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2658,6 +2661,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           this.$store.commit("setStatus", 0);
         }
       }
+    },
+    getTotalBets: function getTotalBets() {
+      return this.bets.reduce(function (a, b) {
+        return parseFloat(a) + (parseFloat(b["zalog"]) || 0);
+      }, 0).toFixed(2);
     }
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["saveSport", "saveEvent", "deleteSport", "deleteEvent", "saveBet", "deleteBet", "clearAll"])), {}, {
@@ -22813,6 +22821,18 @@ var render = function() {
                     { staticClass: "d-flex", attrs: { cols: "12" } },
                     [_c("v-divider")],
                     1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "d-flex", attrs: { cols: "12" } },
+                    [
+                      _vm._v(
+                        "\n                    Total bets: " +
+                          _vm._s(_vm.getTotalBets) +
+                          "\n                "
+                      )
+                    ]
                   )
                 ],
                 1

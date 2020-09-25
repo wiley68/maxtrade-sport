@@ -390,6 +390,9 @@
                     <v-col class="d-flex" cols="12">
                         <v-divider></v-divider>
                     </v-col>
+                    <v-col class="d-flex" cols="12">
+                        Total bets: {{ getTotalBets }}
+                    </v-col>
                 </v-row>
             </v-col>
             <v-col class="d-flex" cols="12" sm="8">
@@ -626,6 +629,14 @@ export default {
                     this.$store.commit("setStatus", 0);
                 }
             }
+        },
+        getTotalBets: function() {
+            return this.bets
+                .reduce(
+                    (a, b) => parseFloat(a) + (parseFloat(b["zalog"]) || 0),
+                    0
+                )
+                .toFixed(2);
         }
     },
 
