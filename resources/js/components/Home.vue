@@ -419,6 +419,40 @@
                                 v-model="bet"
                                 :search="search"
                             >
+                                <template v-slot:item.sport_id="{ item }">
+                                    {{
+                                        sports.find(s => s.id == item.sport_id)
+                                            .name
+                                    }}
+                                </template>
+                                <template v-slot:item.event_id="{ item }">
+                                    {{
+                                        events.find(e => e.id == item.event_id)
+                                            .name
+                                    }}
+                                </template>
+                                <template v-slot:item.win="{ item }">
+                                    <v-chip
+                                        :color="item.win == 1 ? 'green' : 'red'"
+                                        dark
+                                        >{{
+                                            item.win == 1 ? "Win" : "Loose"
+                                        }}</v-chip
+                                    >
+                                </template>
+                                <template v-slot:item.status="{ item }">
+                                    <v-chip
+                                        :color="
+                                            item.status == 1 ? 'blue' : 'grey'
+                                        "
+                                        dark
+                                        >{{
+                                            item.status == 1
+                                                ? "Complete"
+                                                : "Active"
+                                        }}</v-chip
+                                    >
+                                </template>
                             </v-data-table>
                         </v-card>
                     </v-col>

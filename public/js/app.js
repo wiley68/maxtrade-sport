@@ -2463,6 +2463,40 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -22841,6 +22875,94 @@ var render = function() {
                               search: _vm.search
                             },
                             on: { "click:row": _vm.rowClick },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "item.sport_id",
+                                fn: function(ref) {
+                                  var item = ref.item
+                                  return [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(
+                                          _vm.sports.find(function(s) {
+                                            return s.id == item.sport_id
+                                          }).name
+                                        ) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                }
+                              },
+                              {
+                                key: "item.event_id",
+                                fn: function(ref) {
+                                  var item = ref.item
+                                  return [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(
+                                          _vm.events.find(function(e) {
+                                            return e.id == item.event_id
+                                          }).name
+                                        ) +
+                                        "\n                            "
+                                    )
+                                  ]
+                                }
+                              },
+                              {
+                                key: "item.win",
+                                fn: function(ref) {
+                                  var item = ref.item
+                                  return [
+                                    _c(
+                                      "v-chip",
+                                      {
+                                        attrs: {
+                                          color:
+                                            item.win == 1 ? "green" : "red",
+                                          dark: ""
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            item.win == 1 ? "Win" : "Loose"
+                                          )
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                }
+                              },
+                              {
+                                key: "item.status",
+                                fn: function(ref) {
+                                  var item = ref.item
+                                  return [
+                                    _c(
+                                      "v-chip",
+                                      {
+                                        attrs: {
+                                          color:
+                                            item.status == 1 ? "blue" : "grey",
+                                          dark: ""
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            item.status == 1
+                                              ? "Complete"
+                                              : "Active"
+                                          )
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                }
+                              }
+                            ]),
                             model: {
                               value: _vm.bet,
                               callback: function($$v) {
