@@ -2413,6 +2413,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -22608,6 +22613,13 @@ var render = function() {
                               _vm.event.id == 0 ||
                               _vm.koeficient <= 1 ||
                               _vm.zalog <= 0
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.saveBet({
+                                new: false
+                              })
+                            }
                           }
                         },
                         [
@@ -80347,7 +80359,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     saveEvent: function saveEvent(_ref3, param) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var commit, state, response, _newEvent, _newEvent2;
+        var commit, state, response, newEvent, _newEvent;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
@@ -80374,13 +80386,13 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
               case 6:
                 response = _context3.sent;
-                _newEvent = {
+                newEvent = {
                   id: response.data.data.id,
                   sport_id: response.data.data.sport_id,
                   name: response.data.data.name
                 };
-                state.events.unshift(_newEvent);
-                commit("setEvent", _newEvent);
+                state.events.unshift(newEvent);
+                commit("setEvent", newEvent);
                 commit("setLoading", false);
                 _context3.next = 21;
                 break;
@@ -80399,15 +80411,15 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
               case 16:
                 response = _context3.sent;
-                _newEvent2 = {
+                _newEvent = {
                   id: response.data.data.id,
                   sport_id: response.data.sport_id,
                   name: response.data.data.name
                 };
                 state.events.find(function (e) {
-                  return e.id === _newEvent2.id;
-                }).name = _newEvent2.name;
-                commit("setEvent", _newEvent2);
+                  return e.id === _newEvent.id;
+                }).name = _newEvent.name;
+                commit("setEvent", _newEvent);
                 commit("setLoading", false);
 
               case 21:
@@ -80495,7 +80507,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     saveBet: function saveBet(_ref6, param) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
-        var commit, state, response, newBet, betarr, firstBet, _newBet;
+        var commit, state, response, newBet, betarr, firstBet, _newBet, responseBets, bets, _betarr;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
@@ -80540,13 +80552,13 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                 betarr.unshift(newBet);
                 commit("setBet", betarr);
                 commit("setLoading", false);
-                _context6.next = 24;
+                _context6.next = 30;
                 break;
 
               case 15:
                 // edit bet
                 commit("setLoading", true);
-                firstBet = bet.filter(function (b) {
+                firstBet = state.bet.filter(function (b) {
                   return _typeof(b) !== undefined;
                 }).shift();
                 _context6.next = 19;
@@ -80573,13 +80585,21 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   status: response.data.data.status,
                   win: response.data.data.win
                 };
-                state.bets.find(function (b) {
-                  return b.id === newEvent.id;
-                }).name = newEvent.name;
-                commit("setEvent", newEvent);
+                _context6.next = 23;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/bets");
+
+              case 23:
+                responseBets = _context6.sent;
+                bets = responseBets.data.data;
+                commit("setBets", bets);
+                _betarr = [];
+
+                _betarr.unshift(_newBet);
+
+                commit("setBet", _betarr);
                 commit("setLoading", false);
 
-              case 24:
+              case 30:
               case "end":
                 return _context6.stop();
             }

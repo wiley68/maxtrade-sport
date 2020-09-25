@@ -40,3 +40,5 @@ Route::delete('event/{id}', 'EventsController@destroy');
 Route::get('bets', 'BetsController@index');
 /** Create new Bet */
 Route::post('bet', 'BetsController@store');
+/** Update a Bet */
+Route::put('bet', 'BetsController@store');

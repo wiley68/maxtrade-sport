@@ -212,7 +212,7 @@ export default new Vuex.Store({
             } else {
                 // edit bet
                 commit("setLoading", true);
-                const firstBet = bet
+                const firstBet = state.bet
                     .filter(b => typeof b !== undefined)
                     .shift();
                 response = await axios.put(
@@ -237,8 +237,12 @@ export default new Vuex.Store({
                     status: response.data.data.status,
                     win: response.data.data.win
                 };
-                state.bets.find(b => b.id === newEvent.id).name = newEvent.name;
-                commit("setEvent", newEvent);
+                const responseBets = await axios.get("api/bets");
+                const bets = responseBets.data.data;
+                commit("setBets", bets);
+                const betarr = [];
+                betarr.unshift(newBet);
+                commit("setBet", betarr);
                 commit("setLoading", false);
             }
         }

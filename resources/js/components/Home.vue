@@ -344,6 +344,11 @@
                                     koeficient <= 1 ||
                                     zalog <= 0
                             "
+                            @click="
+                                saveBet({
+                                    new: false
+                                })
+                            "
                         >
                             <v-icon dark>mdi-pencil-outline</v-icon>Edit
                         </v-btn>
