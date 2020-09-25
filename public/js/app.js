@@ -2418,6 +2418,37 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2428,7 +2459,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       sportName: "",
       eventName: "",
       dialogSportDelete: false,
-      dialogEventDelete: false
+      dialogEventDelete: false,
+      dialogBetDelete: false
     };
   },
   computed: {
@@ -2576,7 +2608,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
     }
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["saveSport", "saveEvent", "deleteSport", "deleteEvent", "saveBet"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["saveSport", "saveEvent", "deleteSport", "deleteEvent", "saveBet", "deleteBet"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       if (isNew) {
         this.sportName = "";
@@ -22635,13 +22667,85 @@ var render = function() {
                         "v-btn",
                         {
                           staticClass: "mr-1",
-                          attrs: { color: "error", disabled: _vm.new_bet }
+                          attrs: { color: "error", disabled: _vm.new_bet },
+                          on: {
+                            click: function($event) {
+                              _vm.dialogBetDelete = true
+                            }
+                          }
                         },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
                             _vm._v("mdi-delete")
                           ]),
                           _vm._v("Delete\n                    ")
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-dialog",
+                        {
+                          attrs: { "max-width": "290" },
+                          model: {
+                            value: _vm.dialogBetDelete,
+                            callback: function($$v) {
+                              _vm.dialogBetDelete = $$v
+                            },
+                            expression: "dialogBetDelete"
+                          }
+                        },
+                        [
+                          _c(
+                            "v-card",
+                            [
+                              _c("v-card-title", { staticClass: "headline" }, [
+                                _vm._v("Delete?")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-card-text", [
+                                _vm._v(
+                                  "\n                                Do you agree that the bet should be deleted?\n                            "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-actions",
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { color: "success" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.deleteBet()
+                                          _vm.dialogBetDelete = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("OK")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { color: "normal" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.dialogBetDelete = false
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Cancel")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
                         ],
                         1
                       )
@@ -80606,6 +80710,71 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           }
         }, _callee6);
       }))();
+    },
+    deleteBet: function deleteBet(_ref7) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+        var commit, state, dispatch, firstItem, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                commit = _ref7.commit, state = _ref7.state, dispatch = _ref7.dispatch;
+                firstItem = state.bet.filter(function (x) {
+                  return _typeof(x) !== undefined;
+                }).shift();
+
+                if (!(firstItem.id != 0)) {
+                  _context7.next = 10;
+                  break;
+                }
+
+                commit("setLoading", true);
+                _context7.next = 6;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"]("api/bet/" + firstItem.id);
+
+              case 6:
+                response = _context7.sent;
+                commit("setBets", state.bets.filter(function (b) {
+                  return b.id !== response.data.data.id;
+                }));
+                dispatch("clearAll");
+                commit("setLoading", false);
+
+              case 10:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }))();
+    },
+    clearAll: function clearAll(_ref8) {
+      var state = _ref8.state,
+          commit = _ref8.commit;
+      var newBet = {
+        id: 0,
+        sport_id: 0,
+        event_id: 0,
+        koeficient: 1,
+        zalog: 0,
+        status: 0,
+        win: 0
+      };
+      state.bet[0] = newBet;
+      commit("setNewBet", true);
+      commit("setSport", {
+        id: 0,
+        name: ""
+      });
+      commit("setEvent", {
+        id: 0,
+        sport_id: 0,
+        name: ""
+      });
+      commit("setKoeficient", 1);
+      commit("setZalog", 0);
+      commit("setStatus", 0);
+      commit("setWin", 0);
     }
   },
   mutations: {

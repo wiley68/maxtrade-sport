@@ -352,9 +352,40 @@
                         >
                             <v-icon dark>mdi-pencil-outline</v-icon>Edit
                         </v-btn>
-                        <v-btn color="error" class="mr-1" :disabled="new_bet">
+                        <v-btn
+                            color="error"
+                            class="mr-1"
+                            :disabled="new_bet"
+                            @click="dialogBetDelete = true"
+                        >
                             <v-icon dark>mdi-delete</v-icon>Delete
                         </v-btn>
+                        <v-dialog v-model="dialogBetDelete" max-width="290">
+                            <v-card>
+                                <v-card-title class="headline"
+                                    >Delete?</v-card-title
+                                >
+                                <v-card-text>
+                                    Do you agree that the bet should be deleted?
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="success"
+                                        @click="
+                                            deleteBet();
+                                            dialogBetDelete = false;
+                                        "
+                                        >OK</v-btn
+                                    >
+                                    <v-btn
+                                        color="normal"
+                                        @click="dialogBetDelete = false"
+                                        >Cancel</v-btn
+                                    >
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
                     </v-col>
                     <v-col class="d-flex" cols="12">
                         <v-divider></v-divider>
@@ -396,7 +427,8 @@ export default {
             sportName: "",
             eventName: "",
             dialogSportDelete: false,
-            dialogEventDelete: false
+            dialogEventDelete: false,
+            dialogBetDelete: false
         };
     },
 
@@ -548,7 +580,8 @@ export default {
             "saveEvent",
             "deleteSport",
             "deleteEvent",
-            "saveBet"
+            "saveBet",
+            "deleteBet"
         ]),
         openSportDialog(isNew) {
             if (isNew) {

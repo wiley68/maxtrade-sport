@@ -34,4 +34,14 @@ class BetsController extends Controller
             return new BetResource($bet);
         }
     }
+
+    public function destroy($id)
+    {
+        /** Get a Bet */
+        $bet = Bet::findOrFail($id);
+
+        if ($bet->delete()) {
+            return new BetResource($bet);
+        }
+    }
 }

@@ -245,6 +245,40 @@ export default new Vuex.Store({
                 commit("setBet", betarr);
                 commit("setLoading", false);
             }
+        },
+        async deleteBet({ commit, state, dispatch }) {
+            const firstItem = state.bet
+                .filter(x => typeof x !== undefined)
+                .shift();
+            if (firstItem.id != 0) {
+                commit("setLoading", true);
+                const response = await axios.delete("api/bet/" + firstItem.id);
+                commit(
+                    "setBets",
+                    state.bets.filter(b => b.id !== response.data.data.id)
+                );
+                dispatch("clearAll");
+                commit("setLoading", false);
+            }
+        },
+        clearAll({ state, commit }) {
+            const newBet = {
+                id: 0,
+                sport_id: 0,
+                event_id: 0,
+                koeficient: 1,
+                zalog: 0,
+                status: 0,
+                win: 0
+            };
+            state.bet[0] = newBet;
+            commit("setNewBet", true);
+            commit("setSport", { id: 0, name: "" });
+            commit("setEvent", { id: 0, sport_id: 0, name: "" });
+            commit("setKoeficient", 1);
+            commit("setZalog", 0);
+            commit("setStatus", 0);
+            commit("setWin", 0);
         }
     },
 
