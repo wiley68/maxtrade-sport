@@ -176,6 +176,61 @@ export default new Vuex.Store({
                 commit("setEvent", { id: 0, sport_id: 0, name: "" });
                 commit("setLoading", false);
             }
+        },
+        async saveBet({ commit, state }, param) {
+            let response = null;
+            if (param.new) {
+                // new bet
+                commit("setLoading", true);
+                response = await axios.post(
+                    "api/bet",
+                    {
+                        bet_id: 0,
+                        sport_id: state.sport.id,
+                        event_id: state.event.id,
+                        koeficient: state.koeficient,
+                        zalog: state.zalog,
+                        status: state.status,
+                        win: state.win
+                    },
+                    { "Content-Type": "application/json; charset=utf-8" }
+                );
+                const newBet = {
+                    id: response.data.data.id,
+                    sport_id: response.data.data.sport_id,
+                    event_id: response.data.data.event_id,
+                    koeficient: response.data.data.koeficient,
+                    zalog: response.data.data.zalog,
+                    status: response.data.data.status,
+                    win: response.data.data.win
+                };
+                state.bets.unshift(newBet);
+                const betarr = [];
+                betarr.unshift(newBet);
+                commit("setBet", betarr);
+                commit("setLoading", false);
+            } else {
+                // edit event
+                commit("setLoading", true);
+                response = await axios.put(
+                    "api/event",
+                    {
+                        event_id: state.event.id,
+                        sport_id: state.sport.id,
+                        name: param.name
+                    },
+                    { "Content-Type": "application/json; charset=utf-8" }
+                );
+                const newEvent = {
+                    id: response.data.data.id,
+                    sport_id: response.data.sport_id,
+                    name: response.data.data.name
+                };
+                state.events.find(e => e.id === newEvent.id).name =
+                    newEvent.name;
+                commit("setEvent", newEvent);
+                commit("setLoading", false);
+            }
         }
     },
 

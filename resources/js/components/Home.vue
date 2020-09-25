@@ -326,6 +326,11 @@
                                     koeficient <= 1 ||
                                     zalog <= 0
                             "
+                            @click="
+                                saveBet({
+                                    new: true
+                                })
+                            "
                         >
                             <v-icon dark>mdi-playlist-plus</v-icon>New
                         </v-btn>
@@ -533,7 +538,13 @@ export default {
     },
 
     methods: {
-        ...mapActions(["saveSport", "saveEvent", "deleteSport", "deleteEvent"]),
+        ...mapActions([
+            "saveSport",
+            "saveEvent",
+            "deleteSport",
+            "deleteEvent",
+            "saveBet"
+        ]),
         openSportDialog(isNew) {
             if (isNew) {
                 this.sportName = "";

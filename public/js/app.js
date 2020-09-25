@@ -2408,6 +2408,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2566,7 +2571,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
     }
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["saveSport", "saveEvent", "deleteSport", "deleteEvent"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["saveSport", "saveEvent", "deleteSport", "deleteEvent", "saveBet"])), {}, {
     openSportDialog: function openSportDialog(isNew) {
       if (isNew) {
         this.sportName = "";
@@ -22573,6 +22578,13 @@ var render = function() {
                               _vm.event.id == 0 ||
                               _vm.koeficient <= 1 ||
                               _vm.zalog <= 0
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.saveBet({
+                                new: true
+                              })
+                            }
                           }
                         },
                         [
@@ -80477,6 +80489,88 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             }
           }
         }, _callee5);
+      }))();
+    },
+    saveBet: function saveBet(_ref6, param) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        var commit, state, response, newBet, betarr, newEvent;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                commit = _ref6.commit, state = _ref6.state;
+                response = null;
+
+                if (!param["new"]) {
+                  _context6.next = 15;
+                  break;
+                }
+
+                // new bet
+                commit("setLoading", true);
+                _context6.next = 6;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("api/bet", {
+                  bet_id: 0,
+                  sport_id: state.sport.id,
+                  event_id: state.event.id,
+                  koeficient: state.koeficient,
+                  zalog: state.zalog,
+                  status: state.status,
+                  win: state.win
+                }, {
+                  "Content-Type": "application/json; charset=utf-8"
+                });
+
+              case 6:
+                response = _context6.sent;
+                newBet = {
+                  id: response.data.data.id,
+                  sport_id: response.data.data.sport_id,
+                  event_id: response.data.data.event_id,
+                  koeficient: response.data.data.koeficient,
+                  zalog: response.data.data.zalog,
+                  status: response.data.data.status,
+                  win: response.data.data.win
+                };
+                state.bets.unshift(newBet);
+                betarr = [];
+                betarr.unshift(newBet);
+                commit("setBet", betarr);
+                commit("setLoading", false);
+                _context6.next = 23;
+                break;
+
+              case 15:
+                // edit event
+                commit("setLoading", true);
+                _context6.next = 18;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.put("api/event", {
+                  event_id: state.event.id,
+                  sport_id: state.sport.id,
+                  name: param.name
+                }, {
+                  "Content-Type": "application/json; charset=utf-8"
+                });
+
+              case 18:
+                response = _context6.sent;
+                newEvent = {
+                  id: response.data.data.id,
+                  sport_id: response.data.sport_id,
+                  name: response.data.data.name
+                };
+                state.events.find(function (e) {
+                  return e.id === newEvent.id;
+                }).name = newEvent.name;
+                commit("setEvent", newEvent);
+                commit("setLoading", false);
+
+              case 23:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
       }))();
     }
   },
