@@ -41,7 +41,8 @@ export default new Vuex.Store({
             { text: "Status", value: "status" }
         ],
         win: 0,
-        status: 0
+        status: 0,
+        initial: 30.0
     },
 
     getters: {},

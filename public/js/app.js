@@ -2530,6 +2530,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2550,6 +2554,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     };
   },
   computed: {
+    initial: {
+      get: function get() {
+        return parseFloat(this.$store.state.initial);
+      }
+    },
     loading: {
       get: function get() {
         return this.$store.state.loading;
@@ -2701,12 +2710,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     bets: function bets(value) {
       this.totalBets = value.reduce(function (accumulator, currentRow) {
         return parseFloat(accumulator) + parseFloat(currentRow.zalog) * parseFloat(currentRow.status);
-      }, 0).toFixed(2);
+      }, 0);
       this.totalWins = value.reduce(function (accumulator, currentRow) {
         return parseFloat(accumulator) + parseFloat(currentRow.win) * parseFloat(currentRow.zalog) * parseFloat(currentRow.koeficient) * parseFloat(currentRow.status);
-      }, 0).toFixed(2);
-      this.totalResult = (this.totalWins - this.totalBets).toFixed(2);
-      this.roi = (this.totalResult / this.totalBets * 100).toFixed(2);
+      }, 0);
+      this.totalResult = this.initial + this.totalWins - this.totalBets;
+      this.roi = (this.totalWins - this.totalBets) / this.totalBets * 100;
     }
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["saveSport", "saveEvent", "deleteSport", "deleteEvent", "saveBet", "deleteBet", "clearAll"])), {}, {
@@ -22873,7 +22882,7 @@ var render = function() {
                           "\n                        Total bets:\n                        "
                         ),
                         _c("span", { staticClass: "red--text" }, [
-                          _vm._v(_vm._s(_vm.totalBets))
+                          _vm._v(_vm._s(_vm.totalBets.toFixed(2)))
                         ])
                       ])
                     ]
@@ -22888,7 +22897,7 @@ var render = function() {
                           "\n                        Total wins:\n                        "
                         ),
                         _c("span", { staticClass: "green--text" }, [
-                          _vm._v(_vm._s(_vm.totalWins))
+                          _vm._v(_vm._s(_vm.totalWins.toFixed(2)))
                         ])
                       ])
                     ]
@@ -22908,7 +22917,7 @@ var render = function() {
                             class:
                               _vm.totalResult > 0 ? "green--text" : "red--text"
                           },
-                          [_vm._v(_vm._s(_vm.totalResult))]
+                          [_vm._v(_vm._s(_vm.totalResult.toFixed(2)))]
                         )
                       ])
                     ]
@@ -22925,7 +22934,7 @@ var render = function() {
                         _c(
                           "span",
                           { class: _vm.roi > 0 ? "green--text" : "red--text" },
-                          [_vm._v(_vm._s(_vm.roi) + " %")]
+                          [_vm._v(_vm._s(_vm.roi.toFixed(2)) + " %")]
                         )
                       ])
                     ]
@@ -80638,7 +80647,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       value: "status"
     }],
     win: 0,
-    status: 0
+    status: 0,
+    initial: 30.0
   },
   getters: {},
   actions: {

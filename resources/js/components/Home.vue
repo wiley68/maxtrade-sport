@@ -393,13 +393,17 @@
                     <v-col class="d-flex" cols="12">
                         <h5>
                             Total bets:
-                            <span class="red--text">{{ totalBets }}</span>
+                            <span class="red--text">{{
+                                totalBets.toFixed(2)
+                            }}</span>
                         </h5>
                     </v-col>
                     <v-col class="d-flex" cols="12">
                         <h5>
                             Total wins:
-                            <span class="green--text">{{ totalWins }}</span>
+                            <span class="green--text">{{
+                                totalWins.toFixed(2)
+                            }}</span>
                         </h5>
                     </v-col>
                     <v-col class="d-flex" cols="12">
@@ -411,7 +415,7 @@
                                         ? 'green--text'
                                         : 'red--text'
                                 "
-                                >{{ totalResult }}</span
+                                >{{ totalResult.toFixed(2) }}</span
                             >
                         </h5>
                     </v-col>
@@ -419,7 +423,7 @@
                         ><h5>
                             ROI:
                             <span :class="roi > 0 ? 'green--text' : 'red--text'"
-                                >{{ roi }} %</span
+                                >{{ roi.toFixed(2) }} %</span
                             >
                         </h5></v-col
                     >
@@ -519,6 +523,11 @@ export default {
     },
 
     computed: {
+        initial: {
+            get() {
+                return parseFloat(this.$store.state.initial);
+            }
+        },
         loading: {
             get() {
                 return this.$store.state.loading;
@@ -668,28 +677,25 @@ export default {
 
     watch: {
         bets(value) {
-            this.totalBets = value
-                .reduce(
-                    (accumulator, currentRow) =>
-                        parseFloat(accumulator) +
+            this.totalBets = value.reduce(
+                (accumulator, currentRow) =>
+                    parseFloat(accumulator) +
+                    parseFloat(currentRow.zalog) *
+                        parseFloat(currentRow.status),
+                0
+            );
+            this.totalWins = value.reduce(
+                (accumulator, currentRow) =>
+                    parseFloat(accumulator) +
+                    parseFloat(currentRow.win) *
                         parseFloat(currentRow.zalog) *
-                            parseFloat(currentRow.status),
-                    0
-                )
-                .toFixed(2);
-            this.totalWins = value
-                .reduce(
-                    (accumulator, currentRow) =>
-                        parseFloat(accumulator) +
-                        parseFloat(currentRow.win) *
-                            parseFloat(currentRow.zalog) *
-                            parseFloat(currentRow.koeficient) *
-                            parseFloat(currentRow.status),
-                    0
-                )
-                .toFixed(2);
-            this.totalResult = (this.totalWins - this.totalBets).toFixed(2);
-            this.roi = ((this.totalResult / this.totalBets) * 100).toFixed(2);
+                        parseFloat(currentRow.koeficient) *
+                        parseFloat(currentRow.status),
+                0
+            );
+            this.totalResult = this.initial + this.totalWins - this.totalBets;
+            this.roi =
+                ((this.totalWins - this.totalBets) / this.totalBets) * 100;
         }
     },
 
