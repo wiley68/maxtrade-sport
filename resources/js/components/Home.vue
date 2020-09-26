@@ -391,8 +391,38 @@
                         <v-divider></v-divider>
                     </v-col>
                     <v-col class="d-flex" cols="12">
-                        Total bets: {{ getTotalBets }}
+                        <h5>
+                            Total bets:
+                            <span class="red--text">{{ totalBets }}</span>
+                        </h5>
                     </v-col>
+                    <v-col class="d-flex" cols="12">
+                        <h5>
+                            Total wins:
+                            <span class="green--text">{{ totalWins }}</span>
+                        </h5>
+                    </v-col>
+                    <v-col class="d-flex" cols="12">
+                        <h5>
+                            Total result:
+                            <span
+                                :class="
+                                    totalResult > 0
+                                        ? 'green--text'
+                                        : 'red--text'
+                                "
+                                >{{ totalResult }}</span
+                            >
+                        </h5>
+                    </v-col>
+                    <v-col class="d-flex" cols="12"
+                        ><h5>
+                            ROI:
+                            <span :class="roi > 0 ? 'green--text' : 'red--text'"
+                                >{{ roi }} %</span
+                            >
+                        </h5></v-col
+                    >
                 </v-row>
             </v-col>
             <v-col class="d-flex" cols="12" sm="8">
@@ -480,7 +510,11 @@ export default {
             dialogSportDelete: false,
             dialogEventDelete: false,
             dialogBetDelete: false,
-            search: ""
+            search: "",
+            totalBets: 0,
+            totalWins: 0,
+            totalResult: 0,
+            roi: 0
         };
     },
 
@@ -629,14 +663,33 @@ export default {
                     this.$store.commit("setStatus", 0);
                 }
             }
-        },
-        getTotalBets: function() {
-            return this.bets
+        }
+    },
+
+    watch: {
+        bets(value) {
+            this.totalBets = value
                 .reduce(
-                    (a, b) => parseFloat(a) + (parseFloat(b["zalog"]) || 0),
+                    (accumulator, currentRow) =>
+                        parseFloat(accumulator) +
+                        parseFloat(currentRow.zalog) *
+                            parseFloat(currentRow.status),
                     0
                 )
                 .toFixed(2);
+            this.totalWins = value
+                .reduce(
+                    (accumulator, currentRow) =>
+                        parseFloat(accumulator) +
+                        parseFloat(currentRow.win) *
+                            parseFloat(currentRow.zalog) *
+                            parseFloat(currentRow.koeficient) *
+                            parseFloat(currentRow.status),
+                    0
+                )
+                .toFixed(2);
+            this.totalResult = (this.totalWins - this.totalBets).toFixed(2);
+            this.roi = ((this.totalResult / this.totalBets) * 100).toFixed(2);
         }
     },
 
