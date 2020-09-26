@@ -42,7 +42,7 @@ export default new Vuex.Store({
         ],
         win: 0,
         status: 0,
-        initial: 30.0
+        initial: 29.46
     },
 
     getters: {},

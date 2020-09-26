@@ -80648,7 +80648,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     }],
     win: 0,
     status: 0,
-    initial: 30.0
+    initial: 29.46
   },
   getters: {},
   actions: {
