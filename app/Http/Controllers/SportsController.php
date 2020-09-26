@@ -12,7 +12,7 @@ class SportsController extends Controller
     {
         /** Get Sports */
         $sports = Sport::where('id', '>', 0)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('name', 'asc')
             ->get();
 
         /** Return collection of Sports as resource */

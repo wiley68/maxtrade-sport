@@ -12,7 +12,7 @@ class EventsController extends Controller
     {
         /** Get Events */
         $events = Event::where('id', '>', 0)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('name', 'asc')
             ->get();
 
         /** Return collection of Events as resource */
