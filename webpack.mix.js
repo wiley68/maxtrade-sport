@@ -11,6 +11,12 @@ const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
  |
  */
 
+mix.webpackConfig({
+    resolve: {
+        extensions: [".js", ".vue"]
+    }
+});
+
 mix.js("resources/js/app.js", "public/js").sass(
     "resources/sass/app.scss",
     "public/css"

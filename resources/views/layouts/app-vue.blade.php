@@ -23,9 +23,7 @@
 </head>
 <body>
     <div id="app">
-        <main class="h-screen">
-            @yield('content')
-        </main>
+        @yield('content')
     </div>
 </body>
 </html>

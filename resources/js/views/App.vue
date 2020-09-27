@@ -2,7 +2,7 @@
   <v-app>
     <v-navigation-drawer v-model="drawer" app>
       <v-list>
-        <v-list-item link href="/app">
+        <v-list-item link to="/app">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
@@ -10,7 +10,7 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link href="/stat">
+        <v-list-item link to="/stat">
           <v-list-item-action>
             <v-icon>mdi-information-variant</v-icon>
           </v-list-item-action>
@@ -18,7 +18,7 @@
             <v-list-item-title>Stat</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link href="/chart">
+        <v-list-item link to="/chart">
           <v-list-item-action>
             <v-icon>mdi-chart-bar</v-icon>
           </v-list-item-action>
@@ -37,18 +37,16 @@
         ></v-toolbar-title
       >
       <v-spacer></v-spacer>
-      <v-btn href="/app" text> Home </v-btn>
-      <v-btn href="/stat" text> Stat </v-btn>
-      <v-btn href="/chart" text> Chart </v-btn>
+      <v-btn to="/app" text> Home </v-btn>
+      <v-btn to="/stat" text> Stat </v-btn>
+      <v-btn to="/chart" text> Chart </v-btn>
       <v-btn icon @click.prevent="clickLogout">
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-main>
-      <home v-if="route == 'app'"></home>
-      <stat v-if="route == 'stat'"></stat>
-      <chart v-if="route == 'chart'"></chart>
+      <router-view></router-view>
     </v-main>
 
     <v-footer color="indigo" app>
@@ -61,20 +59,11 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Home from "./Home";
-import Stat from "./Stat";
-import Chart from "./Chart";
 
 export default {
   name: "App",
 
-  components: {
-    Home,
-    Stat,
-    Chart,
-  },
-
-  props: ["route"],
+  components: {},
 
   data: () => ({
     drawer: false,
