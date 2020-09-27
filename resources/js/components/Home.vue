@@ -354,9 +354,11 @@
           <v-col class="d-flex" cols="12">
             <h5>
               Total result:
-              <span :class="totalResult > 0 ? 'green--text' : 'red--text'">{{
-                totalResult.toFixed(2)
-              }}</span>
+              <span
+                :class="totalResult - initial > 0 ? 'green--text' : 'red--text'"
+                >{{ totalResult.toFixed(2) }} /
+                {{ (totalResult - initial).toFixed(2) }}</span
+              >
             </h5>
           </v-col>
           <v-col class="d-flex" cols="12"
@@ -569,7 +571,9 @@ export default {
       set(value) {
         if (value) {
           this.$store.commit("setWin", 1);
-          this.winprice = parseFloat(this.koeficient) * parseFloat(this.zalog);
+          this.winprice = (
+            parseFloat(this.koeficient) * parseFloat(this.zalog)
+          ).toFixed(2);
         } else {
           this.$store.commit("setWin", 0);
           this.winprice = 0.0;

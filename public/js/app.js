@@ -2060,7 +2060,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Chart",
+  data: function data() {
+    return {
+      value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]
+    };
+  },
+  computed: {
+    bets: {
+      get: function get() {
+        return this.$store.state.bets;
+      }
+    }
+  }
+});
 
 /***/ }),
 
@@ -2082,6 +2112,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+//
+//
 //
 //
 //
@@ -2656,7 +2688,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       set: function set(value) {
         if (value) {
           this.$store.commit("setWin", 1);
-          this.winprice = parseFloat(this.koeficient) * parseFloat(this.zalog);
+          this.winprice = (parseFloat(this.koeficient) * parseFloat(this.zalog)).toFixed(2);
         } else {
           this.$store.commit("setWin", 0);
           this.winprice = 0.0;
@@ -22022,14 +22054,51 @@ var render = function() {
     { attrs: { fluid: "" } },
     [
       _c(
-        "v-row",
-        { attrs: { align: "start", justify: "start" } },
+        "v-card",
+        {
+          staticClass: "mx-auto text-center",
+          attrs: { color: "green", dark: "" }
+        },
         [
           _c(
-            "v-col",
-            { staticClass: "d-flex", attrs: { cols: "12", sm: "4" } },
-            [_c("h2", [_vm._v("chart")])]
-          )
+            "v-card-text",
+            [
+              _c(
+                "v-sheet",
+                { attrs: { color: "rgba(0, 0, 0, .12)" } },
+                [
+                  _c("v-sparkline", {
+                    attrs: {
+                      color: "rgba(255, 255, 255, .7)",
+                      "line-width": "2",
+                      height: "100",
+                      padding: "4",
+                      "stroke-linecap": "round",
+                      smooth: "10",
+                      value: _vm.value,
+                      "auto-draw": ""
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "label",
+                        fn: function(item) {
+                          return [_vm._v(" $" + _vm._s(item.value) + " ")]
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-card-text", [
+            _c("div", { staticClass: "display-1 font-weight-thin" }, [
+              _vm._v("Bets result")
+            ])
+          ])
         ],
         1
       )
@@ -23021,9 +23090,19 @@ var render = function() {
                           "span",
                           {
                             class:
-                              _vm.totalResult > 0 ? "green--text" : "red--text"
+                              _vm.totalResult - _vm.initial > 0
+                                ? "green--text"
+                                : "red--text"
                           },
-                          [_vm._v(_vm._s(_vm.totalResult.toFixed(2)))]
+                          [
+                            _vm._v(
+                              _vm._s(_vm.totalResult.toFixed(2)) +
+                                " /\n              " +
+                                _vm._s(
+                                  (_vm.totalResult - _vm.initial).toFixed(2)
+                                )
+                            )
+                          ]
                         )
                       ])
                     ]
