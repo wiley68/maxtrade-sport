@@ -25,4 +25,9 @@ class AppController extends Controller
     {
         return view('app');
     }
+
+    public function stat()
+    {
+        return view('stat');
+    }
 }

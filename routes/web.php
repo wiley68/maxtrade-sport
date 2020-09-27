@@ -17,4 +17,5 @@ Route::get('/', 'IndexController@index')->name('index');
 
 Auth::routes();
 
+Route::get('/stat', 'AppController@stat')->name('stat');
 Route::get('/{any}', 'AppController@index')->where('any', '.*');

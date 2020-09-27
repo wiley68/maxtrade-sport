@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-navigation-drawer v-model="drawer" app>
-      <v-list dense>
-        <v-list-item link>
+      <v-list>
+        <v-list-item link href="/app">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
@@ -10,12 +10,12 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link>
+        <v-list-item link href="/stat">
           <v-list-item-action>
-            <v-icon>mdi-email</v-icon>
+            <v-icon>mdi-chart-bar</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
+            <v-list-item-title>Stat</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -31,11 +31,14 @@
     </v-app-bar>
 
     <v-main>
-      <home></home>
+      <home v-if="route == 'app'"></home>
+      <stat v-if="route == 'stat'"></stat>
     </v-main>
 
     <v-footer color="indigo" app>
-      <span class="white--text">Avalon &copy; {{ new Date().getFullYear() }}</span>
+      <span class="white--text"
+        >Avalon &copy; {{ new Date().getFullYear() }}</span
+      >
     </v-footer>
   </v-app>
 </template>
@@ -43,13 +46,17 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Home from "./Home";
+import Stat from "./Stat";
 
 export default {
   name: "App",
 
   components: {
     Home,
+    Stat,
   },
+
+  props: ["route"],
 
   data: () => ({
     drawer: false,
