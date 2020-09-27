@@ -1992,6 +1992,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -21924,9 +21931,30 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v("Maxtrade Sport")]),
+          _c("v-toolbar-title", [
+            _c(
+              "a",
+              {
+                staticClass: "blue--text text--lighten-5 text-decoration-none",
+                attrs: { href: "/app" }
+              },
+              [_vm._v("Maxtrade Sport")]
+            )
+          ]),
           _vm._v(" "),
           _c("v-spacer"),
+          _vm._v(" "),
+          _c("v-btn", { attrs: { href: "/app", text: "" } }, [
+            _vm._v(" Home ")
+          ]),
+          _vm._v(" "),
+          _c("v-btn", { attrs: { href: "/stat", text: "" } }, [
+            _vm._v(" Stat ")
+          ]),
+          _vm._v(" "),
+          _c("v-btn", { attrs: { href: "/chart", text: "" } }, [
+            _vm._v(" Chart ")
+          ]),
           _vm._v(" "),
           _c(
             "v-btn",

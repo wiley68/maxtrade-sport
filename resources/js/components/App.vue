@@ -31,8 +31,15 @@
 
     <v-app-bar app color="indigo" dark dense collapse-on-scroll>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Maxtrade Sport</v-toolbar-title>
+      <v-toolbar-title
+        ><a class="blue--text text--lighten-5 text-decoration-none" href="/app"
+          >Maxtrade Sport</a
+        ></v-toolbar-title
+      >
       <v-spacer></v-spacer>
+      <v-btn href="/app" text> Home </v-btn>
+      <v-btn href="/stat" text> Stat </v-btn>
+      <v-btn href="/chart" text> Chart </v-btn>
       <v-btn icon @click.prevent="clickLogout">
         <v-icon>mdi-close</v-icon>
       </v-btn>
