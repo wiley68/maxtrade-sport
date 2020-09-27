@@ -12,10 +12,18 @@
         </v-list-item>
         <v-list-item link href="/stat">
           <v-list-item-action>
-            <v-icon>mdi-chart-bar</v-icon>
+            <v-icon>mdi-information-variant</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Stat</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link href="/chart">
+          <v-list-item-action>
+            <v-icon>mdi-chart-bar</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Chart</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -33,6 +41,7 @@
     <v-main>
       <home v-if="route == 'app'"></home>
       <stat v-if="route == 'stat'"></stat>
+      <chart v-if="route == 'chart'"></chart>
     </v-main>
 
     <v-footer color="indigo" app>
@@ -47,6 +56,7 @@
 import { mapGetters, mapActions } from "vuex";
 import Home from "./Home";
 import Stat from "./Stat";
+import Chart from "./Chart";
 
 export default {
   name: "App",
@@ -54,6 +64,7 @@ export default {
   components: {
     Home,
     Stat,
+    Chart,
   },
 
   props: ["route"],

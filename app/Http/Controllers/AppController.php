@@ -30,4 +30,9 @@ class AppController extends Controller
     {
         return view('stat');
     }
+
+    public function chart()
+    {
+        return view('chart');
+    }
 }
