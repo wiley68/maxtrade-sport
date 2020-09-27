@@ -21,7 +21,8 @@ class Bet extends JsonResource
             'koeficient'    => $this->koeficient,
             'zalog'         => $this->zalog,
             'status'        => $this->status,
-            'win'           => $this->win
+            'win'           => $this->win,
+            'winprice'      => $this->winprice
         ];
     }
 

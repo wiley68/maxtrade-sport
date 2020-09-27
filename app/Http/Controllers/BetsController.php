@@ -29,6 +29,7 @@ class BetsController extends Controller
         $bet->zalog = $request->input('zalog');
         $bet->status = $request->input('status');
         $bet->win = $request->input('win');
+        $bet->winprice = $request->input('winprice');
 
         if ($bet->save()) {
             return new BetResource($bet);

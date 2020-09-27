@@ -2456,84 +2456,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -2631,6 +2553,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           this.koeficient = firstItem.koeficient;
           this.zalog = firstItem.zalog;
           this.win = firstItem.win == 1;
+          this.winprice = firstItem.winprice;
           this.status = firstItem.status == 1;
           this.new_bet = false;
         }
@@ -2689,6 +2612,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
       }
     },
+    winprice: {
+      get: function get() {
+        return this.$store.state.winprice;
+      },
+      set: function set(value) {
+        this.$store.commit("setWinprice", value);
+      }
+    },
     status: {
       get: function get() {
         if (this.$store.state.status == 0) {
@@ -2712,7 +2643,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return parseFloat(accumulator) + parseFloat(currentRow.zalog) * parseFloat(currentRow.status);
       }, 0);
       this.totalWins = value.reduce(function (accumulator, currentRow) {
-        return parseFloat(accumulator) + parseFloat(currentRow.win) * parseFloat(currentRow.zalog) * parseFloat(currentRow.koeficient) * parseFloat(currentRow.status);
+        return parseFloat(accumulator) + parseFloat(currentRow.win) * parseFloat(currentRow.winprice) * parseFloat(currentRow.status);
       }, 0);
       this.totalResult = this.initial + this.totalWins - this.totalBets;
       this.roi = (this.totalWins - this.totalBets) / this.totalBets * 100;
@@ -2783,7 +2714,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntr.v-data-table__selected {\n    background: #7d92f5 !important;\n}\n", ""]);
+exports.push([module.i, "\ntr.v-data-table__selected {\n  background: #7d92f5 !important;\n}\n", ""]);
 
 // exports
 
@@ -22156,7 +22087,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("v-card-text", [
                                 _vm._v(
-                                  "\n                                Do you agree that the sport should be\n                                deleted?\n                            "
+                                  "\n                Do you agree that the sport should be deleted?\n              "
                                 )
                               ]),
                               _vm._v(" "),
@@ -22451,9 +22382,9 @@ var render = function() {
                               _vm._v(" "),
                               _c("v-card-text", [
                                 _vm._v(
-                                  "\n                                Do you agree that the event\n                                " +
+                                  "\n                Do you agree that the event\n                " +
                                     _vm._s(_vm.event.name) +
-                                    " should be deleted?\n                            "
+                                    " should be deleted?\n              "
                                 )
                               ]),
                               _vm._v(" "),
@@ -22689,6 +22620,22 @@ var render = function() {
                           },
                           expression: "win"
                         }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          type: "number",
+                          min: 0.1,
+                          max: 99.99,
+                          step: 0.1
+                        },
+                        model: {
+                          value: _vm.winprice,
+                          callback: function($$v) {
+                            _vm.winprice = $$v
+                          },
+                          expression: "winprice"
+                        }
                       })
                     ],
                     1
@@ -22741,7 +22688,7 @@ var render = function() {
                           _c("v-icon", { attrs: { dark: "" } }, [
                             _vm._v("mdi-playlist-plus")
                           ]),
-                          _vm._v("New\n                    ")
+                          _vm._v("New\n          ")
                         ],
                         1
                       ),
@@ -22771,7 +22718,7 @@ var render = function() {
                           _c("v-icon", { attrs: { dark: "" } }, [
                             _vm._v("mdi-pencil-outline")
                           ]),
-                          _vm._v("Edit\n                    ")
+                          _vm._v("Edit\n          ")
                         ],
                         1
                       ),
@@ -22791,7 +22738,7 @@ var render = function() {
                           _c("v-icon", { attrs: { dark: "" } }, [
                             _vm._v("mdi-delete")
                           ]),
-                          _vm._v("Delete\n                    ")
+                          _vm._v("Delete\n          ")
                         ],
                         1
                       ),
@@ -22818,7 +22765,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("v-card-text", [
                                 _vm._v(
-                                  "\n                                Do you agree that the bet should be deleted?\n                            "
+                                  "\n                Do you agree that the bet should be deleted?\n              "
                                 )
                               ]),
                               _vm._v(" "),
@@ -22878,9 +22825,7 @@ var render = function() {
                     { staticClass: "d-flex", attrs: { cols: "12" } },
                     [
                       _c("h5", [
-                        _vm._v(
-                          "\n                        Total bets:\n                        "
-                        ),
+                        _vm._v("\n            Total bets:\n            "),
                         _c("span", { staticClass: "red--text" }, [
                           _vm._v(_vm._s(_vm.totalBets.toFixed(2)))
                         ])
@@ -22893,9 +22838,7 @@ var render = function() {
                     { staticClass: "d-flex", attrs: { cols: "12" } },
                     [
                       _c("h5", [
-                        _vm._v(
-                          "\n                        Total wins:\n                        "
-                        ),
+                        _vm._v("\n            Total wins:\n            "),
                         _c("span", { staticClass: "green--text" }, [
                           _vm._v(_vm._s(_vm.totalWins.toFixed(2)))
                         ])
@@ -22908,9 +22851,7 @@ var render = function() {
                     { staticClass: "d-flex", attrs: { cols: "12" } },
                     [
                       _c("h5", [
-                        _vm._v(
-                          "\n                        Total result:\n                        "
-                        ),
+                        _vm._v("\n            Total result:\n            "),
                         _c(
                           "span",
                           {
@@ -22928,9 +22869,7 @@ var render = function() {
                     { staticClass: "d-flex", attrs: { cols: "12" } },
                     [
                       _c("h5", [
-                        _vm._v(
-                          "\n                        ROI:\n                        "
-                        ),
+                        _vm._v("\n            ROI:\n            "),
                         _c(
                           "span",
                           { class: _vm.roi > 0 ? "green--text" : "red--text" },
@@ -22964,9 +22903,7 @@ var render = function() {
                           _c(
                             "v-card-title",
                             [
-                              _vm._v(
-                                "\n                            Bets\n                            "
-                              ),
+                              _vm._v("\n              Bets\n              "),
                               _c("v-spacer"),
                               _vm._v(" "),
                               _c("v-text-field", {
@@ -23007,13 +22944,13 @@ var render = function() {
                                   var item = ref.item
                                   return [
                                     _vm._v(
-                                      "\n                                " +
+                                      "\n                " +
                                         _vm._s(
                                           _vm.sports.find(function(s) {
                                             return s.id == item.sport_id
                                           }).name
                                         ) +
-                                        "\n                            "
+                                        "\n              "
                                     )
                                   ]
                                 }
@@ -23024,13 +22961,13 @@ var render = function() {
                                   var item = ref.item
                                   return [
                                     _vm._v(
-                                      "\n                                " +
+                                      "\n                " +
                                         _vm._s(
                                           _vm.events.find(function(e) {
                                             return e.id == item.event_id
                                           }).name
                                         ) +
-                                        "\n                            "
+                                        "\n              "
                                     )
                                   ]
                                 }
@@ -80621,7 +80558,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       koeficient: 1,
       zalog: 0,
       status: 0,
-      win: 0
+      win: 0,
+      winprice: 0
     }],
     new_bet: true,
     headers: [{
@@ -80643,12 +80581,16 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       text: "Win",
       value: "win"
     }, {
+      text: "Result",
+      value: "winprice"
+    }, {
       text: "Status",
       value: "status"
     }],
     win: 0,
     status: 0,
-    initial: 145.65
+    winprice: 0,
+    initial: 145.94
   },
   getters: {},
   actions: {
@@ -80938,7 +80880,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   koeficient: state.koeficient,
                   zalog: state.zalog,
                   status: state.status,
-                  win: state.win
+                  win: state.win,
+                  winprice: state.winprice
                 }, {
                   "Content-Type": "application/json; charset=utf-8"
                 });
@@ -80952,7 +80895,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   koeficient: response.data.data.koeficient,
                   zalog: response.data.data.zalog,
                   status: response.data.data.status,
-                  win: response.data.data.win
+                  win: response.data.data.win,
+                  winprice: response.data.data.winprice
                 };
                 state.bets.unshift(newBet);
                 betarr = [];
@@ -80976,7 +80920,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   koeficient: state.koeficient,
                   zalog: state.zalog,
                   status: state.status,
-                  win: state.win
+                  win: state.win,
+                  winprice: state.winprice
                 }, {
                   "Content-Type": "application/json; charset=utf-8"
                 });
@@ -80990,7 +80935,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
                   koeficient: response.data.data.koeficient,
                   zalog: response.data.data.zalog,
                   status: response.data.data.status,
-                  win: response.data.data.win
+                  win: response.data.data.win,
+                  winprice: response.data.data.winprice
                 };
                 _context6.next = 23;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/bets");
@@ -81061,7 +81007,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         koeficient: 1,
         zalog: 0,
         status: 0,
-        win: 0
+        win: 0,
+        winprice: 0
       };
       state.bet[0] = newBet;
       commit("setNewBet", true);
@@ -81078,6 +81025,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       commit("setZalog", 0);
       commit("setStatus", 0);
       commit("setWin", 0);
+      commit("setWinprice", 0);
     }
   },
   mutations: {
@@ -81116,6 +81064,9 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     setWin: function setWin(state, win) {
       return state.win = win;
+    },
+    setWinprice: function setWinprice(state, winprice) {
+      return state.winprice = winprice;
     },
     setStatus: function setStatus(state, status) {
       return state.status = status;

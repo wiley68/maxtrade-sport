@@ -27,7 +27,8 @@ export default new Vuex.Store({
                 koeficient: 1,
                 zalog: 0,
                 status: 0,
-                win: 0
+                win: 0,
+                winprice: 0
             }
         ],
         new_bet: true,
@@ -38,11 +39,13 @@ export default new Vuex.Store({
             { text: "Koeficient", value: "koeficient" },
             { text: "Bet", value: "zalog" },
             { text: "Win", value: "win" },
+            { text: "Result", value: "winprice" },
             { text: "Status", value: "status" }
         ],
         win: 0,
         status: 0,
-        initial: 145.65
+        winprice: 0,
+        initial: 145.94
     },
 
     getters: {},
@@ -192,7 +195,8 @@ export default new Vuex.Store({
                         koeficient: state.koeficient,
                         zalog: state.zalog,
                         status: state.status,
-                        win: state.win
+                        win: state.win,
+                        winprice: state.winprice
                     },
                     { "Content-Type": "application/json; charset=utf-8" }
                 );
@@ -203,7 +207,8 @@ export default new Vuex.Store({
                     koeficient: response.data.data.koeficient,
                     zalog: response.data.data.zalog,
                     status: response.data.data.status,
-                    win: response.data.data.win
+                    win: response.data.data.win,
+                    winprice: response.data.data.winprice
                 };
                 state.bets.unshift(newBet);
                 const betarr = [];
@@ -225,7 +230,8 @@ export default new Vuex.Store({
                         koeficient: state.koeficient,
                         zalog: state.zalog,
                         status: state.status,
-                        win: state.win
+                        win: state.win,
+                        winprice: state.winprice
                     },
                     { "Content-Type": "application/json; charset=utf-8" }
                 );
@@ -236,7 +242,8 @@ export default new Vuex.Store({
                     koeficient: response.data.data.koeficient,
                     zalog: response.data.data.zalog,
                     status: response.data.data.status,
-                    win: response.data.data.win
+                    win: response.data.data.win,
+                    winprice: response.data.data.winprice
                 };
                 const responseBets = await axios.get("api/bets");
                 const bets = responseBets.data.data;
@@ -270,7 +277,8 @@ export default new Vuex.Store({
                 koeficient: 1,
                 zalog: 0,
                 status: 0,
-                win: 0
+                win: 0,
+                winprice: 0
             };
             state.bet[0] = newBet;
             commit("setNewBet", true);
@@ -280,6 +288,7 @@ export default new Vuex.Store({
             commit("setZalog", 0);
             commit("setStatus", 0);
             commit("setWin", 0);
+            commit("setWinprice", 0);
         }
     },
 
@@ -296,6 +305,7 @@ export default new Vuex.Store({
         setBets: (state, bets) => (state.bets = bets),
         setNewBet: (state, new_bet) => (state.new_bet = new_bet),
         setWin: (state, win) => (state.win = win),
+        setWinprice: (state, winprice) => (state.winprice = winprice),
         setStatus: (state, status) => (state.status = status),
         setLoading: (state, loading) => (state.loading = loading)
     }
