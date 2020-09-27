@@ -2607,8 +2607,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       set: function set(value) {
         if (value) {
           this.$store.commit("setWin", 1);
+          this.winprice = parseFloat(this.koeficient) * parseFloat(this.zalog);
         } else {
           this.$store.commit("setWin", 0);
+          this.winprice = 0.0;
         }
       }
     },
