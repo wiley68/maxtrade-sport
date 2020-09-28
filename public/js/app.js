@@ -2765,6 +2765,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
@@ -23345,11 +23353,31 @@ var render = function() {
       _vm._v(" "),
       _c("v-main", [_c("router-view")], 1),
       _vm._v(" "),
-      _c("v-footer", { attrs: { color: "indigo", app: "" } }, [
-        _c("span", { staticClass: "white--text" }, [
-          _vm._v("Avalon © " + _vm._s(new Date().getFullYear()))
-        ])
-      ])
+      _c(
+        "v-footer",
+        { attrs: { color: "indigo", app: "" } },
+        [
+          _c("span", { staticClass: "white--text" }, [
+            _vm._v("Avalon © " + _vm._s(new Date().getFullYear()))
+          ]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "span",
+            { staticClass: "blue--text text--lighten-5 text-decoration-none" },
+            [
+              _vm._v(
+                _vm._s(_vm.$attrs.username) +
+                  " [" +
+                  _vm._s(_vm.$attrs.userid) +
+                  "]"
+              )
+            ]
+          )
+        ],
+        1
+      )
     ],
     1
   )
