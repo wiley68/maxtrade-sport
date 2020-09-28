@@ -1954,6 +1954,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Chart",
   computed: {
@@ -1961,7 +1968,7 @@ __webpack_require__.r(__webpack_exports__);
       get: function get() {
         var chartBets = this.$store.state.bets.map(function (b) {
           return {
-            win: b.status == 1 ? b.win == 1 ? b.winprice : -b.zalog : 0
+            win: b.status == 1 ? b.win == 1 ? b.winprice - b.zalog : -b.zalog : 0
           };
         });
         var chartBetsValues = chartBets.map(function (obj) {
@@ -21902,7 +21909,7 @@ var render = function() {
                             _vm._v(
                               "\n                        " +
                                 _vm._s(
-                                  Math.ceil(item.value) % 10 == 0
+                                  item.index % 10 == 0
                                     ? Math.ceil(item.value)
                                     : ""
                                 ) +
@@ -21921,8 +21928,16 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("v-card-text", [
-            _c("div", { staticClass: "display-1 font-weight-thin" }, [
-              _vm._v("Bets result")
+            _c("div", [
+              _c("span", { staticClass: "display-1 font-weight-thin" }, [
+                _vm._v("Bets result:\n                ")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "display-1 text-lg" }, [
+                _vm._v(
+                  _vm._s(parseFloat(_vm.bets[_vm.bets.length - 1]).toFixed(2))
+                )
+              ])
             ])
           ])
         ],

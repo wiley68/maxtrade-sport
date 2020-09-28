@@ -17,7 +17,7 @@
                     >
                         <template v-slot:label="item">
                             {{
-                                Math.ceil(item.value) % 10 == 0
+                                item.index % 10 == 0
                                     ? Math.ceil(item.value)
                                     : ""
                             }}
@@ -26,7 +26,14 @@
                 </v-sheet>
             </v-card-text>
             <v-card-text>
-                <div class="display-1 font-weight-thin">Bets result</div>
+                <div>
+                    <span class="display-1 font-weight-thin"
+                        >Bets result:
+                    </span>
+                    <span class="display-1 text-lg">{{
+                        parseFloat(bets[bets.length - 1]).toFixed(2)
+                    }}</span>
+                </div>
             </v-card-text>
         </v-card>
     </v-container>
@@ -41,7 +48,11 @@ export default {
             get() {
                 const chartBets = this.$store.state.bets.map(b => ({
                     win:
-                        b.status == 1 ? (b.win == 1 ? b.winprice : -b.zalog) : 0
+                        b.status == 1
+                            ? b.win == 1
+                                ? b.winprice - b.zalog
+                                : -b.zalog
+                            : 0
                 }));
                 const chartBetsValues = chartBets.map(function(obj) {
                     return parseFloat(obj.win);
