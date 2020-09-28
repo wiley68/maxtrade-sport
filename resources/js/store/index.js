@@ -45,7 +45,7 @@ export default new Vuex.Store({
         win: 0,
         status: 0,
         winprice: 0,
-        initial: 145.94
+        initial: 0
     },
 
     getters: {},
