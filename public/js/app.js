@@ -1946,17 +1946,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Chart",
-  data: function data() {
-    return {
-      value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]
-    };
-  },
   computed: {
     bets: {
       get: function get() {
-        return this.$store.state.bets;
+        var chartBets = this.$store.state.bets.map(function (b) {
+          return {
+            win: b.status == 1 ? b.win == 1 ? b.winprice : -b.zalog : 0
+          };
+        });
+        var chartBetsValues = chartBets.map(function (obj) {
+          return parseFloat(obj.win);
+        });
+        var reducedBets = chartBetsValues.map(function (elem, index) {
+          return chartBetsValues.slice(0, index + 1).reduce(function (a, b) {
+            return a + b;
+          });
+        });
+        return reducedBets;
       }
     }
   }
@@ -2807,7 +2823,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntr.v-data-table__selected {\n  background: #7d92f5 !important;\n}\n", ""]);
+exports.push([module.i, "\ntr.v-data-table__selected {\r\n  background: #7d92f5 !important;\n}\r\n", ""]);
 
 // exports
 
@@ -21868,19 +21884,31 @@ var render = function() {
                   _c("v-sparkline", {
                     attrs: {
                       color: "rgba(255, 255, 255, .7)",
-                      "line-width": "2",
+                      "line-width": "1",
                       height: "100",
                       padding: "4",
                       "stroke-linecap": "round",
                       smooth: "10",
-                      value: _vm.value,
-                      "auto-draw": ""
+                      value: _vm.bets,
+                      "auto-draw": "",
+                      "auto-line-width": "",
+                      "label-size": "3"
                     },
                     scopedSlots: _vm._u([
                       {
                         key: "label",
                         fn: function(item) {
-                          return [_vm._v(" $" + _vm._s(item.value) + " ")]
+                          return [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(
+                                  Math.ceil(item.value) % 10 == 0
+                                    ? Math.ceil(item.value)
+                                    : ""
+                                ) +
+                                "\n                    "
+                            )
+                          ]
                         }
                       }
                     ])
@@ -84610,8 +84638,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\maxtrade-sport\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\maxtrade-sport\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
