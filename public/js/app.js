@@ -2838,7 +2838,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntr.v-data-table__selected {\r\n  background: #7d92f5 !important;\n}\r\n", ""]);
+exports.push([module.i, "\ntr.v-data-table__selected {\n  background: #7d92f5 !important;\n}\n", ""]);
 
 // exports
 
@@ -84105,7 +84105,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     win: 0,
     status: 0,
     winprice: 0,
-    initial: 145.94
+    initial: 0
   },
   getters: {},
   actions: {
@@ -84681,8 +84681,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\maxtrade-sport\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\maxtrade-sport\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/wiley/Projects/maxtrade-sport/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
